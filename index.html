@@ -108,6 +108,62 @@
             font-size: 15px;
         }
 
+        @media (max-width: 670px), (max-aspect-ratio: 4/5) {
+            body {
+                padding: 1.5rem .875rem;
+            }
+
+            h1 {
+                font-size: 1.875rem;
+                line-height: 1.2;
+                margin-bottom: .625rem;
+            }
+
+            .teacher-name {
+                font-size: 1.375rem;
+                margin-bottom: .625rem;
+            }
+
+            .subtitle {
+                font-size: 1.25rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .classes {
+                grid-template-columns: minmax(0, 1fr);
+                gap: .875rem;
+            }
+
+            .class-card {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: .75rem;
+                min-height: 4.5rem;
+                padding: .875rem;
+                border-radius: 1rem;
+                font-size: 1.5rem;
+                line-height: 1.25;
+            }
+
+            .emoji {
+                font-size: 1.75rem;
+                margin-bottom: 0;
+            }
+
+            footer {
+                margin-top: 1.75rem;
+                font-size: 1rem;
+            }
+        }
+
+        /* Keep text readable when a tall display scales down a wide viewport. */
+        @media (min-width: 671px) and (max-aspect-ratio: 4/5) {
+            html {
+                font-size: clamp(1rem, 4.4vw, 3rem);
+            }
+        }
+
     </style>
 
 </head>
