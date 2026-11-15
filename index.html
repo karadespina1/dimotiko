@@ -108,9 +108,14 @@
             font-size: 15px;
         }
 
-        @media (max-width: 670px), (max-aspect-ratio: 4/5) {
+        @media (max-width: 1100px), (orientation: portrait) {
             body {
-                padding: 1.5rem .875rem;
+                padding: 1.25rem .5rem;
+            }
+
+            .container {
+                width: 100%;
+                max-width: none;
             }
 
             h1 {
@@ -158,7 +163,7 @@
         }
 
         /* Keep text readable when a tall display scales down a wide viewport. */
-        @media (min-width: 671px) and (max-aspect-ratio: 4/5) {
+        @media (min-width: 671px) and (orientation: portrait) {
             html {
                 font-size: clamp(1rem, 4.4vw, 3rem);
             }
