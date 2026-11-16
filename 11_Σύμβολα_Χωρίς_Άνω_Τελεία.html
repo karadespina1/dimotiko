@@ -1,0 +1,90 @@
+<!doctype html><html lang="el"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Το Εργαστήρι των Συμβόλων</title><style>*{box-sizing:border-box}body{margin:0;font-family:system-ui,'Segoe UI',sans-serif;background:linear-gradient(135deg,#d9f6ff,#f8e8ff);color:#19324e}.wrap{max-width:920px;margin:auto;padding:22px 14px 50px}header{text-align:center}h1{font-size:clamp(27px,5vw,44px);margin:8px 0}p{line-height:1.55}.card{background:white;border-radius:25px;padding:clamp(17px,4vw,32px);box-shadow:0 10px 32px #33446622;margin:18px 0}.notice{background:#fff2b2;border:3px solid #ffb832;border-radius:18px;padding:14px;font-weight:800}.keyboard{background:#dce6f1;border:4px solid #8ba0b9;border-radius:20px;padding:14px;margin:18px auto;max-width:680px}.keyrow{display:flex;justify-content:center;gap:5px;margin:5px 0;flex-wrap:nowrap}.key{min-width:0;flex:1;text-align:center;border:2px solid #b2c1d1;border-bottom-width:5px;background:white;border-radius:9px;padding:10px 2px;font-size:clamp(10px,2vw,15px);font-weight:800;overflow:hidden}.key.wide{flex:1.8}.key.lit{background:#ffdc51;border-color:#e69c00;box-shadow:0 0 0 2px #ffac1b55}.symbol{font-size:clamp(60px,12vw,100px);font-weight:900;color:#7139c9;text-align:center;margin:8px}.formula{font-size:clamp(34px,7vw,58px);font-weight:900;color:#7139c9;text-align:center;margin:12px}.help{background:#e9f4ff;border-left:7px solid #4a99f4;border-radius:12px;padding:14px;margin:15px 0}.example{background:#f5efff;border-radius:12px;padding:12px;font-weight:750}.actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}.btn{border:0;border-radius:15px;padding:14px 24px;background:#6549d8;color:white;font-size:19px;font-weight:850;cursor:pointer;min-height:55px}.btn.alt{background:#14816c}.btn:disabled{background:#a5adbb;cursor:not-allowed}.field{display:block;width:min(100%,500px);margin:14px auto;padding:15px;border:3px solid #7e9cda;border-radius:15px;font-size:27px;text-align:center;min-height:62px}.feedback{font-weight:800;min-height:64px;text-align:center;padding:14px;border-radius:14px;margin:12px 0}.feedback.bad{background:#ffe4e2;color:#a22224}.feedback.good{background:#dbffe6;color:#146734}.chip{display:inline-block;border-radius:9px;background:#f2e4ff;padding:7px 11px;margin:3px;font-weight:800}.progress{height:14px;background:#d9e1ef;border-radius:20px;overflow:hidden}.fill{height:100%;background:#39b990;width:0;transition:width .2s}.small{font-size:14px;color:#526479}.visual{font-size:clamp(18px,3.8vw,27px);text-align:center;line-height:1.8;background:#f6f9ff;border-radius:14px;padding:10px;overflow-wrap:anywhere}.footer{text-align:center;font-weight:700;margin:28px}.kbd-note{font-size:14px;text-align:center;color:#46586d}.write-panel{margin:20px auto 12px;background:#fff4bc;border:4px solid #efb534;border-radius:22px;padding:15px 12px 6px;max-width:680px}.write-title{text-align:center;font-size:clamp(19px,4vw,27px);font-weight:950;color:#684500}.write-label{display:block;text-align:center;font-weight:850;font-size:18px}.write-panel .symbol,.write-panel .formula{margin:7px 0;color:#5c269e}.write-panel .field{margin:12px auto 6px;background:white;border-color:#e8a72b}.example{margin-top:12px}html{scroll-behavior:smooth}</style><style id="portrait-mobile-support">
+/* Προσαρμογή σε στενή, κατακόρυφη οθόνη χωρίς αλλαγή στη λογική των παιχνιδιών */
+html{box-sizing:border-box;-webkit-text-size-adjust:100%;overflow-x:hidden}
+*,*::before,*::after{box-sizing:inherit}
+body{max-width:100%;overflow-x:hidden}
+img,svg,video,canvas{max-width:100%;height:auto}
+input,textarea,select{max-width:100%;font-size:max(16px,1em)}
+textarea{resize:vertical}
+button,.btn,.action{touch-action:manipulation}
+@media(max-width:600px){
+ body{margin:0!important}
+ .wrap,.shell,.app,main,.main{width:100%!important;max-width:100%!important;margin-left:auto!important;margin-right:auto!important;padding-left:12px!important;padding-right:12px!important}
+ .card,.panel,.paper,.write-panel{max-width:100%!important;min-width:0!important}
+ h1{font-size:clamp(24px,7vw,32px)!important;line-height:1.2!important;overflow-wrap:anywhere}
+ h2{font-size:clamp(20px,5.6vw,26px)!important;overflow-wrap:anywhere}
+ h3{font-size:clamp(18px,5vw,22px)!important}
+ p,.tip,.instructions,.notice,.rule,.help,.sub,.lead{overflow-wrap:anywhere}
+ .actions,.buttons,.top,.head,.hud{flex-wrap:wrap!important}
+ button,.btn,.action{min-height:46px;max-width:100%;white-space:normal}
+ input,textarea{width:100%;min-width:0;max-width:100%!important}
+ .keyboard,.keyboard-picture,.keyboards,.focuskbd,.visual-demo,.keyrow,.kb-row{max-width:100%}
+ .keyboard,.keyboard-picture,.keyboards,.focuskbd,.visual-demo{overflow-x:auto!important;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+ .keyrow,.kb-row{min-width:max-content}
+ .key,.kb-key{flex-shrink:0}
+ .objects,.capital-guide,.lessons,.guides{max-width:100%;min-width:0}
+ .example,.sample,.target,.formula,.model,.mirror,.editor,.typing{max-width:100%;overflow-wrap:anywhere}
+}
+@media(max-width:380px){
+ .wrap,.shell,.app,main,.main{padding-left:9px!important;padding-right:9px!important}
+ button,.btn,.action{font-size:clamp(15px,4.5vw,18px)!important}
+}
+</style></head><body><div class="wrap"><header><h1>Το Εργαστήρι των Συμβόλων</h1><p>Μαθαίνω σύμβολα με εικόνα πληκτρολογίου, εξήγηση και βοήθεια!</p></header><div class="card"><div class="notice">👀 Κοιτάζω το σύμβολο και τα φωτισμένα πλήκτρα. ✍️ Γράφω την απάντηση. ✔️ Πατώ Έλεγχος. ➡️ ΜΟΝΟ ΕΓΩ πατώ Επόμενο!</div><p class="small" id="counter"></p><div class="progress"><div class="fill" id="fill"></div></div><h2 id="heading" style="text-align:center"></h2><div id="example" class="example"></div><div class="visual" id="visual"></div><div class="help"><div id="combo" style="font-weight:900;font-size:21px"></div><p id="how"></p><div id="language" class="small"></div></div><div class="keyboard" id="keyboard"></div><p class="kbd-note">Ενδεικτικό πληκτρολόγιο υπολογιστή. Η θέση κάποιων πλήκτρων αλλάζει ανά συσκευή ή διάταξη.</p><div class="write-panel"><div class="write-title">✍️ ΤΩΡΑ ΓΡΑΦΩ ΑΥΤΟ:</div><div class="symbol" id="big"></div><label for="answer" class="write-label">Γράψε το ακριβώς στο πλαίσιο:</label><input id="answer" class="field" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Απάντηση"></div><div class="actions"><button class="btn alt" type="button" id="virtual"></button><button class="btn" type="button" id="check">✔ Έλεγχος</button><button class="btn alt" type="button" id="next" disabled>➡️ Επόμενο</button></div><div id="feedback" class="feedback" aria-live="polite"></div></div><p class="footer">Δημιουργία: Δέσποινα Καραγιαννίδου</p></div><script>
+const items=[["Μικρότερο", "<", "Shift + ,", "Κρατώ Shift και πατώ το πλήκτρο με το κόμμα (,).", "3 < 8", "Αγγλικά ή ελληνικά"], ["Μεγαλύτερο", ">", "Shift + .", "Κρατώ Shift και πατώ το πλήκτρο με την τελεία (.).", "9 > 4", "Αγγλικά ή ελληνικά"], ["Ελληνικό ερωτηματικό", ";", "Q (ελληνικό πληκτρολόγιο)", "Αλλάζω σε Ελληνικά και πατώ το πλήκτρο Q. Στην ελληνική διάταξη γράφει ;", "Πού είσαι;", "Ελληνικά"], ["Άνω και κάτω τελεία", ":", "Shift + Q (ελληνικό πληκτρολόγιο)", "Με Ελληνικά, κρατώ Shift και πατώ Q.", "Χρώματα: κόκκινο", "Ελληνικά"], ["Διαλυτικά στο ι", "ϊ", "Shift + πλήκτρο τόνου, μετά ι", "Πατώ μαζί Shift και το πλήκτρο τόνου (δίπλα στο Λ), τα αφήνω και μετά πατώ ι.", "μαϊμού", "Ελληνικά"], ["Διαλυτικά στο υ", "ϋ", "Shift + πλήκτρο τόνου, μετά υ", "Πατώ μαζί Shift και το πλήκτρο τόνου, τα αφήνω και μετά πατώ υ.", "αϋπνία", "Ελληνικά"], ["Διαλυτικά με τόνο στο ι", "ΐ", "AltGr + πλήκτρο τόνου, μετά ι", "Στα Windows με Ελληνικά: κρατώ AltGr και πατώ το πλήκτρο τόνου, αφήνω και πατώ ι. Εναλλακτικά Shift + W και μετά ι.", "Μαΐου, καΐκι", "Ελληνικά / Windows"], ["Διαλυτικά με τόνο στο υ", "ΰ", "AltGr + πλήκτρο τόνου, μετά υ", "Στα Windows με Ελληνικά: AltGr + πλήκτρο τόνου, αφήνω και πατώ υ.", "π.χ. ταΐζω (ΐ) — το ΰ έχει διαλυτικά και τόνο", "Ελληνικά / Windows"], ["Σύμβολο του ευρώ", "€", "AltGr + E (ελληνικό πληκτρολόγιο)", "Με Ελληνικά, κρατώ το δεξί Alt (AltGr) και πατώ E. Αν δεν λειτουργεί, χρησιμοποίησε το εικονικό πλήκτρο.", "5 €", "Ελληνικά"], ["Εισαγωγικά αρχής", "«", "AltGr + [", "Με Ελληνικά, κρατώ AltGr και πατώ το πλήκτρο [ (δεξιά από το Π).", "«Γεια»", "Ελληνικά / Windows"], ["Εισαγωγικά τέλους", "»", "AltGr + ]", "Με Ελληνικά, κρατώ AltGr και πατώ το πλήκτρο ] (δεξιά από το [).", "«Γεια»", "Ελληνικά / Windows"], ["Παρένθεση αρχής", "(", "Shift + 9", "Κρατώ Shift και πατώ 9.", "(3 + 2)", "Συνηθισμένη διάταξη"], ["Παρένθεση τέλους", ")", "Shift + 0", "Κρατώ Shift και πατώ 0.", "(3 + 2)", "Συνηθισμένη διάταξη"], ["Θαυμαστικό", "!", "Shift + 1", "Κρατώ Shift και πατώ 1.", "Μπράβο!", "Συνηθισμένη διάταξη"], ["Ερωτηματικό αγγλικών", "?", "Shift + / (με αγγλικά)", "Αλλάζω σε Αγγλικά και κρατώ Shift ενώ πατώ /.", "How are you?", "Αγγλικά"], ["Παύλα", "-", "Πλήκτρο -", "Πατώ το πλήκτρο με την παύλα, δίπλα στο 0.", "5 - 2", "Συνηθισμένη διάταξη"], ["Κάθετος", "/", "Πλήκτρο /", "Πατώ το πλήκτρο /, συνήθως δεξιά από την τελεία.", "8 / 2", "Συνηθισμένη διάταξη"]],rows=[["Esc", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "⌫"], ["Tab", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "[", "]"], ["Caps", "A", "S", "D", "F", "G", "H", "J", "K", "L", ";", "'", "↵"], ["Shift", "< >", "Z", "X", "C", "V", "B", "N", "M", ",", ".", "/", "Shift"], ["Ctrl", "Alt", "Space", "AltGr"]];
+let index=0,success=false;
+const answer=document.getElementById('answer'),feedback=document.getElementById('feedback'),next=document.getElementById('next');
+function renderKeyboard(combo){
+ const k=document.getElementById('keyboard');k.replaceChildren();
+ let hot=[];
+ if(combo.includes('Shift'))hot.push('Shift');
+ if(combo.includes('AltGr'))hot.push('AltGr');
+ if(combo.includes('Q'))hot.push('Q');
+ if(combo.includes('E'))hot.push('E');
+ if(combo.includes('W'))hot.push('W');
+ if(combo.includes('τόνου'))hot.push(';');
+ if(combo.includes('9'))hot.push('9');
+ if(combo.includes('0'))hot.push('0');
+ if(combo.includes('1'))hot.push('1');
+ if(combo.includes('8'))hot.push('8');
+ if(combo.includes('5'))hot.push('5');
+ if(combo.includes('['))hot.push('[');
+ if(combo.includes(']'))hot.push(']');
+ if(combo.includes('κόμμα')||combo.includes(' ,'))hot.push(',');
+ if(combo.includes('τελεία')||combo.includes(' .'))hot.push('.');
+ if(combo.includes('=')||combo.includes('+'))hot.push('=');
+ if(combo.includes(' /'))hot.push('/');
+ if(combo.includes("αποστρόφου"))hot.push("'");
+ if(combo.includes('Πλήκτρο -'))hot.push('-');
+ if(combo.includes('ι'))hot.push('I');
+ if(combo.includes('υ'))hot.push('Y');
+ for(const row of rows){const div=document.createElement('div');div.className='keyrow';for(const key of row){const cell=document.createElement('div');cell.className='key'+(key==='Shift'||key==='Caps'||key==='Space'||key==='AltGr'?' wide':'')+(hot.includes(key)?' lit':'');cell.textContent=key;div.appendChild(cell)}k.appendChild(div)}
+}
+function draw(){
+ if(index>=items.length){document.querySelector('.card').innerHTML='<h2 style="text-align:center">🏆 Συγχαρητήρια! Ολοκλήρωσες όλες τις αποστολές!</h2><div class="symbol">🎉🌟🎉</div><div class="actions"><button class="btn" id="restart">🔄 Παίζω ξανά</button></div>';document.getElementById('restart').onclick=()=>location.reload();return}
+ success=false;answer.value='';feedback.textContent='';feedback.className='feedback';next.disabled=true;
+ document.getElementById('counter').textContent='Αποστολή '+(index+1)+' από '+items.length;
+ document.getElementById('fill').style.width=(100*index/items.length)+'%';
+ 
+const [name,target,keys,explain,example,language]=items[index];
+document.getElementById('heading').textContent=name;
+document.getElementById('big').textContent=target;
+document.getElementById('example').textContent='📖 Παράδειγμα: '+example;
+document.getElementById('how').textContent=explain;
+document.getElementById('combo').textContent='⌨️ Πλήκτρα: '+keys;
+document.getElementById('language').textContent='🌐 Διάταξη: '+language;
+document.getElementById('virtual').textContent='🖱️ Βάζω το σύμβολο '+target;
+document.getElementById('visual').textContent='';
+renderKeyboard(keys);
+
+}
+function check(){if(success)return;
+const target=items[index][1],actual=answer.value.normalize('NFC');
+if(actual===target){success=true;feedback.className='feedback good';feedback.textContent='🎉 Μπράβο! Σωστό το '+target+'! Πάτησε «Επόμενο» όταν είσαι έτοιμος.';next.disabled=false;}
+else{feedback.className='feedback bad';feedback.textContent='💡 Δοκίμασε ξανά! '+items[index][3]+' Αν χρειάζεται, πάτησε το εικονικό κουμπί.';answer.value='';answer.focus();}
+}
+document.getElementById('check').addEventListener('click',check);
+answer.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();check()}});
+document.getElementById('virtual').addEventListener('click',()=>{if(success)return;const s=items[index][1];answer.value+=s;answer.focus()});
+next.addEventListener('click',()=>{if(!success)return;index++;draw()});
+draw();
+</script></body></html>

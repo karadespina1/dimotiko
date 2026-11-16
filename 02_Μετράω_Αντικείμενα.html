@@ -1,0 +1,46 @@
+<!doctype html><html lang="el"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Μετράω αντικείμενα 1 έως 15</title><style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:linear-gradient(130deg,#b7edff,#e7d5ff 55%,#ffe7ba);font-family:system-ui,'Segoe UI',sans-serif;color:#33335e;padding:14px}.wrap{max-width:850px;margin:auto}.panel{background:#fffefa;border:4px solid white;border-radius:27px;box-shadow:0 9px 0 #7865b744;padding:clamp(14px,4vw,28px);text-align:center;margin:15px 0}h1{font-size:clamp(27px,6vw,45px);color:#6540b6;margin:10px 0}h2{font-size:clamp(22px,4vw,31px)}.big{font-size:clamp(19px,4vw,25px);font-weight:850}.btn{background:linear-gradient(#ffe784,#ffb951);border:0;border-bottom:5px solid #d78c36;border-radius:16px;padding:12px 20px;min-height:53px;color:#71410f;font-size:clamp(18px,3vw,23px);font-weight:900;cursor:pointer;margin:5px}.btn:active{transform:translateY(3px);border-bottom-width:2px}.btn.secondary{background:#e9e0ff;border-color:#ab94e6;color:#543796}.btn:disabled{opacity:.5;cursor:not-allowed}.objects{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:20px auto;padding:18px 12px;background:#f1f8ff;border:3px dashed #a8d6f2;border-radius:22px;max-width:590px;min-height:115px}.object{font-size:clamp(34px,7vw,57px);display:grid;place-items:center;min-height:58px;border-radius:14px;user-select:none}.object.counted{background:#d8f9dc;outline:3px solid #5ac478;transform:scale(.91)}.object:focus-visible{outline:3px solid #6740bc}.answer{width:min(230px,80%);height:76px;border:4px solid #ae92ee;border-radius:18px;text-align:center;font-size:42px;font-weight:900;color:#5035a1;background:white}.answer:focus{outline:3px solid #ffca4c}.feedback{min-height:62px;background:#eaf1ff;padding:14px;border-radius:16px;font-size:18px;font-weight:800;margin:14px 0}.feedback.good{background:#d9fbe7;color:#236d46}.feedback.bad{background:#fff0db;color:#95581c}.progress{height:15px;background:#eee7ff;border-radius:30px;overflow:hidden;margin:16px 0}.fill{height:100%;background:linear-gradient(90deg,#62d9e8,#9e7eff,#ff92c0);transition:width .2s}.top{display:flex;justify-content:space-between;gap:8px;align-items:center;font-weight:850}.pill{background:#f0e9ff;border-radius:18px;padding:7px 12px}.tip{background:#fff1b7;border-radius:17px;padding:14px;font-weight:800}.credit{text-align:center;color:#53467a;font-size:13px;font-weight:800;margin:20px}#next{display:none}@media(max-width:450px){.objects{gap:5px;padding:12px 5px}.object{min-height:49px}.panel{padding:14px 10px}}
+</style><style id="portrait-mobile-support">
+/* Προσαρμογή σε στενή, κατακόρυφη οθόνη χωρίς αλλαγή στη λογική των παιχνιδιών */
+html{box-sizing:border-box;-webkit-text-size-adjust:100%;overflow-x:hidden}
+*,*::before,*::after{box-sizing:inherit}
+body{max-width:100%;overflow-x:hidden}
+img,svg,video,canvas{max-width:100%;height:auto}
+input,textarea,select{max-width:100%;font-size:max(16px,1em)}
+textarea{resize:vertical}
+button,.btn,.action{touch-action:manipulation}
+@media(max-width:600px){
+ body{margin:0!important}
+ .wrap,.shell,.app,main,.main{width:100%!important;max-width:100%!important;margin-left:auto!important;margin-right:auto!important;padding-left:12px!important;padding-right:12px!important}
+ .card,.panel,.paper,.write-panel{max-width:100%!important;min-width:0!important}
+ h1{font-size:clamp(24px,7vw,32px)!important;line-height:1.2!important;overflow-wrap:anywhere}
+ h2{font-size:clamp(20px,5.6vw,26px)!important;overflow-wrap:anywhere}
+ h3{font-size:clamp(18px,5vw,22px)!important}
+ p,.tip,.instructions,.notice,.rule,.help,.sub,.lead{overflow-wrap:anywhere}
+ .actions,.buttons,.top,.head,.hud{flex-wrap:wrap!important}
+ button,.btn,.action{min-height:46px;max-width:100%;white-space:normal}
+ input,textarea{width:100%;min-width:0;max-width:100%!important}
+ .keyboard,.keyboard-picture,.keyboards,.focuskbd,.visual-demo,.keyrow,.kb-row{max-width:100%}
+ .keyboard,.keyboard-picture,.keyboards,.focuskbd,.visual-demo{overflow-x:auto!important;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+ .keyrow,.kb-row{min-width:max-content}
+ .key,.kb-key{flex-shrink:0}
+ .objects,.capital-guide,.lessons,.guides{max-width:100%;min-width:0}
+ .example,.sample,.target,.formula,.model,.mirror,.editor,.typing{max-width:100%;overflow-wrap:anywhere}
+}
+@media(max-width:380px){
+ .wrap,.shell,.app,main,.main{padding-left:9px!important;padding-right:9px!important}
+ button,.btn,.action{font-size:clamp(15px,4.5vw,18px)!important}
+}
+</style></head><body><div class="wrap"><main id="app"></main><footer class="credit">Δημιουργία: Δέσποινα Καραγιαννίδου</footer></div><script>
+'use strict';
+const app=document.getElementById('app');
+const icons=['🍎','🐞','⭐','🌸','🐟','🍓','🚗','🦋','🍌','🐱','🎈','🐝','🍪','🌻','🧸'];
+let round=0, solved=false, attempts=0, order=[], advanceTimer=null;
+function shuffleNumbers(){order=Array.from({length:15},(_,i)=>i+1);for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]];}if(order.every((n,i)=>n===i+1)){[order[0],order[1]]=[order[1],order[0]];}}
+function nextRound(){if(advanceTimer!==null){clearTimeout(advanceTimer);advanceTimer=null;}round++;if(round===15)win();else showRound();}
+function intro(){app.innerHTML=`<section class="panel"><div style="font-size:65px">🔢🍎🌟</div><h1>Μετράω και γράφω!</h1><p class="big">Μέτρησε τα αντικείμενα και γράψε τον σωστό αριθμό από το 1 έως το 15.</p><div class="tip">👀 Κοίταξε τα αντικείμενα, μέτρησέ τα και γράψε τον αριθμό. Δεν χρειάζεται να τα πατήσεις! Οι αριθμοί εμφανίζονται σε ανακατεμένη σειρά.</div><p>✏️ Γράψε τον αριθμό με ψηφία, όπως <b>3</b> ή <b>12</b>.</p><button class="btn" id="start">🚀 Ξεκινάω!</button></section>`;document.getElementById('start').onclick=()=>{round=0;shuffleNumbers();showRound()}}
+function showRound(message=''){solved=false;attempts=0;const count=order[round],emoji=icons[count-1];app.innerHTML=`<section class="panel"><div class="top"><span class="pill">🎯 Αποστολή ${count} / 15</span><span class="pill">⭐ ${round} αστέρια</span></div><div class="progress"><div class="fill" style="width:${round/15*100}%"></div></div><h2>Πόσα ${emoji} βλέπεις;</h2><p>Μέτρησέ τα προσεκτικά!</p><div class="objects" id="objects" aria-label="${count} αντικείμενα"></div><div id="form"><label for="answer" class="big">Γράψε τον αριθμό:</label><div style="margin:12px 0"><input id="answer" class="answer" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off" aria-label="Αριθμός αντικειμένων"></div><button class="btn" type="button" id="check">✔ Έλεγχος</button></div><div class="feedback" id="feedback" role="status">${message||'👀 Μέτρησε τα αντικείμενα και γράψε τον αριθμό! Αν κάνεις λάθος, το πεδίο αδειάζει. Αν βρεις το σωστό, συνεχίζουμε αυτόματα σε 3 δευτερόλεπτα!' }</div><button class="btn secondary" id="help">💡 Βοήθεια στο μέτρημα</button><p id="countdown" class="big" style="display:none;color:#236d46">⏳ Σε 3 δευτερόλεπτα συνεχίζουμε!</p></section>`;const holder=document.getElementById('objects');for(let i=0;i<count;i++){const item=document.createElement('span');item.className='object';item.textContent=emoji;item.setAttribute('aria-hidden','true');holder.appendChild(item)}document.getElementById('check').addEventListener('click',check);document.getElementById('answer').addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();check()}});document.getElementById('help').onclick=()=>{if(solved)return;document.getElementById('feedback').className='feedback';document.getElementById('feedback').textContent='💡 Δείξε με το δαχτυλάκι σου κάθε αντικείμενο στην οθόνη, χωρίς να το πατήσεις. Μέτρα «ένα, δύο, τρία...» και γράψε τον τελευταίο αριθμό.'};}
+function check(){if(solved)return;const input=document.getElementById('answer'),value=input.value.trim(),feedback=document.getElementById('feedback');if(!/^\d{1,2}$/.test(value)){feedback.className='feedback bad';feedback.textContent='✏️ Γράψε έναν αριθμό με ψηφία (π.χ. 5 ή 12) και πάτησε Έλεγχος.';return}if(Number(value)===order[round]){solved=true;feedback.className='feedback good';feedback.textContent=`🎉 Μπράβο! Μέτρησες σωστά: ${order[round]} ${order[round]===1?'αντικείμενο':'αντικείμενα'}!`;document.getElementById('check').disabled=true;input.disabled=true;document.getElementById('countdown').style.display='block';advanceTimer=setTimeout(nextRound,3000)}else{attempts++;feedback.className='feedback bad';feedback.textContent=Number(value)>order[round]?'🔍 Ο αριθμός είναι μεγαλύτερος. Μέτρησε ξανά αργά, κοιτάζοντας κάθε αντικείμενο μόνο μία φορά.':'🔍 Ο αριθμός είναι μικρότερος. Μήπως ξέχασες κάποιο αντικείμενο; Μέτρησε ξανά από την αρχή, χωρίς να πατάς τα αντικείμενα.';input.value='';input.focus()}}
+function win(){if(advanceTimer!==null){clearTimeout(advanceTimer);advanceTimer=null;}app.innerHTML=`<section class="panel"><div style="font-size:75px">🏆🎉🌟</div><h1>Συγχαρητήρια!</h1><p class="big">Μέτρησες σωστά όλους τους αριθμούς από το 1 μέχρι το 15, σε ανακατεμένη σειρά!</p><div style="font-size:38px">⭐ ⭐ ⭐ ⭐ ⭐</div><button class="btn" id="again">🔄 Παίζω ξανά</button></section>`;document.getElementById('again').onclick=intro}
+intro();
+</script></body></html>
