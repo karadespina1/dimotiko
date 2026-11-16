@@ -1,35 +1,34 @@
 <!doctype html><html lang="el"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Το Εργαστήρι της Γραφομηχανής</title><style>
 :root{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;color:#26304c}*{box-sizing:border-box}body{margin:0;min-height:100dvh;background:linear-gradient(145deg,#8d71e8,#f5a5b7 55%,#ffce78);overflow-x:hidden}button,input{font:inherit}button{cursor:pointer;touch-action:manipulation}button:focus-visible,input:focus-visible{outline:4px solid #ffbb36;outline-offset:3px}.shell{width:min(920px,100%);margin:auto;padding:clamp(10px,3vw,26px)}header{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;color:#fff;text-shadow:0 2px 4px #0003}.brand{font-size:clamp(20px,4vw,32px);font-weight:1000}.sound{border:2px solid #fff8;background:#ffffff44;color:white;border-radius:18px;padding:10px 14px;font-weight:900}.panel{background:#fffffff2;border:4px solid white;border-radius:32px;padding:clamp(14px,3.5vw,32px);box-shadow:0 12px 0 #27305728,0 22px 45px #27305728;margin-top:16px;text-align:center;position:relative}.sub{color:#66718b;font-weight:700}.hud{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:15px;font-weight:900}.progress{flex:1;min-width:100px;height:18px;border-radius:30px;background:#dfe4f3;overflow:hidden}.progress>i{display:block;height:100%;width:0%;background:linear-gradient(90deg,#42dc9d,#11b3cc);transition:width .35s}.btn{border:0;border-radius:20px;background:linear-gradient(#ffe27b,#ffad3e);color:#603e1e;padding:15px 25px;min-height:54px;font-weight:1000;box-shadow:0 6px 0 #d18b2e;transition:transform .1s}.btn:active{transform:translateY(4px);box-shadow:0 2px 0 #d18b2e}.btn.secondary{background:#e5eaff;box-shadow:0 5px 0 #b5c0ec;color:#344271}.btn:disabled{opacity:.55;cursor:not-allowed}.field{display:block;width:min(570px,100%);margin:18px auto;border:4px solid #c6d7ff;border-radius:19px;background:#fff;padding:14px;font-size:clamp(20px,4.5vw,28px);text-align:center;color:#26304c;outline:none}.field:focus{border-color:#8d70f9}.message{min-height:52px;font-size:clamp(17px,3.5vw,21px);font-weight:900;color:#6249aa;margin:14px 0}.actions{display:flex;justify-content:center;flex-wrap:wrap;gap:12px}.star{font-size:clamp(50px,12vw,90px);filter:drop-shadow(0 7px 0 #0002)}h1{font-size:clamp(27px,6vw,47px);line-height:1.12;margin:12px 0}h2{font-size:clamp(23px,5vw,34px)}.credit{text-align:center;color:white;font-weight:800;font-size:13px;margin:24px 0;text-shadow:0 1px 3px #0005}.hidden{display:none!important}.confetti{position:fixed;top:-30px;pointer-events:none;animation:fall linear forwards;z-index:9}@keyframes fall{to{transform:translateY(110vh) rotate(800deg)}}@keyframes bob{50%{transform:translateY(-10px)}}@media(max-width:520px){.panel{border-radius:23px}.actions .btn{flex:1;min-width:130px}.hud{font-size:14px}}
-.paper{background:repeating-linear-gradient(#fffef9 0px,#fffef9 39px,#bed6f7 40px,#fffef9 41px);border:3px solid #f0d7a2;border-radius:18px;box-shadow:0 8px 0 #d3b57d;padding:clamp(18px,4vw,30px);text-align:left;max-width:720px;margin:15px auto;position:relative}.paper:before{content:'📎';position:absolute;right:16px;top:-20px;font-size:40px}.sample{font-size:clamp(22px,4vw,31px);font-weight:800;line-height:1.65;overflow-wrap:anywhere}.typing{width:100%;min-height:125px;resize:vertical;border:3px solid #a9b9ed;border-radius:18px;padding:16px;font-size:clamp(20px,4vw,27px);line-height:1.55;background:#fff;outline:none}.typing:focus{border-color:#8164d9}.correct{color:#169a69}.incorrect{color:#ed5376;background:#ffe4e9;border-radius:3px}.remaining{color:#9ca6c4}.statline{display:flex;justify-content:center;gap:15px;flex-wrap:wrap;font-weight:900}.statline span{background:#eeeaff;padding:8px 13px;border-radius:15px}.mascot{font-size:72px;animation:bob 2s infinite}</style><style id="portrait-mobile-support">
-/* Προσαρμογή σε στενή, κατακόρυφη οθόνη χωρίς αλλαγή στη λογική των παιχνιδιών */
-html{box-sizing:border-box;-webkit-text-size-adjust:100%;overflow-x:hidden}
+.paper{background:repeating-linear-gradient(#fffef9 0px,#fffef9 39px,#bed6f7 40px,#fffef9 41px);border:3px solid #f0d7a2;border-radius:18px;box-shadow:0 8px 0 #d3b57d;padding:clamp(18px,4vw,30px);text-align:left;max-width:720px;margin:15px auto;position:relative}.paper:before{content:'📎';position:absolute;right:16px;top:-20px;font-size:40px}.sample{font-size:clamp(22px,4vw,31px);font-weight:800;line-height:1.65;overflow-wrap:anywhere}.typing{width:100%;min-height:125px;resize:vertical;border:3px solid #a9b9ed;border-radius:18px;padding:16px;font-size:clamp(20px,4vw,27px);line-height:1.55;background:#fff;outline:none}.typing:focus{border-color:#8164d9}.correct{color:#169a69}.incorrect{color:#ed5376;background:#ffe4e9;border-radius:3px}.remaining{color:#9ca6c4}.statline{display:flex;justify-content:center;gap:15px;flex-wrap:wrap;font-weight:900}.statline span{background:#eeeaff;padding:8px 13px;border-radius:15px}.mascot{font-size:72px;animation:bob 2s infinite}</style><style id="responsive-mobile-tablet-desktop">
+html{box-sizing:border-box;-webkit-text-size-adjust:100%;width:100%;overflow-x:hidden}
 *,*::before,*::after{box-sizing:inherit}
 body{max-width:100%;overflow-x:hidden}
 img,svg,video,canvas{max-width:100%;height:auto}
 input,textarea,select{max-width:100%;font-size:max(16px,1em)}
 textarea{resize:vertical}
 button,.btn,.action{touch-action:manipulation}
+@media(max-width:850px){
+.wrap,.shell,.app,main,.main{max-width:100%!important;width:100%!important;margin-inline:auto!important;padding-inline:clamp(10px,2.8vw,24px)!important}
+.card,.panel,.paper,.write-panel,.hero,.instructions{max-width:100%;min-width:0}
+.actions,.buttons,.top,.head,.hud{flex-wrap:wrap!important}
+.keyboard,.keyboard-picture,.keyboards,.focuskbd,.visual-demo{max-width:100%;overflow-x:auto!important;-webkit-overflow-scrolling:touch}
+.keyrow,.kb-row{min-width:max-content}
+.key,.kb-key{flex-shrink:0}
+input,textarea{width:100%;min-width:0}
+.example,.sample,.target,.formula,.model,.mirror,.editor,.typing,.help{max-width:100%;overflow-wrap:anywhere}
+}
 @media(max-width:600px){
- body{margin:0!important}
- .wrap,.shell,.app,main,.main{width:100%!important;max-width:100%!important;margin-left:auto!important;margin-right:auto!important;padding-left:12px!important;padding-right:12px!important}
- .card,.panel,.paper,.write-panel{max-width:100%!important;min-width:0!important}
- h1{font-size:clamp(24px,7vw,32px)!important;line-height:1.2!important;overflow-wrap:anywhere}
- h2{font-size:clamp(20px,5.6vw,26px)!important;overflow-wrap:anywhere}
- h3{font-size:clamp(18px,5vw,22px)!important}
- p,.tip,.instructions,.notice,.rule,.help,.sub,.lead{overflow-wrap:anywhere}
- .actions,.buttons,.top,.head,.hud{flex-wrap:wrap!important}
- button,.btn,.action{min-height:46px;max-width:100%;white-space:normal}
- input,textarea{width:100%;min-width:0;max-width:100%!important}
- .keyboard,.keyboard-picture,.keyboards,.focuskbd,.visual-demo,.keyrow,.kb-row{max-width:100%}
- .keyboard,.keyboard-picture,.keyboards,.focuskbd,.visual-demo{overflow-x:auto!important;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
- .keyrow,.kb-row{min-width:max-content}
- .key,.kb-key{flex-shrink:0}
- .objects,.capital-guide,.lessons,.guides{max-width:100%;min-width:0}
- .example,.sample,.target,.formula,.model,.mirror,.editor,.typing{max-width:100%;overflow-wrap:anywhere}
+body{margin:0!important}
+h1{font-size:clamp(23px,6.7vw,32px)!important;line-height:1.2!important;overflow-wrap:anywhere}
+h2{font-size:clamp(20px,5.5vw,26px)!important;overflow-wrap:anywhere}
+h3{font-size:clamp(18px,5vw,22px)!important}
+button,.btn,.action{min-height:46px;max-width:100%;white-space:normal}
+p,.tip,.instructions,.notice,.rule,.help,.sub,.lead{overflow-wrap:anywhere}
 }
 @media(max-width:380px){
- .wrap,.shell,.app,main,.main{padding-left:9px!important;padding-right:9px!important}
- button,.btn,.action{font-size:clamp(15px,4.5vw,18px)!important}
+.wrap,.shell,.app,main,.main{padding-inline:9px!important}
+button,.btn,.action{font-size:clamp(15px,4.4vw,18px)!important}
 }
 </style></head><body><div class="shell"><header><div class="brand">🦊 Εργαστήρι Γραφής</div><button class="sound" id="sound" aria-label="Ήχος">🔊 Ήχος</button></header><main class="panel" id="game"></main><footer class="credit">Δημιουργία: Δέσποινα Καραγιαννίδου</footer></div><script>
 'use strict';

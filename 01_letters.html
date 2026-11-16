@@ -24,36 +24,35 @@ button.secondary{background:#168a78}button:disabled{background:#a8a8b8;cursor:no
 .progress{height:13px;background:#e4eaf4;border-radius:20px;overflow:hidden;margin:12px 0}.bar{height:100%;width:0;background:#43bd85}
 .small{font-size:14px;color:#57667e}footer{text-align:center;padding:20px;font-weight:700}
 @media(max-width:440px){.keyrow{gap:2px}.key{border-radius:5px;border-width:1px;border-bottom-width:3px}.keyboard{padding:6px}.key.active::after{font-size:12px;top:-12px}}
-</style><style id="portrait-mobile-support">
-/* Προσαρμογή σε στενή, κατακόρυφη οθόνη χωρίς αλλαγή στη λογική των παιχνιδιών */
-html{box-sizing:border-box;-webkit-text-size-adjust:100%;overflow-x:hidden}
+</style><style id="responsive-mobile-tablet-desktop">
+html{box-sizing:border-box;-webkit-text-size-adjust:100%;width:100%;overflow-x:hidden}
 *,*::before,*::after{box-sizing:inherit}
 body{max-width:100%;overflow-x:hidden}
 img,svg,video,canvas{max-width:100%;height:auto}
 input,textarea,select{max-width:100%;font-size:max(16px,1em)}
 textarea{resize:vertical}
 button,.btn,.action{touch-action:manipulation}
+@media(max-width:850px){
+.wrap,.shell,.app,main,.main{max-width:100%!important;width:100%!important;margin-inline:auto!important;padding-inline:clamp(10px,2.8vw,24px)!important}
+.card,.panel,.paper,.write-panel,.hero,.instructions{max-width:100%;min-width:0}
+.actions,.buttons,.top,.head,.hud{flex-wrap:wrap!important}
+.keyboard,.keyboard-picture,.keyboards,.focuskbd,.visual-demo{max-width:100%;overflow-x:auto!important;-webkit-overflow-scrolling:touch}
+.keyrow,.kb-row{min-width:max-content}
+.key,.kb-key{flex-shrink:0}
+input,textarea{width:100%;min-width:0}
+.example,.sample,.target,.formula,.model,.mirror,.editor,.typing,.help{max-width:100%;overflow-wrap:anywhere}
+}
 @media(max-width:600px){
- body{margin:0!important}
- .wrap,.shell,.app,main,.main{width:100%!important;max-width:100%!important;margin-left:auto!important;margin-right:auto!important;padding-left:12px!important;padding-right:12px!important}
- .card,.panel,.paper,.write-panel{max-width:100%!important;min-width:0!important}
- h1{font-size:clamp(24px,7vw,32px)!important;line-height:1.2!important;overflow-wrap:anywhere}
- h2{font-size:clamp(20px,5.6vw,26px)!important;overflow-wrap:anywhere}
- h3{font-size:clamp(18px,5vw,22px)!important}
- p,.tip,.instructions,.notice,.rule,.help,.sub,.lead{overflow-wrap:anywhere}
- .actions,.buttons,.top,.head,.hud{flex-wrap:wrap!important}
- button,.btn,.action{min-height:46px;max-width:100%;white-space:normal}
- input,textarea{width:100%;min-width:0;max-width:100%!important}
- .keyboard,.keyboard-picture,.keyboards,.focuskbd,.visual-demo,.keyrow,.kb-row{max-width:100%}
- .keyboard,.keyboard-picture,.keyboards,.focuskbd,.visual-demo{overflow-x:auto!important;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
- .keyrow,.kb-row{min-width:max-content}
- .key,.kb-key{flex-shrink:0}
- .objects,.capital-guide,.lessons,.guides{max-width:100%;min-width:0}
- .example,.sample,.target,.formula,.model,.mirror,.editor,.typing{max-width:100%;overflow-wrap:anywhere}
+body{margin:0!important}
+h1{font-size:clamp(23px,6.7vw,32px)!important;line-height:1.2!important;overflow-wrap:anywhere}
+h2{font-size:clamp(20px,5.5vw,26px)!important;overflow-wrap:anywhere}
+h3{font-size:clamp(18px,5vw,22px)!important}
+button,.btn,.action{min-height:46px;max-width:100%;white-space:normal}
+p,.tip,.instructions,.notice,.rule,.help,.sub,.lead{overflow-wrap:anywhere}
 }
 @media(max-width:380px){
- .wrap,.shell,.app,main,.main{padding-left:9px!important;padding-right:9px!important}
- button,.btn,.action{font-size:clamp(15px,4.5vw,18px)!important}
+.wrap,.shell,.app,main,.main{padding-inline:9px!important}
+button,.btn,.action{font-size:clamp(15px,4.4vw,18px)!important}
 }
 </style></head><body><div class="wrap"><div class="card">
 <h1>🌈 Πληκτρολογώ γραμματάκια!</h1><p>Α΄ Δημοτικού · Βρίσκω πού είναι το γράμμα και το γράφω!</p>

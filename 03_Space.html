@@ -1,34 +1,33 @@
 <!doctype html><html lang="el"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ένα και μόνο κενό!</title><style>
-*{box-sizing:border-box}body{margin:0;padding:14px;background:linear-gradient(135deg,#b7edff,#e2c6ff,#ffe4c9);font-family:system-ui,sans-serif;color:#293158;min-height:100vh}.app{max-width:790px;margin:auto}.card{background:#fffdf9;border:4px solid white;border-radius:25px;padding:clamp(14px,4vw,28px);box-shadow:0 9px 0 #8171b555;text-align:center;margin:15px 0}h1{font-size:clamp(29px,6vw,45px);color:#6340b7;margin:8px}h2{color:#6340b7}.big{font-size:clamp(23px,5vw,34px);font-weight:1000}.rule{background:#fff0a6;border:4px solid #f4b637;border-radius:19px;padding:15px;margin:16px 0;font-size:clamp(23px,5vw,36px);font-weight:1000;color:#82410b}.keyboards{background:#e4eaf4;border:3px solid #c8d0e1;border-radius:18px;padding:12px;margin:12px auto;max-width:610px}.keyrow{display:flex;gap:5px;justify-content:center;margin:5px 0}.key{flex:1;background:#fff;border:2px solid #c4c9d7;border-bottom:5px solid #aeb5c5;border-radius:8px;padding:9px 1px;font-weight:900;font-size:clamp(11px,2.7vw,17px)}.space{flex:6;background:#ffda58;border-color:#f1a636;box-shadow:0 0 0 3px #ffd34a66}.example{font-size:clamp(23px,5vw,38px);font-weight:900;background:#f3efff;padding:13px;border-radius:16px;overflow-wrap:anywhere}.gap{display:inline-block;background:#fcd65c;border-radius:6px;min-width:21px;height:1.1em;vertical-align:middle}.wrong{background:#ffe2e2;border-radius:6px;color:#b52b3e}.btn{border:0;border-bottom:5px solid #d1842f;border-radius:16px;background:linear-gradient(#ffe47c,#ffb74d);padding:13px 19px;font-size:clamp(18px,3.5vw,23px);font-weight:900;color:#743f13;cursor:pointer;min-height:55px;margin:6px}.btn.secondary{background:#e9e0ff;border-color:#a791e2;color:#52369a}.btn:active{transform:translateY(3px);border-bottom-width:2px}.answer{font:800 clamp(21px,4vw,30px) system-ui;width:100%;max-width:650px;border:4px solid #c8b5fa;border-radius:15px;padding:14px;text-align:center;color:#3c2c7a}.msg{min-height:64px;padding:12px;margin:12px 0;background:#e9f3ff;border-radius:15px;font-size:18px;font-weight:800}.msg.bad{background:#ffe7e7;color:#9b2f37}.msg.good{background:#ddffe7;color:#256a40}.label{font-weight:850;font-size:18px}.credit{text-align:center;font-size:13px;font-weight:800;color:#524178}.counter{font-weight:900;color:#603dba}.highlight{background:#ffde68;padding:0 5px;border-radius:5px}@media(max-width:480px){.key{padding:8px 0}.card{padding:15px 9px}} </style><style id="portrait-mobile-support">
-/* Προσαρμογή σε στενή, κατακόρυφη οθόνη χωρίς αλλαγή στη λογική των παιχνιδιών */
-html{box-sizing:border-box;-webkit-text-size-adjust:100%;overflow-x:hidden}
+*{box-sizing:border-box}body{margin:0;padding:14px;background:linear-gradient(135deg,#b7edff,#e2c6ff,#ffe4c9);font-family:system-ui,sans-serif;color:#293158;min-height:100vh}.app{max-width:790px;margin:auto}.card{background:#fffdf9;border:4px solid white;border-radius:25px;padding:clamp(14px,4vw,28px);box-shadow:0 9px 0 #8171b555;text-align:center;margin:15px 0}h1{font-size:clamp(29px,6vw,45px);color:#6340b7;margin:8px}h2{color:#6340b7}.big{font-size:clamp(23px,5vw,34px);font-weight:1000}.rule{background:#fff0a6;border:4px solid #f4b637;border-radius:19px;padding:15px;margin:16px 0;font-size:clamp(23px,5vw,36px);font-weight:1000;color:#82410b}.keyboards{background:#e4eaf4;border:3px solid #c8d0e1;border-radius:18px;padding:12px;margin:12px auto;max-width:610px}.keyrow{display:flex;gap:5px;justify-content:center;margin:5px 0}.key{flex:1;background:#fff;border:2px solid #c4c9d7;border-bottom:5px solid #aeb5c5;border-radius:8px;padding:9px 1px;font-weight:900;font-size:clamp(11px,2.7vw,17px)}.space{flex:6;background:#ffda58;border-color:#f1a636;box-shadow:0 0 0 3px #ffd34a66}.example{font-size:clamp(23px,5vw,38px);font-weight:900;background:#f3efff;padding:13px;border-radius:16px;overflow-wrap:anywhere}.gap{display:inline-block;background:#fcd65c;border-radius:6px;min-width:21px;height:1.1em;vertical-align:middle}.wrong{background:#ffe2e2;border-radius:6px;color:#b52b3e}.btn{border:0;border-bottom:5px solid #d1842f;border-radius:16px;background:linear-gradient(#ffe47c,#ffb74d);padding:13px 19px;font-size:clamp(18px,3.5vw,23px);font-weight:900;color:#743f13;cursor:pointer;min-height:55px;margin:6px}.btn.secondary{background:#e9e0ff;border-color:#a791e2;color:#52369a}.btn:active{transform:translateY(3px);border-bottom-width:2px}.answer{font:800 clamp(21px,4vw,30px) system-ui;width:100%;max-width:650px;border:4px solid #c8b5fa;border-radius:15px;padding:14px;text-align:center;color:#3c2c7a}.msg{min-height:64px;padding:12px;margin:12px 0;background:#e9f3ff;border-radius:15px;font-size:18px;font-weight:800}.msg.bad{background:#ffe7e7;color:#9b2f37}.msg.good{background:#ddffe7;color:#256a40}.label{font-weight:850;font-size:18px}.credit{text-align:center;font-size:13px;font-weight:800;color:#524178}.counter{font-weight:900;color:#603dba}.highlight{background:#ffde68;padding:0 5px;border-radius:5px}@media(max-width:480px){.key{padding:8px 0}.card{padding:15px 9px}} </style><style id="responsive-mobile-tablet-desktop">
+html{box-sizing:border-box;-webkit-text-size-adjust:100%;width:100%;overflow-x:hidden}
 *,*::before,*::after{box-sizing:inherit}
 body{max-width:100%;overflow-x:hidden}
 img,svg,video,canvas{max-width:100%;height:auto}
 input,textarea,select{max-width:100%;font-size:max(16px,1em)}
 textarea{resize:vertical}
 button,.btn,.action{touch-action:manipulation}
+@media(max-width:850px){
+.wrap,.shell,.app,main,.main{max-width:100%!important;width:100%!important;margin-inline:auto!important;padding-inline:clamp(10px,2.8vw,24px)!important}
+.card,.panel,.paper,.write-panel,.hero,.instructions{max-width:100%;min-width:0}
+.actions,.buttons,.top,.head,.hud{flex-wrap:wrap!important}
+.keyboard,.keyboard-picture,.keyboards,.focuskbd,.visual-demo{max-width:100%;overflow-x:auto!important;-webkit-overflow-scrolling:touch}
+.keyrow,.kb-row{min-width:max-content}
+.key,.kb-key{flex-shrink:0}
+input,textarea{width:100%;min-width:0}
+.example,.sample,.target,.formula,.model,.mirror,.editor,.typing,.help{max-width:100%;overflow-wrap:anywhere}
+}
 @media(max-width:600px){
- body{margin:0!important}
- .wrap,.shell,.app,main,.main{width:100%!important;max-width:100%!important;margin-left:auto!important;margin-right:auto!important;padding-left:12px!important;padding-right:12px!important}
- .card,.panel,.paper,.write-panel{max-width:100%!important;min-width:0!important}
- h1{font-size:clamp(24px,7vw,32px)!important;line-height:1.2!important;overflow-wrap:anywhere}
- h2{font-size:clamp(20px,5.6vw,26px)!important;overflow-wrap:anywhere}
- h3{font-size:clamp(18px,5vw,22px)!important}
- p,.tip,.instructions,.notice,.rule,.help,.sub,.lead{overflow-wrap:anywhere}
- .actions,.buttons,.top,.head,.hud{flex-wrap:wrap!important}
- button,.btn,.action{min-height:46px;max-width:100%;white-space:normal}
- input,textarea{width:100%;min-width:0;max-width:100%!important}
- .keyboard,.keyboard-picture,.keyboards,.focuskbd,.visual-demo,.keyrow,.kb-row{max-width:100%}
- .keyboard,.keyboard-picture,.keyboards,.focuskbd,.visual-demo{overflow-x:auto!important;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
- .keyrow,.kb-row{min-width:max-content}
- .key,.kb-key{flex-shrink:0}
- .objects,.capital-guide,.lessons,.guides{max-width:100%;min-width:0}
- .example,.sample,.target,.formula,.model,.mirror,.editor,.typing{max-width:100%;overflow-wrap:anywhere}
+body{margin:0!important}
+h1{font-size:clamp(23px,6.7vw,32px)!important;line-height:1.2!important;overflow-wrap:anywhere}
+h2{font-size:clamp(20px,5.5vw,26px)!important;overflow-wrap:anywhere}
+h3{font-size:clamp(18px,5vw,22px)!important}
+button,.btn,.action{min-height:46px;max-width:100%;white-space:normal}
+p,.tip,.instructions,.notice,.rule,.help,.sub,.lead{overflow-wrap:anywhere}
 }
 @media(max-width:380px){
- .wrap,.shell,.app,main,.main{padding-left:9px!important;padding-right:9px!important}
- button,.btn,.action{font-size:clamp(15px,4.5vw,18px)!important}
+.wrap,.shell,.app,main,.main{padding-inline:9px!important}
+button,.btn,.action{font-size:clamp(15px,4.4vw,18px)!important}
 }
 </style></head><body><div class="app"><main id="main"></main><footer class="credit">Δημιουργία: Δέσποινα Καραγιαννίδου</footer></div><script>
 "use strict";
