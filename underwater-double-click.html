@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#147eac">
+<title>Δυο πατήματα στον βυθό</title>
+<style>
+*{box-sizing:border-box}
+:root{font-family:Nunito,system-ui,sans-serif;color:#103758;background:#dcfbff}
+body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 13% 5%,#eafefe,transparent 54%),#c4effe}
+main{max-width:925px;margin:auto;padding:clamp(8px,3vw,24px)}
+[hidden]{display:none!important}
+button{font:inherit;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+button:focus-visible{outline:3px solid #17255f;outline-offset:3px}
+header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px}
+h1{margin:0;letter-spacing:-.04em;font-size:clamp(23px,6vw,46px);line-height:1.03}
+.toolbar{display:flex;gap:5px}
+.tool,.go{display:grid;place-items:center;width:46px;height:46px;border-radius:14px;border:2px solid #177897;color:#144663;background:#fff9d3;font-size:23px;box-shadow:0 3px #3987a3}
+#world{position:relative;isolation:isolate;overflow:hidden;border-radius:24px;border:3px solid #f4ffff;background:radial-gradient(ellipse at 45% -24%,#f9ffff 0%,#a2f6ed 31%,#59d6e3 48%,#298bc7 82%,#3374ad);box-shadow:0 12px 35px #2d86a354;padding:7px}
+#ocean{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+#ocean::before{content:"";position:absolute;inset:0;background:repeating-conic-gradient(from 224deg at 50% -13%,transparent 0 14deg,#ffffff27 14deg 27deg);animation:rays 8s ease-in-out infinite alternate}
+#ocean::after{content:"";position:absolute;bottom:-21%;left:-12%;width:130%;height:39%;border-radius:52% 47% 0 0;background:linear-gradient(#ffe69d,#ddac77);transform:rotate(-4deg);z-index:-1}
+.bubble{position:absolute;left:var(--x);top:var(--y);width:var(--size);aspect-ratio:1;border-radius:50%;border:2px solid #eaffffb8;box-shadow:inset 2px 3px #f7ffff7d;animation:rise 4.8s linear infinite;animation-delay:var(--delay)}
+.plant{position:absolute;bottom:-3%;font-size:clamp(41px,11vw,99px);transform-origin:center bottom;animation:sway 2.6s ease-in-out infinite alternate;opacity:.84}
+.plant.right{right:2%;animation-delay:-1.6s}
+.plant.left{left:2%}
+#visual{display:flex;align-items:center;justify-content:space-between;gap:7px;min-height:66px}
+.hint{position:relative;display:flex;align-items:center;justify-content:center;gap:6px;min-height:51px;border-radius:16px;background:#edffffe8;border:2px solid #fff;color:#1d4a6a;padding:2px 8px}
+.mascot{font-size:clamp(26px,8vw,43px);animation:swim 2s ease-in-out infinite alternate}
+#hint-icon{font-size:clamp(24px,7vw,35px)}
+.pips{display:flex;gap:5px;padding:2px}
+.pips i{display:block;width:17px;height:17px;border-radius:50%;border:2px solid #4a5983;background:#fff}
+.armed .pips i:first-child,.pips i.lit{background:#fff06a;border-color:#8d601a;box-shadow:0 0 8px #fce665}
+#board{position:relative;height:clamp(275px,51svh,460px);display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);place-items:center;isolation:isolate}
+.shell{position:relative;display:grid;place-items:center;user-select:none;width:clamp(68px,22vw,109px);height:clamp(65px,18vw,96px);border:2px solid #166897;border-radius:25px;background:#c9f5ffcf;box-shadow:0 4px #236b9f77;color:#164976;padding:2px;line-height:1}
+.shell .picture{font-size:clamp(37px,11vw,63px);animation:swim 1.75s ease-in-out infinite alternate;pointer-events:none}
+.shell .pips{position:absolute;bottom:-11px;border:1px solid #27728c;background:#fff;border-radius:20px;padding:3px 5px}
+.shell .pips i{width:12px;height:12px}
+.shell.live{border:3px solid #fff18a;background:#fff5c5;box-shadow:0 4px #96783f,0 0 24px #fff074}
+.shell.armed{box-shadow:0 0 0 4px #fff3a1,0 0 24px #fff074}
+.shell.armed .picture{animation:none}
+.shell:not(.live) .pips{display:none}
+.shell.wrong{animation:shake .25s}
+.pet{position:absolute;pointer-events:none;left:var(--x);top:var(--y);z-index:3;font-size:clamp(34px,11vw,68px);animation:escape 1.3s ease-out forwards;transform:translate(-50%,-50%)}
+#trail{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px;min-height:37px;padding:2px 5px;border-radius:12px;background:#fff9d8dc}
+#trail span{display:grid;place-items:center;width:29px;height:29px;font-size:21px;border:1px solid #83bbc9;border-radius:50%;background:#faffff}
+#trail .empty{color:#5f8baa}
+#progress{display:flex;gap:5px;margin-top:8px}
+#progress span{height:8px;flex:1;background:#b1dce8;border-radius:10px}
+#progress .done{background:#389f88}
+#progress .active{background:#ffbf48}
+#overlay{position:absolute;inset:0;display:grid;place-items:center;padding:8px;z-index:5;background:#0f5e7e40}
+.panel{display:grid;justify-items:center;gap:12px;background:#eafcfff5;border:3px solid white;border-radius:23px;box-shadow:0 9px 28px #154c7366;padding:15px clamp(10px,5vw,38px);max-width:100%}
+#demo{display:flex;align-items:center;justify-content:center;gap:clamp(5px,2vw,12px)}
+.frame{position:relative;display:grid;justify-items:center;gap:4px;min-width:54px}
+.demo-shell,.demo-pet{position:relative;display:grid;place-items:center;width:clamp(48px,17vw,78px);height:clamp(49px,17vw,78px);border-radius:16px;background:#fff1b4;border:2px solid #e4aa44;font-size:clamp(31px,9vw,52px)}
+.demo-pet{background:#d0ffed;border-color:#77b9ac}
+.frame .hand{position:absolute;right:-4px;bottom:23px;font-size:24px;animation:press 2.8s infinite}
+.frame.second .hand{animation-delay:.24s}
+.arrow{font-size:20px}
+.go{width:62px;height:53px;background:#ffd664;font-size:29px}
+#cheer{font-size:clamp(39px,12vw,72px);line-height:1.2;animation:swim .7s ease-in-out infinite alternate}
+.status{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip-path:inset(50%)}
+@keyframes rays{to{transform:scale(1.13) rotate(8deg)}}
+@keyframes rise{from{transform:translateY(75px);opacity:0}20%{opacity:1}to{transform:translateY(-170px);opacity:0}}
+@keyframes sway{to{transform:rotate(11deg)}}
+@keyframes swim{to{transform:translateY(-5px) rotate(7deg)}}
+@keyframes press{0%,16%,100%{transform:translateY(5px)}7%{transform:translateY(-3px) scale(.9)}}
+@keyframes shake{30%,70%{translate:-3px}50%{translate:3px}}
+@keyframes escape{65%{opacity:1}to{transform:translate(65px,-150px) rotate(18deg);opacity:0}}
+@media(max-height:520px) and (orientation:landscape){#board{height:225px}.shell{height:58px;width:65px}.shell .picture{font-size:37px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important}.pet{opacity:.85}}
+
+#celebration{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
+.panel{position:relative;z-index:2}
+#overlay.finale .panel{background:#fff9d9f5;border-color:#fff5ab;box-shadow:0 0 36px #ffe884}
+#overlay.finale #cheer{font-size:clamp(52px,14vw,91px);line-height:1.3}
+.splash{position:absolute;top:-10%;left:var(--x);width:var(--size);height:calc(var(--size)*1.6);border-radius:3px;background:var(--paint);animation:confetti-drop var(--speed) var(--delay) both ease-in}
+.parade{position:absolute;left:0;top:var(--y);font-size:clamp(30px,9vw,67px);animation:parade-swim 3.3s var(--delay) both 2 linear}
+@keyframes confetti-drop{0%{transform:translate(-15px,-20px) rotate(0);opacity:0}14%{opacity:1}77%{opacity:1}100%{transform:translate(var(--sway),var(--fall)) rotate(540deg);opacity:0}}
+@keyframes parade-swim{0%{transform:translate(-15vw,0);opacity:0}15%{opacity:1}77%{opacity:1}100%{transform:translate(100vw,-24px);opacity:0}}
+@media(prefers-reduced-motion:reduce){.splash{top:var(--still);transform:rotate(28deg)}.parade{left:var(--x)}}
+</style>
+</head>
+<body>
+<main>
+<header><h1>Δυο πατήματα στον βυθό</h1><div class="toolbar"><button type="button" id="help" class="tool" aria-label="Δείξε μου πώς παίζεται">❔</button><button type="button" id="restart" class="tool" aria-label="Από την αρχή">↶</button></div></header>
+<section id="world" aria-label="Παιχνίδι διπλού πατήματος">
+<div id="ocean" aria-hidden="true"></div>
+<div id="visual" aria-hidden="true"><span class="mascot">🐙</span><div class="hint"><span id="hint-icon">🐚</span><span>👆👆</span><span class="pips" id="hint-pips"><i></i><i></i></span></div><span class="mascot">🐠</span></div>
+<div id="board"></div>
+<div id="trail" aria-hidden="true"></div>
+<div id="overlay"><div id="celebration" aria-hidden="true" hidden></div><div class="panel">
+<div id="demo" aria-hidden="true">
+<div class="frame"><div class="demo-shell">🐚</div><span class="hand">👆</span><span class="pips"><i class="lit"></i><i></i></span></div>
+<span class="arrow">➜</span>
+<div class="frame second"><div class="demo-shell">🐚</div><span class="hand">👆</span><span class="pips"><i class="lit"></i><i class="lit"></i></span></div>
+<span class="arrow">➜</span>
+<div class="frame"><div class="demo-pet">🐠</div><span class="pips"><i class="lit"></i><i class="lit"></i></span></div>
+</div>
+<div id="cheer" aria-hidden="true" hidden>🐢🐠🐙</div>
+<button id="go" type="button" class="go" aria-label="Ξεκίνα">▶</button>
+</div></div>
+</section>
+<div id="progress" aria-hidden="true"></div>
+<p id="status" class="status" role="status"></p>
+</main>
+<script>
+const levels = [
+ {cells:[4,4],options:[],shell:'🐚',animals:['🐠','🐡']},
+ {cells:[0,5,7],options:[],shell:'🐚',animals:['🐢','🐟','🦀']},
+ {cells:[2,4,6,1],options:['🪸','🪨'],shell:'🐚',animals:['🐡','🐙','🐬','🐠']},
+ {cells:[7,1,8,3,4],options:['🐚','🪸'],shell:'🫧',animals:['🐟','🐢','🪼','🐡','🦀']},
+ {cells:[5,0,7,2,6,4],options:['🫧','🪨','🪸'],shell:'🐚',animals:['🐬','🐠','🐙','🐢','🐟','🪼']}
+];
+const $ = id=>document.getElementById(id);
+const board=$('board');
+let level=0,step=0,state='help',armed=null,timer;
+function node(tag,cls,content){
+ const el=document.createElement(tag);
+ if(cls)el.className=cls;
+ if(content)el.textContent=content;
+ return el;
+}
+function grid(field,cell){field.style.gridArea=(Math.floor(cell/3)+1)+'/'+(cell%3+1);}
+function pips(){const row=node('span','pips');row.setAttribute('aria-hidden','true');row.append(node('i'),node('i'));return row;}
+function clearPair(){
+ clearTimeout(timer);
+ if(armed)armed.classList.remove('armed');
+ armed=null;
+ $('hint-pips').classList.remove('armed');
+}
+function status(text){$('status').textContent=text;}
+function play(index){
+ clearPair();
+ level=index;step=0;state='play';
+ $('overlay').hidden=true;
+ clearCelebration();
+ paint();
+ board.querySelector('.live').focus();
+ status('Κάνε δύο γρήγορα αριστερά κλικ ή δύο γρήγορα αγγίγματα στο φωτισμένο αντικείμενο.');
+}
+function drawProgress(){
+ const current=levels[level];
+ $('progress').replaceChildren(...levels.map((_,index)=>node('span',index<level||state==='end'||(index===level&&state==='next')?'done':(index===level?'active':''))));
+ $('trail').replaceChildren(...current.animals.map((animal,index)=>node('span',index<step?'':'empty',index<step?animal:'○')));
+}
+function paint(){
+ const current=levels[level];
+ $('hint-icon').textContent=current.shell;
+ const cell=current.cells[step];
+ board.replaceChildren();
+ if(cell!==undefined){
+  addShell(cell,current.shell,true);
+  current.options.forEach((icon,i)=>addShell((cell+[2,4,7][i])%9,icon,false));
+ }
+ drawProgress();
+}
+function addShell(cell,icon,correct){
+ const item=node('button',correct?'shell live':'shell');
+ item.type='button';
+ item.setAttribute('aria-label',correct?'Φωτισμένο αντικείμενο. Πάτησε δύο φορές.':'Διακοσμητικό αντικείμενο');
+ item.append(node('span','picture',icon),pips());
+ grid(item,cell);
+ item.addEventListener('click',event=>{
+  if(event.button!==0||state!=='play'||!item.isConnected)return;
+  if(!correct){
+   clearPair();
+   item.classList.add('wrong');
+   setTimeout(()=>item.classList.remove('wrong'),270);
+   return;
+  }
+  if(armed!==item){
+   clearPair();
+   armed=item;
+   item.classList.add('armed');
+   $('hint-pips').classList.add('armed');
+   status('Ένα πάτημα. Πάτησε πάλι γρήγορα.');
+   timer=setTimeout(clearPair,680);
+   return;
+  }
+  const animal=levels[level].animals[step];
+  clearPair();
+  step++;
+  if(step===levels[level].cells.length){
+   state=level===levels.length-1?'end':'next';
+   paint();
+   showPanel(false);
+   if(event.detail===0)$('go').focus();
+  }else{
+   paint();
+   if(event.detail===0)board.querySelector('.live').focus();
+  }
+  release(animal,cell);
+  status(state==='end'?'Μπράβο! Ελευθέρωσες όλα τα ζωάκια!':'Ελευθέρωσες ένα ζωάκι!');
+ });
+ board.append(item);
+}
+function release(animal,cell){
+ const sprite=node('span','pet',animal);
+ sprite.setAttribute('aria-hidden','true');
+ sprite.style.setProperty('--x',((cell%3+.5)/3*100)+'%');
+ sprite.style.setProperty('--y',((Math.floor(cell/3)+.5)/3*100)+'%');
+ board.append(sprite);
+ setTimeout(()=>sprite.remove(),1350);
+}
+function clearCelebration(){
+ const layer=$('celebration');
+ layer.replaceChildren();
+ layer.hidden=true;
+ $('overlay').classList.remove('finale');
+}
+function celebrate(){
+ const layer=$('celebration');
+ const fall=$('overlay').clientHeight*1.2+'px';
+ const colors=['#ff79ac','#ffe060','#8bf0bf','#a8d3ff','#c99ef5'];
+ for(let i=0;i<48;i++){
+  const dot=node('span','splash');
+  const styles={
+   x:(i*37%99)+'%',still:(i*29%97)+'%',size:(i%5+5)+'px',paint:colors[i%colors.length],
+   speed:(2+i%7*.16)+'s',delay:(i%13*.11)+'s',sway:(i%2?-1:1)*(22+i%9*8)+'px',fall
+  };
+  for(const [name,value] of Object.entries(styles))dot.style.setProperty('--'+name,value);
+  layer.append(dot);
+ }
+ ['🐠','🐢','🐙','🐬','🦀','🐡'].forEach((animal,index)=>{
+  const swimmer=node('span','parade',animal);
+  swimmer.style.setProperty('--x',(7+index*16)+'%');
+  swimmer.style.setProperty('--y',(7+index*15)+'%');
+  swimmer.style.setProperty('--delay',(index*.17)+'s');
+  layer.append(swimmer);
+ });
+ layer.hidden=false;
+ $('overlay').classList.add('finale');
+}
+function showPanel(help){
+ clearCelebration();
+ $('demo').hidden=!help;
+ $('cheer').hidden=help;
+ $('overlay').hidden=false;
+ $('go').textContent=state==='end'?'↶':'▶';
+ $('go').setAttribute('aria-label',state==='end'?'Παίξε ξανά':state==='next'?'Επόμενος γύρος':'Συνέχισε');
+ $('cheer').textContent=state==='end'?'🎉🏆🎉':'🐢🐠🐙';
+ if(!help&&state==='end')celebrate();
+}
+$('go').addEventListener('click',()=>{
+ if(state==='paused'){
+  state='play';
+  $('overlay').hidden=true;
+  board.querySelector('.live').focus();
+ }else play(state==='next'?level+1:0);
+});
+$('help').addEventListener('click',()=>{
+ clearPair();
+ if(state==='play')state='paused';
+ showPanel(true);
+ $('go').focus();
+});
+$('restart').addEventListener('click',()=>{
+ clearPair();
+ level=step=0;state='help';
+ drawProgress();
+ board.replaceChildren();
+ showPanel(true);
+ $('go').focus();
+});
+board.addEventListener('contextmenu',event=>event.preventDefault());
+for(let i=0;i<22;i++){
+ const bubble=node('i','bubble');
+ bubble.style.setProperty('--x',(i*37%99)+'%');
+ bubble.style.setProperty('--y',(i*53%109)+'%');
+ bubble.style.setProperty('--size',(8+i%6*7)+'px');
+ bubble.style.setProperty('--delay',(-i*.39)+'s');
+ $('ocean').append(bubble);
+}
+$('ocean').append(node('span','plant left','🪸'),node('span','plant right','🌿'));
+drawProgress();
+</script>
+</body>
+</html>

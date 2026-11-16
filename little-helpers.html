@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#ecfbf5">
+<title>Οι μικροί βοηθοί</title>
+<style>
+*{box-sizing:border-box}
+:root{font-family:Nunito,system-ui,sans-serif;color:#233750;background:#effbf3}
+body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 10% 10%,#ffdfba,transparent 40%),radial-gradient(ellipse at 99% 90%,#e7d9ff,transparent 50%),#effbf3}
+main{max-width:920px;margin:auto;padding:clamp(8px,3vw,25px)}
+header,.head,.controls{display:flex;align-items:center;gap:7px}header,.head{justify-content:space-between}
+header{margin-bottom:10px}
+h1,h2,p{margin:0}
+h1{font-size:clamp(25px,6vw,50px);letter-spacing:-.045em;line-height:1}
+h2{font-size:clamp(16px,4vw,26px);line-height:1.08}
+button{font:inherit;color:inherit;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+button:focus-visible{outline:3px solid #5b3a9b;outline-offset:3px}
+button:disabled{opacity:.42;cursor:default}
+[hidden]{display:none!important}
+.control,.play{display:grid;place-items:center;min-width:44px;min-height:44px;border:2px solid #6b64a3;border-radius:14px;background:#fff7d5;font-size:22px;padding:4px 8px;box-shadow:0 3px #af9ac8}
+.map{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin:0 0 11px}
+.tab{display:grid;place-items:center;position:relative;min-height:48px;border:2px solid #aab6c4;border-radius:15px;background:#fffaf0;font-size:clamp(23px,6vw,33px)}
+.tab[aria-pressed=true]{border-color:#653c9b;background:#f0dfff}
+.tab.done::after{content:'✓';position:absolute;top:1px;right:4px;background:#2e7868;color:white;border-radius:50%;font-size:13px;line-height:17px;width:17px}
+.book{position:relative;isolation:isolate;border:2px solid #9e89b8;border-radius:24px;background:#fffaf0;padding:clamp(7px,2vw,15px);box-shadow:0 9px 28px #4f497d27}
+.head{margin-bottom:8px}
+#count{font-weight:850;background:#efe5fa;padding:5px 9px;border-radius:13px;white-space:nowrap}
+#stage{position:relative;isolation:isolate;overflow:hidden;border:2px solid #fff;border-radius:17px;background:linear-gradient(var(--sky) 0 72%,var(--grass) 72%);min-height:clamp(214px,42svh,335px);display:grid;grid-template-columns:repeat(var(--slots),minmax(0,1fr));align-items:end;gap:5px;padding:8px 6px 14px}
+.scene{position:absolute;inset:0;overflow:hidden;z-index:-1;pointer-events:none}
+.sun{position:absolute;right:12%;top:6%;width:54px;aspect-ratio:1;border-radius:50%;background:#fff0a0;box-shadow:0 0 36px #fff2aa}
+.cloud{position:absolute;left:17%;top:12%;width:100px;height:23px;border-radius:100px;background:#ffffffa0;box-shadow:20px -11px #ffffff85,-15px 7px #ffffff85;animation:cloud 7s ease-in-out infinite alternate}
+.hill{position:absolute;left:-10%;bottom:-20%;width:83%;height:48%;border-radius:50%;background:var(--hill);transform:rotate(7deg)}
+.hill.alt{left:auto;right:-16%;width:78%;transform:rotate(-7deg)}
+.dot{position:absolute;bottom:var(--y);left:var(--x);font-size:clamp(12px,3vw,23px);opacity:.65;animation:bob 2.4s var(--delay) ease-in-out infinite alternate}
+.target{display:grid;align-content:end;justify-items:center;gap:5px;position:relative;min-width:0;min-height:clamp(125px,27svh,181px);padding:7px 2px;border:2px dashed #466788;background:#ffffd88a;border-radius:15px;touch-action:manipulation}
+.target.over{background:#fff6b7;color:#623d73;border:2px solid #6c468b;box-shadow:0 0 15px #fff9a2}
+.target.done{background:#f7ffecaa;border:2px solid #3d947c}
+.target.done::after{content:'✓';position:absolute;top:5px;right:5px;border-radius:50%;width:23px;height:23px;display:grid;place-items:center;background:#318367;color:white}
+.target .subject{display:block;font-size:clamp(37px,12vw,79px);line-height:1.1;animation:bob 1.9s var(--delay) ease-in-out infinite alternate;pointer-events:none}
+.target.done .subject{animation:happy .45s ease-out}
+.need{display:grid;place-items:center;background:#fffef0;border:1px solid #7f8ba3;border-radius:11px;min-width:42px;height:39px;font-size:24px;pointer-events:none}
+.target.done .need{background:#dff8e0;border-color:#6aaf8b}
+#tray{display:flex;align-items:center;justify-content:center;gap:clamp(7px,3vw,17px);min-height:86px;margin-top:8px;padding:6px;border:2px solid #e6b98a;border-radius:17px;background:#ffecd4}
+.item,.ghost{display:grid;place-items:center;width:clamp(56px,17vw,83px);height:clamp(56px,17vw,83px);border:2px solid #a97773;border-radius:18px;background:#fff7ca;font-size:clamp(32px,10vw,55px);line-height:1;padding:0;user-select:none}
+.item{touch-action:none;cursor:grab;box-shadow:0 3px #bb8f83}
+.item.dragging{opacity:.33}
+.item.used{opacity:.23;cursor:default}
+.ghost{position:fixed;transform:translate(-50%,-50%) rotate(-7deg);border:3px solid #ffe66c;box-shadow:0 8px 20px #3444526b;z-index:20;pointer-events:none}
+#status{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+#fx{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden}
+.spark{position:absolute;animation:scatter .75s ease-out both;font-size:22px}
+@keyframes scatter{to{transform:translate(var(--dx),var(--dy)) rotate(30deg);opacity:0}}
+#overlay{position:absolute;inset:0;z-index:4;display:grid;place-items:center;border-radius:inherit;background:#40346645;padding:8px}
+.panel{display:grid;justify-items:center;gap:10px;padding:15px 16px;border:3px solid white;border-radius:21px;background:#fff8e9;box-shadow:0 10px 30px #3b2d5772}
+.demo{position:relative;display:grid;place-items:center;width:208px;max-width:100%;height:76px}
+.demo-spot,.demo-tool{position:absolute;top:7px;left:0;display:grid;place-items:center;width:62px;height:62px;border:2px dashed #7d7aa5;border-radius:13px;background:#f1e7ff;font-size:34px}
+.demo-spot.right{left:auto;right:0;background:#e3f8d8}
+.demo-tool{background:#fff0b5;border:2px solid #c29458;animation:demo 2.9s ease-in-out infinite}
+.demo-tool::after{content:'👆';position:absolute;right:-11px;bottom:-12px;font-size:24px}
+#cheer{font-size:clamp(47px,12vw,76px);animation:bob .5s ease-in-out infinite alternate}
+.play{background:#ffe582;width:65px;height:48px;font-size:25px}
+@keyframes cloud{to{transform:translateX(34px)}}
+@keyframes bob{to{transform:translateY(-5px) rotate(4deg)}}
+@keyframes happy{50%{transform:scale(1.22) rotate(-8deg)}}
+@keyframes demo{0%,18%,100%{transform:translateX(0)}56%,84%{transform:translateX(146px)}}
+@media(max-width:410px){.control{min-width:41px}.map{gap:4px}#stage{gap:4px;padding-inline:3px}.target{min-height:128px}#tray{min-height:75px}}
+@media(max-height:520px) and (orientation:landscape){#stage{min-height:164px}.target{min-height:105px}.target .subject{font-size:47px}#tray{min-height:64px}.item{width:55px;height:55px;font-size:33px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important}.demo-spot.right::after{content:'✓'}.spark{opacity:.8}}
+.can::before{content:"";width:.95em;height:.9em;background:center/contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 58'%3E%3Cg stroke='%23314a6a' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M45 21q19-8 15 10-2 9-14 7' fill='none'/%3E%3Cpath d='M22 35L8 22 3 29l17 19' fill='%237ed1bc'/%3E%3Cpath d='M19 22h30l-4 27H24z' fill='%2387d8c5'/%3E%3Cpath d='M23 22q2-12 11-12t11 12' fill='none'/%3E%3Cpath d='M30 39h9' stroke='%23eaffda'/%3E%3C/g%3E%3C/svg%3E");display:block}
+.demo-tool.can::before{width:1.16em;height:1.16em}
+.target.try .need{animation:happy .45s ease-out;background:#ffe3a4}
+
+#actions{position:absolute;inset:0;z-index:3;overflow:hidden;pointer-events:none}
+.action-scene{position:absolute;width:0;height:0;left:var(--x);top:var(--y)}
+.action-object{position:absolute;display:grid;place-items:center;width:55px;height:55px;left:-27px;top:-27px;font-size:43px;line-height:1;filter:drop-shadow(0 3px 3px #38315338)}
+.action-object.can{left:3px;top:-83px;transform-origin:55% 80%;animation:pour-can .92s ease both}
+.stream{position:absolute;left:-9px;top:-57px;width:20px;height:54px;transform:rotate(15deg);transform-origin:top;background:repeating-linear-gradient(90deg,#9af4ff 0 3px,#51b5ef 3px 6px,transparent 6px 8px);clip-path:polygon(18% 0,63% 0,100% 100%,0 100%);animation:stream .9s ease both}
+.droplet{position:absolute;left:var(--offset);top:-47px;width:5px;height:9px;background:#83ddff;border:1px solid #54b5e7;border-radius:65% 65% 58% 58%;animation:drip .46s var(--delay) ease-in both}
+.arm-food{animation:feed .74s ease-in both}
+.arm-bin,.arm-gift{animation:into-box .82s ease-in both}
+.arm-cake{animation:topping .78s ease both}
+.target.watering .subject{animation:happy .58s .36s both}
+.target.feeding .subject{animation:chew .18s .43s 3 alternate}
+.subject{position:relative}
+.subject.has-pot::after{content:'🟤';position:absolute;left:50%;bottom:-.04em;transform:translateX(-50%) scaleX(1.35);font-size:.25em;z-index:-1}
+.subject.bin{width:.85em;height:.83em;margin-top:8px;border-radius:9px 9px 13px 13px;border:2px solid #2e6c75;background:linear-gradient(90deg,#ffffff58,transparent 30%),var(--bin);box-shadow:inset -6px 0 #112b471e}
+.subject.bin::before{content:'';position:absolute;left:-9%;top:-9px;width:118%;height:11px;border:2px solid #326573;border-radius:5px;background:var(--bin);transform-origin:97% center}
+.subject.bin::after{content:'♻';position:absolute;inset:0;display:grid;place-items:center;color:#234c63;font-size:.42em}
+.target.recycling .subject.bin::before{animation:lid .76s ease both}
+.stack{display:grid;justify-items:center;position:relative}
+.stack .extra{position:absolute;left:50%;top:-.26em;font-size:.42em;transform:translateX(-50%);animation:happy .44s ease-out}
+@keyframes pour-can{0%{opacity:0;transform:translateY(-9px)}20%{opacity:1;transform:rotate(0)}46%,76%{opacity:1;transform:rotate(-48deg)}100%{opacity:0;transform:rotate(0)}}
+@keyframes stream{0%,22%,100%{opacity:0;scale:1 .05}37%,75%{opacity:.86;scale:1 1}}
+@keyframes drip{0%{transform:translateY(-5px);opacity:0}18%{opacity:1}100%{transform:translate(-13px,60px);opacity:0}}
+@keyframes feed{0%{transform:translate(-25px,-45px) rotate(-25deg);opacity:1}65%{transform:translate(0,5px) scale(.75);opacity:1}100%{transform:translate(0,10px) scale(.1);opacity:0}}
+@keyframes chew{to{transform:scale(1.08,.9) rotate(-4deg)}}
+@keyframes into-box{0%{transform:translateY(-68px) rotate(-12deg);opacity:1}53%{transform:translateY(-31px) rotate(8deg);opacity:1}100%{transform:translateY(10px) scale(.2);opacity:0}}
+@keyframes lid{0%,90%,100%{transform:rotate(0)}27%,66%{transform:rotate(32deg)}}
+@keyframes topping{0%{transform:translateY(-58px);opacity:1}80%{transform:translateY(-17px) scale(.55);opacity:1}100%{transform:translateY(-17px) scale(.55);opacity:0}}
+@media(prefers-reduced-motion:reduce){.action-scene{display:none}}
+</style>
+</head>
+<body>
+<main>
+<header><h1>🌿 Οι μικροί βοηθοί</h1><div class="controls"><button id="help" class="control" aria-label="Δείξε μου πώς παίζεται" type="button">❔</button><button id="restart" class="control" aria-label="Παίξε ξανά αυτή την αποστολή" type="button">↶</button></div></header>
+<nav id="map" class="map" aria-label="Αποστολές"></nav>
+<section class="book">
+<div class="head"><h2 id="title"></h2><span id="count"></span></div>
+<div id="stage"><div id="scene" class="scene" aria-hidden="true"></div></div>
+<div id="tray" aria-label="Αντικείμενα για σύρσιμο"></div>
+<div id="fx" aria-hidden="true"></div><div id="actions" aria-hidden="true"></div>
+<div id="overlay"><div class="panel">
+<div id="demo" class="demo" aria-hidden="true"><div class="demo-spot"></div><span>➜</span><div class="demo-spot right" id="demo-target"></div><div class="demo-tool" id="demo-item"></div></div>
+<div id="cheer" aria-hidden="true" hidden></div>
+<button id="go" class="play" type="button" aria-label="Ξεκίνα">▶</button>
+</div></div>
+</section>
+<p id="status" role="status"></p>
+</main>
+<script>
+const missions = [
+ {title:'Πότισε τα λουλούδια',icon:'🌷',colors:['#b5e8ff','#b8dfa0','#98cd87'],decor:'🌱',tasks:[
+  ['🪴','🌷','🚿','Πρώτη γλάστρα','Ποτιστήρι'],['🪴','🌻','🚿','Δεύτερη γλάστρα','Ποτιστήρι'],['🪴','🌸','🚿','Τρίτη γλάστρα','Ποτιστήρι']],repeat:true,fx:['💧','✨','💧']},
+ {title:'Τάισε τα ζωάκια',icon:'🐰',colors:['#ffe0bd','#a8dfbc','#8dccb5'],decor:'🌼',tasks:[
+  ['🐰','🐰','🥕','Κουνελάκι','Καρότο'],['🐵','🐵','🍌','Μαϊμουδάκι','Μπανάνα'],['🐼','🐼','🎋','Πάντα','Μπαμπού']],fx:['💚','✨','💛']},
+ {title:'Μάζεψε τα σκουπίδια',icon:'♻️',colors:['#b5eef3','#f1da95','#e3c784'],decor:'🐚',tasks:[
+  ['🟦','♻️','📰','Μπλε κάδος','Χαρτί'],['🟩','♻️','🍾','Πράσινος κάδος','Γυάλινο μπουκάλι'],['🟨','♻️','🥫','Κίτρινος κάδος','Μεταλλικό κουτί']],fx:['♻️','✨','💚']},
+ {title:'Στόλισε την τούρτα',icon:'🎂',colors:['#f3d4ff','#f4c6d6','#e7a7c3'],decor:'🎈',tasks:[
+  ['🧁','🍓','🍓','Γλυκό για φράουλα','Φράουλα'],['🧁','🍒','🍒','Γλυκό για κεράσι','Κεράσια'],['🧁','🕯️','🕯️','Γλυκό για κερί','Κερί']],fx:['🎊','💖','✨']},
+ {title:'Ετοίμασε τη γιορτή',icon:'🎁',colors:['#d9d0ff','#fcda92','#f1bf79'],decor:'🎀',tasks:[
+  ['🎁','🧸','🧸','Δώρο για αρκουδάκι','Αρκουδάκι'],['🎁','🚂','🚂','Δώρο για τρενάκι','Τρενάκι'],['🎁','⚽','⚽','Δώρο για μπάλα','Μπάλα'],['🎁','🪁','🪁','Δώρο για χαρταετό','Χαρταετός']],fx:['🎉','⭐','🎊']}
+];
+const $=id=>document.getElementById(id);
+const stage=$('stage');
+const completed=new Set();
+let level=0,filled=new Set(),targets=[],active=null,paused=true,finished=false,finishTimer;
+function el(tag,cls,text){
+ const node=document.createElement(tag);
+ if(cls)node.className=cls;
+ if(text==='🚿')node.classList.add('can');
+ else if(text)node.textContent=text;
+ return node;
+}
+function drawMap(){
+ $('map').replaceChildren(...missions.map((mission,i)=>{
+  const tab=el('button','tab'+(completed.has(i)?' done':''),mission.icon);
+  tab.type='button';tab.setAttribute('aria-label',mission.title);tab.setAttribute('aria-pressed',i===level);
+  tab.addEventListener('click',()=>open(i));
+  return tab;
+ }));
+}
+function scenery(mission){
+ const back=$('scene');
+ back.replaceChildren(el('i','sun'),el('i','cloud'),el('i','hill'),el('i','hill alt'));
+ for(let i=0;i<12;i++){
+  const dot=el('i','dot',mission.decor);
+  dot.style.setProperty('--x',(i*31%98)+'%');dot.style.setProperty('--y',(i*17%25)+'%');dot.style.setProperty('--delay',(-i*.29)+'s');
+  back.append(dot);
+ }
+}
+function open(index,showHelp=false){
+ cancel();
+ clearTimeout(finishTimer);
+ $('actions').replaceChildren();
+ level=index;filled=new Set();finished=false;paused=false;
+ $('overlay').hidden=true;$('fx').replaceChildren();
+ const mission=missions[level];
+ $('title').textContent=mission.title;
+ stage.style.setProperty('--slots',mission.tasks.length);
+ mission.colors.forEach((color,i)=>stage.style.setProperty(['--sky','--grass','--hill'][i],color));
+ scenery(mission);
+ for(const target of targets)target.remove();
+ targets=mission.tasks.map(([before,after,tool,place,name],i)=>{
+  const target=el('button','target');
+  target.type='button';target.setAttribute('aria-label',place+' · '+name);
+  target.style.setProperty('--delay',(i*-.3)+'s');
+  const subject=el('span','subject',index===2?'':before);
+  if(index===2){
+   subject.classList.add('bin');
+   subject.style.setProperty('--bin',['#73c4f6','#83d389','#f7cf62'][i]);
+  }
+  target.append(subject,el('span','need',tool));
+  target.addEventListener('click',event=>{if(event.detail===0&&active?.pointer===undefined)drop(i);});
+  stage.append(target);
+  return target;
+ });
+ const indices=mission.repeat?[0]:mission.tasks.map((_,i)=>i).sort((a,b)=>((a+2)%mission.tasks.length)-((b+2)%mission.tasks.length));
+ $('tray').replaceChildren(...indices.map(i=>makeTool(mission.tasks[i],mission.repeat?-1:i)));
+ count();
+ drawMap();
+ if(showHelp)help();
+}
+function makeTool(task,id){
+ const item=el('button','item',task[2]);
+ item.type='button';item.setAttribute('aria-label',task[4]);
+ item.addEventListener('pointerdown',event=>grab(event,item,id,task[2]));
+ item.addEventListener('pointermove',move);
+ item.addEventListener('pointerup',release);
+ item.addEventListener('pointercancel',cancel);
+ item.addEventListener('lostpointercapture',cancel);
+ item.addEventListener('keydown',event=>{
+  if(paused||finished||item.disabled||!['Enter',' '].includes(event.key))return;
+  event.preventDefault();cancel();
+  active={item,id,over:-1};
+  item.classList.add('dragging');
+  targets.find((_,i)=>!filled.has(i))?.focus();
+  $('status').textContent='Διάλεξε πού θα αφήσεις αυτό το αντικείμενο.';
+ });
+ return item;
+}
+function count(){$('count').textContent='★ '+filled.size+' / '+targets.length;}
+function grab(event,item,id,icon){
+ if(paused||finished||active||!event.isPrimary||event.button!==0)return;
+ event.preventDefault();
+ const ghost=el('div','ghost',icon);
+ document.body.append(ghost);
+ active={item,id,ghost,pointer:event.pointerId,over:-1};
+ item.classList.add('dragging');
+ item.setPointerCapture(event.pointerId);
+ move(event);
+}
+function at(x,y){
+ const target=document.elementFromPoint(x,y)?.closest('.target');
+ return targets.indexOf(target);
+}
+function move(event){
+ if(!active||event.pointerId!==active.pointer)return;
+ const {ghost}=active;
+ ghost.style.left=event.clientX+'px';ghost.style.top=event.clientY+'px';
+ if(active.over>=0)targets[active.over].classList.remove('over');
+ const hit=at(event.clientX,event.clientY);
+ active.over=hit;
+ if(hit>=0&&!filled.has(hit))targets[hit].classList.add('over');
+}
+function release(event){
+ if(!active||event.pointerId!==active.pointer)return;
+ drop(at(event.clientX,event.clientY));
+}
+function cancel(event){
+ if(!active||(event&&event.pointerId!==active.pointer))return;
+ if(active.over>=0)targets[active.over].classList.remove('over');
+ active.ghost?.remove();
+ active.item.classList.remove('dragging');
+ active=null;
+}
+function drop(index){
+ if(!active||paused)return;
+ const {item,id,pointer}=active;
+ cancel();
+ if(index<0||filled.has(index)||(id!==-1&&id!==index)){
+  $('status').textContent='Δοκίμασε σε άλλη θέση.';
+  if(id>=0&&!filled.has(id)){
+   const hint=targets[id];
+   hint.classList.add('try');
+   setTimeout(()=>hint.classList.remove('try'),470);
+  }
+  if(pointer===undefined)item.focus();
+  return;
+ }
+ const target=targets[index];
+ const mission=missions[level];
+ const [,after,icon]=mission.tasks[index];
+ filled.add(index);
+ target.classList.add('done');
+ target.children[1].classList.remove('can');
+ target.children[1].textContent='✓';
+ if(id!==-1){item.classList.add('used');item.disabled=true;}
+ count();
+ animateAction(target,icon,after,level);
+ if(filled.size===targets.length){
+  finished=true;paused=true;completed.add(level);drawMap();
+  finishTimer=setTimeout(finish,1050);
+  $('status').textContent='Μπράβο! Ολοκλήρωσες την αποστολή!';
+ }else{
+  $('status').textContent='Τα κατάφερες!';
+  if(pointer===undefined)[...$('tray').children].find(tool=>!tool.disabled)?.focus();
+ }
+}
+function finish(){
+ const all=completed.size===missions.length;
+ $('demo').hidden=true;$('cheer').hidden=false;
+ $('cheer').textContent=all?'🎉🏆🎉':'🎉🌟🎉';
+ $('go').textContent=all?'↶':'▶';
+ $('go').setAttribute('aria-label',all?'Παίξε ξανά':'Επόμενη αποστολή');
+ $('overlay').hidden=false;$('go').focus();
+}
+function animateAction(target,icon,after,mission){
+ const layer=$('actions');
+ const subject=target.children[0];
+ const frame=layer.getBoundingClientRect(),rect=subject.getBoundingClientRect();
+ const action=el('div','action-scene');
+ action.style.setProperty('--x',(rect.left-frame.left+rect.width/2)+'px');
+ action.style.setProperty('--y',(rect.top-frame.top+rect.height*.55)+'px');
+ const motion=['','arm-food','arm-bin','arm-cake','arm-gift'][mission];
+ action.append(el('span','action-object '+motion,icon));
+ if(mission===0){
+  target.classList.add('watering');
+  action.append(el('i','stream'));
+  for(let i=0;i<10;i++){
+   const drop=el('i','droplet');
+   drop.style.setProperty('--offset',(-5+i%4*5)+'px');
+   drop.style.setProperty('--delay',(.24+i*.048)+'s');
+   action.append(drop);
+  }
+ }else if(mission===1)target.classList.add('feeding');
+ else if(mission===2)target.classList.add('recycling');
+ layer.append(action);
+ setTimeout(()=>{
+  if(!target.isConnected)return;
+  if(mission===0){
+   subject.textContent=after;
+   subject.classList.add('has-pot');
+  }
+  if(mission===3){
+   subject.classList.add('stack');
+   subject.append(el('span','extra',after));
+  }
+  if(mission===4)subject.textContent='🎁';
+  sparkle(target);
+ },mission===0?660:720);
+ setTimeout(()=>action.remove(),1020);
+}
+function sparkle(target){
+ const box=$('fx').getBoundingClientRect(),hit=target.getBoundingClientRect();
+ for(let i=0;i<12;i++){
+  const spark=el('span','spark',missions[level].fx[i%3]);
+  const angle=i*Math.PI/6,dist=26+i%3*17;
+  spark.style.left=(hit.left-box.left+hit.width/2)+'px';spark.style.top=(hit.top-box.top+hit.height/2)+'px';
+  spark.style.setProperty('--dx',Math.cos(angle)*dist+'px');spark.style.setProperty('--dy',Math.sin(angle)*dist+'px');
+  $('fx').append(spark);
+  setTimeout(()=>spark.remove(),800);
+ }
+}
+function help(){
+ cancel();
+ clearTimeout(finishTimer);
+ paused=true;
+ const mission=missions[level];
+ $('demo-target').textContent=mission.tasks[0][0];
+ const icon=mission.tasks[0][2];
+ $('demo-item').classList.toggle('can',icon==='🚿');
+ $('demo-item').textContent=icon==='🚿'?'':icon;
+ $('demo').hidden=false;$('cheer').hidden=true;$('overlay').hidden=false;
+ $('go').textContent='▶';$('go').setAttribute('aria-label','Ξεκίνα');
+ $('go').focus();
+}
+$('go').addEventListener('click',()=>{
+ if(finished&&$('demo').hidden){
+  const next=missions.findIndex((_,i)=>i>level&&!completed.has(i));
+  const pending=missions.findIndex((_,i)=>!completed.has(i));
+  if(pending<0)completed.clear();
+  open(next>=0?next:Math.max(0,pending));return;
+ }
+ if(finished){open(level);return;}
+ paused=false;$('overlay').hidden=true;
+ [...$('tray').children].find(tool=>!tool.disabled)?.focus();
+});
+$('help').addEventListener('click',help);
+$('restart').addEventListener('click',()=>open(level));
+$('tray').addEventListener('contextmenu',event=>event.preventDefault());
+window.addEventListener('blur',()=>cancel());
+document.addEventListener('keydown',event=>{if(event.key==='Escape')cancel();});
+open(0,true);
+</script>
+</body>
+</html>
