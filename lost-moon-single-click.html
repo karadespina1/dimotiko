@@ -71,6 +71,25 @@ button:focus-visible{outline:3px solid white;outline-offset:3px}
 @keyframes sailing{to{transform:translate(-250%,-90%) rotate(-10deg);opacity:0}}
 @keyframes vanishing{to{transform:translate(-170%,-110%) scale(.7);opacity:0}}
 @keyframes rising{to{transform:translate(-50%,-175%) scale(.65);opacity:0}}
+
+/* Touch-first portrait layout */
+@media(orientation:portrait) and (max-width:600px){
+ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+ main{width:100%;max-width:none;padding:8px max(6px,env(safe-area-inset-right)) 12px max(6px,env(safe-area-inset-left))}
+ h1{font-size:clamp(24px,7.1vw,42px);overflow-wrap:anywhere}
+ button:focus-visible{outline-offset:2px}
+}
+
+@media(orientation:portrait) and (max-width:600px){
+ .tool{min-width:48px;min-height:48px}
+ .curtains{padding:5px}
+ #stage{height:clamp(350px,71svh,650px)}
+ .target{width:clamp(76px,23vw,112px);height:clamp(76px,23vw,112px);font-size:clamp(42px,13vw,65px)}
+ .target{left:clamp(49px,var(--x),calc(100% - 49px))}
+ .actor{font-size:clamp(56px,16vw,93px)}
+ .paper .play{min-height:52px}
+ #tip{font-size:15px}
+}
 </style>
 </head>
 <body>

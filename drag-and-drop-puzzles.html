@@ -88,6 +88,24 @@ header{margin-bottom:10px}
 .slot.candidate .cut-outline{fill:#fff0af;stroke:#694591;stroke-width:.026}
 .cut-line{fill:none;stroke:#654d8d;stroke-width:.016}
 @media(max-width:405px){.progress{gap:3px;padding:5px;font-size:13px}.nav{gap:3px}.row{gap:4px}.reference{gap:1px}.reference>span{display:none}}
+
+/* Touch-first portrait layout */
+@media(orientation:portrait) and (max-width:600px){
+ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+ main{width:100%;max-width:none;padding:8px max(6px,env(safe-area-inset-right)) 12px max(6px,env(safe-area-inset-left))}
+ h1{font-size:clamp(24px,7.1vw,42px);overflow-wrap:anywhere}
+ button:focus-visible{outline-offset:2px}
+}
+
+@media(orientation:portrait) and (max-width:600px){
+ .book{padding:5px}
+ #game{max-width:none;gap:8px}
+ .tool{min-width:44px;min-height:44px}
+ .label{min-height:23px;font-size:13px}
+ .grid{aspect-ratio:auto;height:clamp(187px,calc((100svh - 196px)/2),290px)}
+ #tray{gap:3px;padding:3px}
+ .reference i{width:clamp(78px,23vw,125px)}
+}
 </style>
 </head>
 <body>
@@ -302,6 +320,11 @@ function moveDrag(event){
  if(!active||event.pointerId!==active.pointer)return;
  active.ghost.style.left=(event.clientX-active.dx)+'px';
  active.ghost.style.top=(event.clientY-active.dy)+'px';
+ if(event.pointerType==='touch'){
+  const height=window.visualViewport?.height ?? window.innerHeight;
+  if(event.clientY<30)window.scrollBy(0,-13);
+  else if(event.clientY>height-30)window.scrollBy(0,13);
+ }
  const underPointer=cellAt(event.clientX,event.clientY);
  candidate(underPointer>=0?underPointer:cellAt(event.clientX-active.dx,event.clientY-active.dy));
 }

@@ -100,6 +100,26 @@ button:disabled{opacity:.42;cursor:default}
 @keyframes lid{0%,90%,100%{transform:rotate(0)}27%,66%{transform:rotate(32deg)}}
 @keyframes topping{0%{transform:translateY(-58px);opacity:1}80%{transform:translateY(-17px) scale(.55);opacity:1}100%{transform:translateY(-17px) scale(.55);opacity:0}}
 @media(prefers-reduced-motion:reduce){.action-scene{display:none}}
+
+/* Touch-first portrait layout */
+@media(orientation:portrait) and (max-width:600px){
+ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+ main{width:100%;max-width:none;padding:8px max(6px,env(safe-area-inset-right)) 12px max(6px,env(safe-area-inset-left))}
+ h1{font-size:clamp(24px,7.1vw,42px);overflow-wrap:anywhere}
+ button:focus-visible{outline-offset:2px}
+}
+
+@media(orientation:portrait) and (max-width:600px){
+ .control{min-width:48px;min-height:48px}
+ .map{gap:4px}
+ .tab{min-height:54px;font-size:32px}
+ .book{padding:5px}
+ #stage{min-height:clamp(245px,49svh,430px);gap:4px;padding-inline:3px}
+ .target{min-height:clamp(142px,29svh,205px)}
+ .target .subject{font-size:clamp(40px,13vw,65px)}
+ #tray{min-height:87px;gap:5px}
+ .item,.ghost{width:clamp(58px,18vw,90px);height:clamp(60px,18vw,90px);font-size:clamp(36px,12vw,61px)}
+}
 </style>
 </head>
 <body>

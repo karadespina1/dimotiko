@@ -154,6 +154,29 @@ body{background:radial-gradient(ellipse at 12% 0,#69379e 0,transparent 57%),radi
 @keyframes bob{0%,100%{transform:translateY(3px) rotate(-5deg)}50%{transform:translateY(-5px) rotate(5deg)}}
 @keyframes rabbit-hop{from{transform:translate(-50%,-50%)}to{transform:translate(-50%,calc(-50% + var(--hop)))}}
 @media(prefers-reduced-motion:reduce){.target-picture,.rabbit,.orbit{animation:none}}
+
+/* Touch-first portrait layout */
+@media(orientation:portrait) and (max-width:600px){
+ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+ main{width:100%;max-width:none;padding:8px max(6px,env(safe-area-inset-right)) 12px max(6px,env(safe-area-inset-left))}
+ h1{font-size:clamp(24px,7.1vw,42px);overflow-wrap:anywhere}
+ button:focus-visible{outline-offset:2px}
+}
+
+@media(orientation:portrait) and (max-width:600px){
+ .welcome{padding:20px 12px;min-height:calc(85svh - 16px);align-content:center}
+ .welcome .action{min-height:58px;font-size:19px}
+ .card{padding:7px;border-radius:18px}
+ .game-head .action,.audio{min-height:50px}
+ .audio{width:52px}
+ #board{height:clamp(320px,60svh,510px);padding:7px}
+ .target{width:clamp(67px,22vw,102px);height:clamp(67px,22vw,102px);font-size:clamp(38px,11vw,59px)}
+ .target.big{width:clamp(87px,27vw,108px);height:clamp(87px,27vw,108px);font-size:clamp(47px,13vw,66px)}
+ #board[data-mode="move"] .maze-piece{width:clamp(41px,11.5vw,58px);font-size:clamp(25px,8vw,40px)}
+ #instruction{font-size:16px}
+ .house{min-height:clamp(106px,16vh,133px)}
+ .house-icon{width:clamp(46px,14vw,69px);height:clamp(45px,13vw,63px);font-size:clamp(28px,9vw,44px)}
+}
 </style>
 </head>
 <body>
