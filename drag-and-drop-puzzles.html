@@ -106,6 +106,27 @@ header{margin-bottom:10px}
  #tray{gap:3px;padding:3px}
  .reference i{width:clamp(78px,23vw,125px)}
 }
+
+/* Responsive full-screen & tablet/desktop scaling */
+main{width:100%;max-width:1400px;min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:clamp(10px,2.5vw,28px)}
+.book{width:100%;padding:clamp(10px,2.2vw,24px)}
+#game{gap:clamp(18px,3.5vw,48px)}
+.label{font-size:clamp(14px,2vw,20px);min-height:30px}
+.reference i{width:clamp(96px,18vw,190px)}
+.tool,.play{min-width:clamp(48px,5vw,60px);min-height:clamp(48px,5vw,60px);font-size:clamp(24px,3vw,30px)}
+.progress{font-size:clamp(15px,2.5vw,22px);padding:8px 12px}
+@media(orientation:portrait) and (max-width:1024px){
+ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+ main{width:100%;max-width:none;min-height:100svh;justify-content:space-between;padding:10px max(8px,env(safe-area-inset-right)) 14px max(8px,env(safe-area-inset-left))}
+ h1{font-size:clamp(25px,6.8vw,50px);overflow-wrap:anywhere}
+ .book{padding:8px}
+ #game{grid-template-columns:minmax(0,1fr);max-width:none;gap:10px}
+ .tool{min-width:48px;min-height:48px}
+ .label{min-height:26px;font-size:clamp(14px,3.2vw,19px)}
+ .grid{aspect-ratio:auto;height:clamp(220px,calc((100svh - 210px)/2),440px)}
+ #tray{gap:5px;padding:5px}
+ .reference i{width:clamp(88px,22vw,165px)}
+}
 </style>
 </head>
 <body>

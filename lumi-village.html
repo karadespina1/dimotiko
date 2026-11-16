@@ -177,6 +177,38 @@ body{background:radial-gradient(ellipse at 12% 0,#69379e 0,transparent 57%),radi
  .house{min-height:clamp(106px,16vh,133px)}
  .house-icon{width:clamp(46px,14vw,69px);height:clamp(45px,13vw,63px);font-size:clamp(28px,9vw,44px)}
 }
+
+/* Responsive full-screen & tablet/desktop scaling */
+main{width:100%;max-width:1360px;min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:clamp(10px,2.5vw,28px)}
+.welcome,#map,#game{width:100%}
+.welcome{min-height:clamp(480px,74svh,740px)}
+.card{padding:clamp(14px,2.5vw,28px)}
+#board{height:clamp(340px,60svh,640px);padding:14px}
+.target{width:clamp(72px,11vw,108px);height:clamp(72px,11vw,108px);font-size:clamp(38px,6vw,64px)}
+.target.big{width:clamp(104px,16vw,148px);height:clamp(104px,16vw,148px);font-size:clamp(60px,9vw,88px)}
+#board[data-mode="move"] .maze-piece{width:clamp(44px,7vw,76px);font-size:clamp(28px,5vw,52px)}
+.house{min-height:clamp(140px,20svh,190px)}
+.house-icon{width:clamp(62px,8vw,86px);height:clamp(58px,7.5vw,80px);font-size:clamp(36px,5vw,50px)}
+.house-number{font-size:clamp(18px,2.2vw,24px)}
+#instruction,#feedback{font-size:clamp(15px,2.2vw,21px)}
+@media(orientation:portrait) and (max-width:1024px){
+ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+ main{width:100%;max-width:none;min-height:100svh;justify-content:space-between;padding:10px max(8px,env(safe-area-inset-right)) 14px max(8px,env(safe-area-inset-left))}
+ h1{font-size:clamp(26px,6.8vw,52px);overflow-wrap:anywhere}
+ .welcome{padding:24px 16px;min-height:calc(88svh - 20px);align-content:center}
+ .welcome .action{min-height:60px;font-size:21px}
+ .card{padding:10px;border-radius:20px}
+ .game-head .action,.audio{min-height:52px}
+ .audio{width:54px}
+ #board{height:clamp(350px,62svh,640px);padding:10px}
+ .target{width:clamp(74px,20vw,116px);height:clamp(74px,20vw,116px);font-size:clamp(42px,11vw,68px)}
+ .target.big{width:clamp(96px,26vw,138px);height:clamp(96px,26vw,138px);font-size:clamp(54px,14vw,82px)}
+ #board[data-mode="move"] .maze-piece{width:clamp(46px,11.5vw,72px);font-size:clamp(28px,7.5vw,48px)}
+ #instruction{font-size:clamp(16px,3.5vw,21px)}
+ .map{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+ .house{min-height:clamp(120px,17svh,165px)}
+ .house-icon{width:clamp(52px,13vw,82px);height:clamp(50px,12vw,76px);font-size:clamp(32px,8vw,50px)}
+}
 </style>
 </head>
 <body>
