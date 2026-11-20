@@ -22,16 +22,18 @@ html, body {
   padding: 0;
   width: 100%;
   height: 100%;
+  height: 100dvh;
   overflow: hidden;
   font-family: "Segoe UI", "Noto Sans", system-ui, -apple-system, sans-serif;
   background: #ffffff;
   color: var(--text-main);
   user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .lo-app {
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   background: var(--win-bg);
@@ -47,18 +49,26 @@ html, body {
   padding-left: 10px;
   font-size: 13px;
   color: #1f1f1f;
+  flex-shrink: 0;
 }
 .win-title-left {
   display: flex;
   align-items: center;
   gap: 8px;
+  min-width: 0;
+}
+.win-title-left span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .win-caption-btns {
   display: flex;
   height: 100%;
+  flex-shrink: 0;
 }
 .cap-btn {
-  width: 46px;
+  width: 44px;
   height: 100%;
   border: none;
   background: transparent;
@@ -73,28 +83,32 @@ html, body {
 
 /* 2. ΓΡΑΜΜΗ ΜΕΝΟΥ */
 .lo-menubar {
-  height: 28px;
+  min-height: 30px;
   background: #ffffff;
   border-bottom: 1px solid #e5e5e5;
   padding: 0 4px;
   display: flex;
   align-items: center;
   position: relative;
+  flex-shrink: 0;
 }
 .menu-items-left {
   display: flex;
   align-items: center;
   overflow-x: auto;
+  scrollbar-width: none;
 }
+.menu-items-left::-webkit-scrollbar { display: none; }
 .menu-btn {
   background: transparent;
   border: 1px solid transparent;
-  padding: 3px 9px;
+  padding: 4px 10px;
   font-family: inherit;
   font-size: 13.5px;
   color: #1a1a1a;
   cursor: pointer;
   white-space: nowrap;
+  touch-action: manipulation;
 }
 .menu-btn:hover, .menu-btn.active {
   background: var(--hover-bg);
@@ -104,14 +118,16 @@ html, body {
 /* ΑΝΑΔΥΟΜΕΝΟ ΜΕΝΟΥ «ΑΡΧΕΙΟ» */
 .file-dropdown {
   position: absolute;
-  top: 27px;
+  top: 29px;
   left: 4px;
-  width: 295px;
+  width: min(92vw, 300px);
+  max-height: 75dvh;
+  overflow-y: auto;
   background: #f2f2f2;
   border: 1px solid #999999;
-  box-shadow: 2px 4px 12px rgba(0,0,0,0.22);
+  box-shadow: 2px 4px 14px rgba(0,0,0,0.24);
   padding: 3px 0;
-  z-index: 100;
+  z-index: 200;
   display: none;
 }
 .file-dropdown.open { display: block; }
@@ -119,7 +135,7 @@ html, body {
   width: 100%;
   background: transparent;
   border: 1px solid transparent;
-  padding: 6px 14px 6px 10px;
+  padding: 7px 14px 7px 10px;
   font-family: inherit;
   font-size: 13.5px;
   color: #1a1a1a;
@@ -128,6 +144,7 @@ html, body {
   justify-content: space-between;
   cursor: pointer;
   text-align: left;
+  touch-action: manipulation;
 }
 .fd-item:hover:not(:disabled) {
   background: #cce4f7;
@@ -150,7 +167,7 @@ html, body {
   justify-content: center;
 }
 .fd-sc {
-  font-size: 12.5px;
+  font-size: 12px;
   color: #333333;
 }
 .fd-sep {
@@ -168,15 +185,16 @@ html, body {
   align-items: center;
   flex-wrap: wrap;
   gap: 2px;
+  flex-shrink: 0;
 }
 .tb-btn {
   position: relative;
-  height: 28px;
-  min-width: 28px;
-  padding: 0 5px;
+  height: 30px;
+  min-width: 30px;
+  padding: 0 6px;
   background: transparent;
   border: 1px solid transparent;
-  border-radius: 2px;
+  border-radius: 3px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -185,6 +203,7 @@ html, body {
   font-size: 13px;
   color: #1a1a1a;
   cursor: pointer;
+  touch-action: manipulation;
 }
 .tb-btn:hover {
   background: var(--hover-bg);
@@ -199,13 +218,13 @@ html, body {
   width: 1px;
   height: 20px;
   background: #d0d0d0;
-  margin: 0 4px;
+  margin: 0 3px;
 }
 .tb-select {
-  height: 24px;
+  height: 26px;
   background: #ffffff;
   border: 1px solid #b8b8b8;
-  border-radius: 2px;
+  border-radius: 3px;
   padding: 0 6px;
   font-family: inherit;
   font-size: 12.5px;
@@ -244,6 +263,7 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-shrink: 0;
 }
 .ruler-inner {
   width: min(94%, 780px);
@@ -253,7 +273,7 @@ html, body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 42px;
+  padding: 0 32px;
   font-size: 10.5px;
   color: #444;
 }
@@ -261,41 +281,41 @@ html, body {
 .canvas-scroll {
   flex: 1;
   background: var(--canvas-bg);
-  padding: 18px 16px;
+  padding: 16px 12px;
   overflow-y: auto;
   display: flex;
   justify-content: center;
 }
 .a4-sheet {
-  width: min(96%, 780px);
-  min-height: 540px;
+  width: min(98%, 780px);
+  min-height: 480px;
   background: #ffffff;
   border: 1px solid #b5b5b5;
   box-shadow: 0 2px 6px rgba(0,0,0,0.16);
-  padding: 54px 62px;
+  padding: clamp(22px, 5vw, 54px) clamp(20px, 6vw, 62px);
   position: relative;
   cursor: text;
 }
 .margin-tl, .margin-tr {
   position: absolute;
-  top: 40px;
+  top: 36px;
   width: 14px;
   height: 14px;
   pointer-events: none;
 }
 .margin-tl {
-  left: 48px;
+  left: 44px;
   border-right: 1px solid #b0b0b0;
   border-bottom: 1px solid #b0b0b0;
 }
 .margin-tr {
-  right: 48px;
+  right: 44px;
   border-left: 1px solid #b0b0b0;
   border-bottom: 1px solid #b0b0b0;
 }
 .page-editor {
   width: 100%;
-  min-height: 420px;
+  min-height: 360px;
   outline: none;
   font-family: "Liberation Serif", "Times New Roman", Georgia, serif;
   font-size: 18px;
@@ -317,6 +337,7 @@ html, body {
   gap: 10px;
   font-size: 15px;
   color: #444;
+  flex-shrink: 0;
 }
 
 /* 5. ΓΡΑΜΜΗ ΚΑΤΑΣΤΑΣΗΣ */
@@ -330,32 +351,35 @@ html, body {
   justify-content: space-between;
   font-size: 12px;
   color: #222;
+  flex-shrink: 0;
 }
 .sb-left, .sb-right {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
 }
 
-/* 6. ΠΑΡΑΘΥΡΟ «ΑΠΟΘΗΚΕΥΣΗ ΩΣ» — ΑΚΡΙΒΩΣ ΟΠΩΣ ΣΤΙΣ ΕΙΚΟΝΕΣ ΤΟΥ ΟΔΗΓΟΥ */
+/* 6. ΠΑΡΑΘΥΡΟ «ΑΠΟΘΗΚΕΥΣΗ ΩΣ» — RESPONSIVE ΓΙΑ PC, TABLET, ΚΙΝΗΤΟ */
 .dialog-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.28);
+  background: rgba(0, 0, 0, 0.32);
   display: none;
   place-items: center;
-  padding: 12px;
+  padding: 8px;
   z-index: 500;
+  overflow-y: auto;
 }
 .dialog-backdrop.open { display: grid; }
 
 .win-save-dialog {
-  width: min(96vw, 770px);
+  width: min(98vw, 770px);
+  max-height: 96dvh;
   background: #ffffff;
   border: 1px solid #707070;
   border-radius: 8px;
-  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.3);
-  overflow: hidden;
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.32);
+  overflow: visible;
   display: flex;
   flex-direction: column;
 }
@@ -364,11 +388,13 @@ html, body {
   height: 36px;
   background: #ffffff;
   padding: 0 12px;
+  border-radius: 8px 8px 0 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 13.5px;
   color: #1a1a1a;
+  flex-shrink: 0;
 }
 .sd-title-left {
   display: flex;
@@ -376,8 +402,8 @@ html, body {
   gap: 8px;
 }
 .sd-close {
-  width: 32px;
-  height: 28px;
+  width: 34px;
+  height: 30px;
   border: none;
   background: transparent;
   font-size: 15px;
@@ -390,63 +416,91 @@ html, body {
 /* Μπάρα πλοήγησης & διαδρομής */
 .sd-nav-bar {
   background: #ffffff;
-  padding: 4px 12px 8px;
+  padding: 4px 10px 8px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   border-bottom: 1px solid #e5e5e5;
+  position: relative;
+  z-index: 40;
 }
 .nav-arrows {
   display: flex;
   align-items: center;
   gap: 2px;
+  flex-shrink: 0;
 }
 .nav-btn {
-  width: 28px;
-  height: 28px;
-  border: none;
+  width: 30px;
+  height: 30px;
+  border: 1px solid transparent;
   background: transparent;
   border-radius: 4px;
   color: #222;
-  font-size: 15px;
+  font-size: 16px;
   cursor: pointer;
   display: grid;
   place-items: center;
+  touch-action: manipulation;
 }
-.nav-btn:hover:not(:disabled) { background: #e5f3ff; }
+.nav-btn:hover:not(:disabled) {
+  background: #e5f3ff;
+  border-color: #cce8ff;
+}
 .nav-btn:disabled { color: #bdbdbd; cursor: default; }
 
-/* Κουτί διαδρομής με λειτουργικά βελάκια */
+/* Κουτί διαδρομής: [ 💻 > Επιφάνεια εργασίας ⌄ > Εργασίες ⌄ | ↻ ] */
 .address-box {
   flex: 1;
-  height: 32px;
+  min-width: 0;
+  height: 36px;
   border: 1px solid #cccccc;
   border-radius: 4px;
   background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 6px 0 8px;
+  padding: 0 4px 0 6px;
   position: relative;
 }
+.address-box.typing-mode {
+  border: 2px solid var(--win-blue);
+}
+.address-text-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 13px;
+  color: #1a1a1a;
+  background: transparent;
+  user-select: text;
+  display: none;
+}
+.address-box.typing-mode .address-crumbs { display: none; }
+.address-box.typing-mode .address-text-input { display: block; }
 .address-crumbs {
   display: flex;
   align-items: center;
   gap: 2px;
   font-size: 13px;
   color: #1a1a1a;
-  overflow: visible;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
+.address-crumbs::-webkit-scrollbar { display: none; }
+
 .crumb-segment {
-  position: relative;
   display: inline-flex;
   align-items: center;
+  flex-shrink: 0;
 }
 .crumb-link {
   background: transparent;
   border: 1px solid transparent;
   border-radius: 3px;
-  padding: 3px 6px;
+  padding: 4px 6px;
   font-family: inherit;
   font-size: 13px;
   color: #1a1a1a;
@@ -455,6 +509,7 @@ html, body {
   align-items: center;
   gap: 5px;
   white-space: nowrap;
+  touch-action: manipulation;
 }
 .crumb-link:hover {
   background: #e5f3ff;
@@ -464,11 +519,15 @@ html, body {
   background: transparent;
   border: 1px solid transparent;
   border-radius: 3px;
-  padding: 3px 5px;
-  font-size: 11px;
-  color: #333;
+  min-width: 26px;
+  height: 26px;
+  padding: 0 5px;
+  font-size: 13px;
+  color: #222;
   cursor: pointer;
-  line-height: 1;
+  display: inline-grid;
+  place-items: center;
+  touch-action: manipulation;
 }
 .crumb-arrow-btn:hover, .crumb-arrow-btn.open {
   background: #e5f3ff;
@@ -479,43 +538,51 @@ html, body {
   display: flex;
   align-items: center;
   gap: 2px;
+  flex-shrink: 0;
 }
 
-/* Αναδυόμενη λίστα φακέλων από τα βελάκια (όπως στις εικόνες 7 & 8) */
+/* ΑΝΑΔΥΟΜΕΝΗ ΛΙΣΤΑ ΦΑΚΕΛΩΝ ΑΠΟ ΤΑ ΒΕΛΑΚΙΑ (ΟΠΩΣ ΣΤΙΣ ΕΙΚΟΝΕΣ 7 & 8) */
 .crumb-dropdown {
-  position: absolute;
-  top: 32px;
-  left: 0;
-  min-width: 195px;
+  position: fixed;
+  min-width: 215px;
+  max-width: 92vw;
   background: #ffffff;
-  border: 1px solid #b5b5b5;
+  border: 1px solid #a0a0a0;
   border-radius: 6px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.28);
   padding: 4px 0;
-  z-index: 650;
+  z-index: 950;
   display: none;
 }
 .crumb-dropdown.open { display: block; }
+.cd-header {
+  padding: 4px 12px;
+  font-size: 11.5px;
+  color: #666;
+  border-bottom: 1px solid #efefef;
+  margin-bottom: 2px;
+}
 .cd-item {
   width: 100%;
   background: transparent;
   border: none;
-  padding: 7px 12px;
+  padding: 8px 12px;
   font-family: inherit;
-  font-size: 13px;
+  font-size: 13.5px;
   color: #1a1a1a;
   display: flex;
   align-items: center;
   gap: 8px;
   cursor: pointer;
   text-align: left;
+  touch-action: manipulation;
 }
 .cd-item:hover { background: #f3e8ff; }
 .cd-item.current { font-weight: 700; background: #eef6ff; }
 
 .search-box {
-  width: 195px;
-  height: 32px;
+  width: 185px;
+  height: 34px;
   border: 1px solid #cccccc;
   border-radius: 4px;
   padding: 0 8px;
@@ -524,31 +591,34 @@ html, body {
   justify-content: space-between;
   font-size: 12.5px;
   color: #767676;
+  flex-shrink: 0;
 }
 
 .sd-command-bar {
   height: 36px;
   background: #f9f9f9;
   border-bottom: 1px solid #e5e5e5;
-  padding: 0 14px;
+  padding: 0 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-shrink: 0;
 }
 .cmd-left {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
 }
 .sd-cmd-btn {
   background: transparent;
   border: 1px solid transparent;
   border-radius: 4px;
-  padding: 4px 8px;
+  padding: 5px 8px;
   font-family: inherit;
   font-size: 13px;
   color: #1a1a1a;
   cursor: pointer;
+  touch-action: manipulation;
 }
 .sd-cmd-btn:hover { background: #eaeaea; }
 
@@ -556,32 +626,34 @@ html, body {
 .sd-main-pane {
   display: grid;
   grid-template-columns: 195px 1fr;
-  height: 235px;
+  height: 225px;
   background: #ffffff;
   border-bottom: 1px solid #e5e5e5;
 }
 .sd-sidebar {
   background: #f7f7f7;
   border-right: 1px solid #e0e0e0;
-  padding: 10px 6px;
+  padding: 8px 6px;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
+  overflow-y: auto;
 }
 .sd-place {
   width: 100%;
   background: transparent;
   border: none;
   border-radius: 4px;
-  padding: 7px 10px;
+  padding: 8px 10px;
   font-family: inherit;
   font-size: 13.5px;
   color: #1a1a1a;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 9px;
   text-align: left;
   cursor: pointer;
+  touch-action: manipulation;
 }
 .sd-place:hover { background: #eaeaea; }
 .sd-place.active {
@@ -596,38 +668,42 @@ html, body {
 .sd-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 13px;
+  font-size: 13.5px;
 }
 .sd-table th {
   text-align: left;
   font-weight: 400;
   color: #555555;
-  padding: 7px 14px;
+  padding: 7px 12px;
   border-bottom: 1px solid #efefef;
   border-right: 1px solid #efefef;
   font-size: 12.5px;
 }
 .sd-table td {
-  padding: 7px 14px;
+  padding: 9px 12px;
   color: #1a1a1a;
 }
-.sd-row { cursor: pointer; }
+.sd-row {
+  cursor: pointer;
+  touch-action: manipulation;
+}
 .sd-row:hover { background: #e5f3ff; }
-.sd-row.selected { background: #cce8ff; }
+.sd-row.selected { background: #cce8ff; font-weight: 600; }
 .empty-msg {
   text-align: center;
   color: #555555;
-  padding: 48px 16px !important;
+  padding: 44px 14px !important;
   font-size: 13.5px;
 }
 
 /* ΚΑΤΩ ΜΕΡΟΣ ΔΙΑΛΟΓΟΥ */
 .sd-bottom {
   background: #f3f3f3;
-  padding: 12px 16px 14px;
+  padding: 10px 14px 12px;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  flex-shrink: 0;
 }
 .sd-field-row {
   display: grid;
@@ -646,7 +722,7 @@ html, body {
   background: #ffffff;
   border: 2px solid var(--win-blue);
   border-radius: 4px;
-  height: 30px;
+  height: 32px;
   padding: 0 8px;
 }
 .sd-input-wrap.disabled-step {
@@ -655,17 +731,18 @@ html, body {
 }
 .sd-input-wrap input {
   flex: 1;
+  min-width: 0;
   border: none;
   outline: none;
   font-family: inherit;
-  font-size: 13.5px;
+  font-size: 14px;
   color: #000000;
   background: transparent;
   user-select: text;
 }
 .sd-select {
   width: 100%;
-  height: 30px;
+  height: 32px;
   background: #ffffff;
   border: 1px solid #cccccc;
   border-radius: 4px;
@@ -676,19 +753,16 @@ html, body {
 }
 
 .sd-footer-actions {
-  margin-top: 6px;
+  margin-top: 4px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  gap: 8px;
 }
 .hide-folders-hint {
   font-size: 12.5px;
   color: #222;
-  display: flex;
-  align-items: center;
-  gap: 6px;
 }
 .auto-ext-label {
   font-size: 13px;
@@ -699,8 +773,8 @@ html, body {
 }
 .auto-ext-label input[type="checkbox"] {
   accent-color: var(--win-blue);
-  width: 15px;
-  height: 15px;
+  width: 16px;
+  height: 16px;
 }
 .sd-btns {
   display: flex;
@@ -708,15 +782,16 @@ html, body {
 }
 .win-btn {
   min-width: 104px;
-  height: 30px;
+  height: 32px;
   background: #ffffff;
   border: 1px solid #adadad;
   border-radius: 4px;
   font-family: inherit;
-  font-size: 13px;
+  font-size: 13.5px;
   color: #1a1a1a;
   cursor: pointer;
   padding: 0 14px;
+  touch-action: manipulation;
 }
 .win-btn:hover {
   background: #e5f1fb;
@@ -727,17 +802,18 @@ html, body {
   font-weight: 600;
 }
 
-/* ΕΠΙΣΗΜΑΝΣΗ ΒΗΜΑΤΟΣ & ΒΟΗΘΕΙΑ ΣΕ ΠΕΡΙΠΤΩΣΗ ΛΑΘΟΥΣ */
+/* ΕΠΙΣΗΜΑΝΣΗ ΒΗΜΑΤΟΣ */
 .step-guide-box {
   background: #eef6ff;
   border-top: 1px solid #bfdbfe;
-  padding: 8px 14px;
+  border-radius: 0 0 8px 8px;
+  padding: 8px 12px;
   font-size: 13px;
   color: #1e3a8a;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 8px;
+  flex-shrink: 0;
 }
 .step-badge {
   background: #0067c0;
@@ -754,11 +830,11 @@ html, body {
   border-radius: 4px;
 }
 
-/* ΠΑΡΑΘΥΡΟ ΣΦΑΛΜΑΤΟΣ / ΒΟΗΘΕΙΑΣ (Windows Error / Help Dialog) */
+/* ΠΑΡΑΘΥΡΟ ΛΑΘΟΥΣ & ΒΟΗΘΕΙΑΣ */
 .error-modal-mask {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(0, 0, 0, 0.38);
   display: none;
   place-items: center;
   padding: 16px;
@@ -816,7 +892,8 @@ html, body {
 .toast-msg {
   position: fixed;
   bottom: 34px;
-  right: 18px;
+  right: 14px;
+  left: auto;
   background: #1f2937;
   color: #ffffff;
   border-left: 4px solid #22c55e;
@@ -826,113 +903,570 @@ html, body {
   box-shadow: 0 6px 20px rgba(0,0,0,0.28);
   z-index: 900;
   display: none;
-  max-width: 400px;
+  max-width: min(92vw, 400px);
 }
 .toast-msg.show { display: block; }
 
-@media (max-width: 680px) {
-  .a4-sheet { padding: 24px 20px; }
-  .sd-main-pane { grid-template-columns: 135px 1fr; height: 225px; }
+/* RESPONSIVE ΠΡΟΣΑΡΜΟΓΗ ΓΙΑ TABLET & ΚΙΝΗΤΟ */
+@media (max-width: 820px) {
   .search-box { display: none; }
-  .sd-field-row { grid-template-columns: 95px 1fr; }
+  .right-sidebar { display: none; }
+  .margin-tl, .margin-tr { display: none; }
+  .hide-folders-hint { display: none; }
 }
 
-/* Keep the path and its buttons usable without widening the window. */
-.lo-app {width:100%;height:100dvh}
-.workspace-middle,.editor-column,.canvas-scroll,.address-box,.address-crumbs,.sd-list-area {min-width:0;min-height:0}
-.file-dropdown {max-width:calc(100vw - 12px);max-height:calc(100dvh - 70px);overflow:auto}
-.win-title-left {min-width:0}
-#windowTitleText {overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.dialog-backdrop {overflow:auto}
-.win-save-dialog {width:min(100%,770px);max-height:calc(100dvh - 24px);overflow:auto}
-.win-save-dialog > * {flex-shrink:0}
-.address-box {z-index:2;gap:4px;height:auto;min-height:36px}
-.address-crumbs {flex:1;flex-wrap:wrap}
-.crumb-segment {min-width:0;max-width:100%}
-.crumb-link {white-space:normal;overflow-wrap:anywhere;text-align:left}
-.crumb-arrow-btn {flex:none;min-width:28px;min-height:29px;font-size:17px;font-weight:700}
-#firstDropBtn {background:#e7f3ff;border-color:#91bee8;color:#144f85}
-.crumb-dropdown {inset-inline:0;top:calc(100% + 2px);min-width:0;max-height:min(43dvh,240px);overflow:auto;overscroll-behavior:contain}
-.cd-item {white-space:normal;overflow-wrap:anywhere}
-.folder-row-button {width:100%;border:0;background:none;text-align:left;font:inherit;padding:4px 0;cursor:pointer;overflow-wrap:anywhere}
-.sd-input-wrap input,.sd-select {min-width:0}
-.step-guide-box {flex-wrap:wrap}
-:where(button,input,select):focus-visible {outline:2px solid #0067c0;outline-offset:-2px}
-@media (pointer:coarse), (any-pointer:coarse), (max-width:760px) {
-  .nav-btn,.crumb-arrow-btn,.cd-item,.sd-place,.folder-row-button,.win-btn,.sd-close {min-height:44px}
-  .nav-btn,.crumb-arrow-btn {min-width:44px}
-  .toolbar .tb-btn,.menu-btn {min-height:40px}
-  .sd-input-wrap,.sd-select {min-height:44px}
-  .sd-input-wrap input,.sd-select {font-size:16px}
-}
-@media (max-width:760px) {
-  .sd-nav-bar {flex-wrap:wrap}
-  .address-box {flex:1 1 100%;padding:0 3px}
-  .search-box {display:none}
-  .toolbar {flex-wrap:nowrap;overflow-x:auto}
-  .toolbar > * {flex-shrink:0}
-  .sd-main-pane {grid-template-columns:minmax(115px, .8fr) minmax(0,1.3fr);height:auto;min-height:160px}
-  .sd-list-area {max-height:235px;overflow:auto}
-  .sd-table tr > :nth-child(2) {display:none}
-  .sd-table th:first-child {width:100% !important}
-  .sd-footer-actions .hide-folders-hint {display:none}
-  .lo-statusbar {height:auto;min-height:24px}
-  .sb-left span:nth-child(3),.sb-right {display:none}
-}
-@media (max-width:480px) {
-  .dialog-backdrop {padding:5px;place-items:start center}
-  .win-save-dialog {max-height:calc(100dvh - 10px)}
-  .sd-nav-bar,.sd-bottom {padding-inline:7px}
-  .sd-main-pane {grid-template-columns:minmax(106px, .85fr) minmax(0,1.15fr)}
-  .sd-place {padding-inline:4px;line-height:1.25;white-space:normal;text-align:left}
-  .sd-field-row {grid-template-columns:1fr;gap:3px}
-  .sd-field-row label {text-align:left}
-  .sd-footer-actions {justify-content:flex-end;gap:6px}
-  .right-sidebar {display:none}
-  .canvas-scroll {padding:8px}
-  .a4-sheet {width:100%;min-height:365px;padding:28px 18px}
-  .page-editor {min-height:300px}
-  .ruler-inner {padding:0 10px}
-  .toast-msg {right:8px;left:8px;bottom:12px}
-}
-@media(max-height:530px) and (orientation:landscape) {
-  .dialog-backdrop {place-items:start center}
-  .sd-main-pane {height:auto;min-height:110px}
-  .sd-list-area {max-height:160px;overflow:auto}
+@media (max-width: 600px) {
+  .win-titlebar { height: 30px; font-size: 12px; }
+  .cap-btn { width: 34px; }
+  .tb-btn { height: 34px; min-width: 34px; }
+  .tb-select { height: 30px; font-size: 12px; max-width: 115px; }
+  .ruler-strip { display: none; }
+  .canvas-scroll { padding: 8px; }
+  .a4-sheet { min-height: 260px; padding: 16px 14px; }
+  .page-editor { font-size: 16px; min-height: 220px; }
+  .lo-statusbar { font-size: 11px; }
+  .sb-hide-mobile { display: none; }
+
+  /* Παράθυρο Αποθήκευσης σε κινητό: Θέσεις αριστερά (στενότερη στήλη), Φάκελοι δεξιά */
+  .dialog-backdrop { padding: 4px; align-items: flex-start; }
+  .win-save-dialog { width: 100%; max-height: 98dvh; border-radius: 6px; }
+  .sd-nav-bar { padding: 4px 6px; gap: 4px; }
+  .nav-btn { width: 28px; height: 28px; font-size: 14px; }
+  .sd-main-pane { grid-template-columns: 126px 1fr; height: 185px; }
+  .sd-sidebar { padding: 6px 4px; }
+  .sd-place { padding: 7px 6px; font-size: 12.5px; gap: 6px; }
+  .sd-table th, .sd-table td { padding: 7px 8px; font-size: 12.5px; }
+  .sd-bottom { padding: 8px 10px 10px; gap: 6px; }
+  .sd-field-row { grid-template-columns: 1fr; gap: 3px; }
+  .sd-field-row label { text-align: left; font-size: 12px; }
+  .sd-footer-actions { justify-content: flex-end; }
+  .sd-btns { width: 100%; }
+  .win-btn { flex: 1; height: 36px; }
+  .step-guide-box { font-size: 12px; padding: 7px 10px; }
 }
 
-[hidden] {display:none !important}
-.practice-desktop {height:100dvh;overflow:auto;padding:clamp(15px,4vw,48px);color:white;background:linear-gradient(142deg,#092e5a,#17528b 65%,#246797)}
-.practice-desktop h1 {font-size:clamp(24px,5vw,38px);margin:0 0 8px}
-.desktop-folders {display:flex;flex-wrap:wrap;gap:10px;margin:15px 0}
-.desktop-folder,#startWriter {min-height:48px;padding:9px 13px;color:#12344d;background:#f2f8ff;border:1px solid #bdd5eb;border-radius:7px;font:inherit;cursor:pointer}
-.desktop-folder:hover,.desktop-folder:focus-visible,#startWriter:hover {background:#d8ecff}
-.desktop-explorer {max-width:720px;padding:14px;margin:16px 0;color:#213647;background:#fff;border:1px solid #a9c1d6;border-radius:9px}
-.explorer-head {display:flex;align-items:center;justify-content:space-between;gap:10px}
-.explorer-head h2 {margin:0;overflow-wrap:anywhere}
-.explorer-head button,.desktop-file {min-height:44px;padding:7px 11px;color:inherit;background:#f8fbfe;border:1px solid #b9cddd;border-radius:5px;font:inherit;cursor:pointer}
-.desktop-file {display:block;width:100%;text-align:left;margin:4px 0;overflow-wrap:anywhere}
-.desktop-file:hover,.desktop-file:focus-visible {background:#d8ecff}
-#unsavedDialog {width:min(92vw,500px);border:1px solid #b3c9db;border-radius:9px}
-#unsavedDialog::backdrop {background:#0c203e90}
-#unsavedDialog form {display:flex;flex-wrap:wrap;gap:8px}
-@media(pointer:coarse), (max-width:760px) {
-  .win-titlebar {height:auto;min-height:44px}
-  .cap-btn.close {min-width:44px;min-height:44px}
+.celebration-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.62);
+  backdrop-filter: blur(4px);
+  display: none;
+  place-items: center;
+  padding: 16px;
+  z-index: 1200;
+}
+.celebration-overlay.open { display: grid; }
+.celebration-card {
+  width: min(94vw, 520px);
+  background: linear-gradient(145deg, #ffffff 0%, #f0fdf4 100%);
+  border: 4px solid #16a34a;
+  border-radius: 22px;
+  padding: 28px 24px;
+  text-align: center;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.38);
+}
+.celeb-trophy { font-size: clamp(48px, 10vw, 68px); line-height: 1.1; margin-bottom: 10px; }
+.celeb-title { font-size: clamp(24px, 5vw, 34px); font-weight: 800; color: #15803d; margin: 0 0 10px; }
+.celeb-sub { font-size: clamp(15px, 3vw, 18px); color: #1e293b; margin: 0 0 20px; line-height: 1.5; }
+.celeb-btn {
+  background: #16a34a;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 26px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(22, 163, 74, 0.35);
+  touch-action: manipulation;
+}
+.celeb-btn:hover { background: #15803d; }
+
+.real-desktop-layer {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #1d4ed8 0%, #0ea5e9 55%, #38bdf8 100%);
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 600;
+  overflow: hidden;
+}
+.real-desktop-layer.open { display: flex; }
+
+.desktop-icons-grid {
+  padding: 86px 22px 22px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 18px;
+  align-content: flex-start;
+  overflow-y: auto;
+}
+.dt-icon-btn {
+  width: 116px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 10px 6px;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.75);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.dt-icon-btn:hover { background: rgba(255, 255, 255, 0.18); border-color: rgba(255, 255, 255, 0.45); }
+.dt-icon-btn.target-folder {
+  background: rgba(255, 255, 255, 0.24);
+  border: 2px solid #fde047;
+  box-shadow: 0 0 0 4px rgba(253, 224, 71, 0.32);
 }
 
-.save-celebration {max-width:790px;margin:14px 0;padding:clamp(12px,3vw,24px);border:3px solid #ffd35d;border-radius:13px;background:#fff3c6;color:#253421;box-shadow:0 6px 20px #061b3566}
-.save-celebration strong {display:block;font-size:clamp(22px,4.5vw,38px);line-height:1.2}
-.save-celebration p {margin:8px 0 0;font-size:clamp(16px,2.5vw,21px);overflow-wrap:anywhere}
-#desktopHelp {font-weight:700;font-size:clamp(16px,2.8vw,22px);max-width:760px}
-.desktop-folder.saved-target {outline:3px solid #ffd35d;outline-offset:2px}
-.cd-heading {padding:7px 12px;color:#173e60;background:#edf5fc;font-size:13px;font-weight:700}
-.crumb-dropdown {max-height:min(57dvh,410px)}
-@media (min-width:761px) {.crumb-dropdown {min-width:min(285px,100%)}}
-.address-place-icon {flex:none;line-height:1;padding-left:3px}
-#firstDropBtn {font-size:23px;font-family:system-ui,sans-serif}
-.address-box:has(.crumb-dropdown.open) {z-index:5}
-@media (max-width:480px) {.address-box .address-actions {gap:0}.address-box #refreshBtn {min-width:32px}}
+.desktop-folder-banner {
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(94vw, 660px);
+  background: #fef08a;
+  color: #1e293b;
+  border: 3px solid #eab308;
+  border-radius: 16px;
+  padding: 12px 16px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.28);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  z-index: 620;
+  font-size: clamp(14px, 2.7vw, 16.5px);
+  font-weight: 700;
+}
+.open-folder-cta {
+  background: #0067c0;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 9px 14px;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  touch-action: manipulation;
+}
+.open-folder-cta:hover { background: #005299; }
+
+.folder-view-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.38);
+  display: none;
+  place-items: center;
+  padding: 12px;
+  z-index: 1300;
+}
+.folder-view-modal.open { display: grid; }
+.folder-win {
+  width: min(96vw, 680px);
+  background: #ffffff;
+  border: 1px solid #666;
+  border-radius: 8px;
+  box-shadow: 0 16px 42px rgba(0,0,0,0.35);
+  overflow: hidden;
+}
+.folder-win-head {
+  height: 38px;
+  background: #f3f3f3;
+  border-bottom: 1px solid #dcdcdc;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 14px;
+}
+.folder-win-body { padding: 16px; min-height: 220px; }
+.saved-doc-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: #f8fafc;
+  border: 2px solid #93c5fd;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+.doc-preview-box {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-top: 10px;
+  font-family: "Liberation Serif", Georgia, serif;
+  font-size: 17px;
+  color: #0f172a;
+}
+
+.win-taskbar {
+  height: 40px;
+  background: rgba(24, 28, 36, 0.92);
+  color: #ffffff;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+}
+.taskbar-left { display: flex; align-items: center; gap: 8px; }
+.tb-chip {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-family: inherit;
+  font-size: 12.5px;
+  cursor: pointer;
+}
+.tb-chip:hover { background: rgba(255,255,255,0.22); }
+
+
+.celebration-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.62);
+  backdrop-filter: blur(4px);
+  display: none;
+  place-items: center;
+  padding: 16px;
+  z-index: 1200;
+}
+.celebration-overlay.open { display: grid; }
+.celebration-card {
+  width: min(94vw, 520px);
+  background: linear-gradient(145deg, #ffffff 0%, #f0fdf4 100%);
+  border: 4px solid #16a34a;
+  border-radius: 22px;
+  padding: 28px 24px;
+  text-align: center;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.38);
+}
+.celeb-trophy { font-size: clamp(48px, 10vw, 68px); line-height: 1.1; margin-bottom: 10px; }
+.celeb-title { font-size: clamp(24px, 5vw, 34px); font-weight: 800; color: #15803d; margin: 0 0 10px; }
+.celeb-sub { font-size: clamp(15px, 3vw, 18px); color: #1e293b; margin: 0 0 20px; line-height: 1.5; }
+.celeb-btn {
+  background: #16a34a;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 26px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(22, 163, 74, 0.35);
+  touch-action: manipulation;
+}
+.celeb-btn:hover { background: #15803d; }
+
+.real-desktop-layer {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #1d4ed8 0%, #0ea5e9 55%, #38bdf8 100%);
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 600;
+  overflow: hidden;
+}
+.real-desktop-layer.open { display: flex; }
+
+.desktop-icons-grid {
+  padding: 86px 22px 22px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 18px;
+  align-content: flex-start;
+  overflow-y: auto;
+}
+.dt-icon-btn {
+  width: 118px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 10px 6px;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.75);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.dt-icon-btn:hover { background: rgba(255, 255, 255, 0.18); border-color: rgba(255, 255, 255, 0.45); }
+.dt-icon-btn.target-folder {
+  background: rgba(255, 255, 255, 0.24);
+  border: 2px solid #fde047;
+  box-shadow: 0 0 0 4px rgba(253, 224, 71, 0.32);
+}
+
+.desktop-folder-banner {
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(94vw, 660px);
+  background: #fef08a;
+  color: #1e293b;
+  border: 3px solid #eab308;
+  border-radius: 16px;
+  padding: 12px 16px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.28);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  z-index: 620;
+  font-size: clamp(14px, 2.7vw, 16.5px);
+  font-weight: 700;
+}
+.open-folder-cta {
+  background: #0067c0;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 9px 14px;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  touch-action: manipulation;
+}
+.open-folder-cta:hover { background: #005299; }
+
+/* ΠΡΑΓΜΑΤΙΚΟ ΠΑΡΑΘΥΡΟ ΦΑΚΕΛΟΥ ΥΠΟΛΟΓΙΣΤΗ (FILE EXPLORER) */
+.folder-view-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: none;
+  place-items: center;
+  padding: 8px;
+  z-index: 1300;
+}
+.folder-view-modal.open { display: grid; }
+.real-explorer-win {
+  width: min(98vw, 780px);
+  background: #ffffff;
+  border: 1px solid #707070;
+  border-radius: 8px;
+  box-shadow: 0 18px 48px rgba(0,0,0,0.38);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.re-titlebar {
+  height: 36px;
+  background: #ffffff;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13.5px;
+  color: #1a1a1a;
+}
+.re-nav {
+  padding: 4px 10px 8px;
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.re-addr {
+  flex: 1;
+  height: 32px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  background: #ffffff;
+}
+.re-cmd {
+  height: 34px;
+  background: #f9f9f9;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 0 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+}
+.re-body {
+  display: grid;
+  grid-template-columns: 185px 1fr;
+  min-height: 240px;
+  background: #ffffff;
+}
+.re-sidebar {
+  background: #f7f7f7;
+  border-right: 1px solid #e0e0e0;
+  padding: 10px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 13px;
+}
+.re-side-item {
+  padding: 7px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.re-side-item.active {
+  background: #d9ebfa;
+  font-weight: 600;
+}
+.re-main {
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.re-columns {
+  display: grid;
+  grid-template-columns: 1.4fr 0.7fr 0.9fr;
+  font-size: 12.5px;
+  color: #555;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #efefef;
+}
+.re-file-item {
+  display: grid;
+  grid-template-columns: 1.4fr 0.7fr 0.9fr;
+  align-items: center;
+  padding: 8px 10px;
+  border: 1px solid #bfdbfe;
+  background: #eff6ff;
+  border-radius: 6px;
+  font-size: 13.5px;
+  cursor: pointer;
+}
+.re-file-item:hover { background: #dbeafe; }
+.re-file-main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  color: #0f172a;
+}
+.re-preview-panel {
+  margin-top: 6px;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 10px 12px;
+}
+.re-preview-text {
+  margin-top: 6px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  padding: 10px 12px;
+  font-family: "Liberation Serif", Georgia, serif;
+  font-size: 17px;
+  color: #000;
+}
+.re-status {
+  height: 24px;
+  background: #f3f3f3;
+  border-top: 1px solid #e0e0e0;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #333;
+}
+
+.win-taskbar {
+  height: 40px;
+  background: rgba(24, 28, 36, 0.92);
+  color: #ffffff;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+}
+.taskbar-left { display: flex; align-items: center; gap: 8px; }
+.tb-chip {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-family: inherit;
+  font-size: 12.5px;
+  cursor: pointer;
+}
+.tb-chip:hover { background: rgba(255,255,255,0.22); }
+
+@media (max-width: 600px) {
+  .re-body { grid-template-columns: 120px 1fr; }
+  .re-columns, .re-file-item { grid-template-columns: 1fr auto; }
+  .re-col-hide { display: none; }
+}
+
+
+.live-step-banner {
+  background: #fffbeb;
+  border-bottom: 2px solid #f59e0b;
+  padding: 7px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-shrink: 0;
+  font-size: clamp(13px, 2.3vw, 15px);
+  color: #78350f;
+}
+.live-step-pill {
+  background: #d97706;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.live-step-text {
+  flex: 1;
+  font-weight: 600;
+}
+
 </style>
 </head>
 <body>
@@ -942,7 +1476,7 @@ html, body {
   <!-- 1. ΓΡΑΜΜΗ ΤΙΤΛΟΥ LIBREOFFICE WRITER -->
   <div class="win-titlebar">
     <div class="win-title-left">
-      <svg width="17" height="17" viewBox="0 0 24 24">
+      <svg width="17" height="17" viewBox="0 0 24 24" style="flex-shrink:0">
         <path fill="#1e88e5" d="M4 2h11l5 5v15H4z"/>
         <path fill="#90caf9" d="M15 2v5h5z"/>
         <path fill="#fff" d="M7 10h10v2H7zm0 4h10v2H7zm0 4h7v2H7z"/>
@@ -952,7 +1486,7 @@ html, body {
     <div class="win-caption-btns">
       <button type="button" class="cap-btn" title="Ελαχιστοποίηση">—</button>
       <button type="button" class="cap-btn" title="Μεγιστοποίηση">☐</button>
-      <button type="button" class="cap-btn close" id="closeDocumentBtn" title="Κλείσιμο εγγράφου" aria-label="Κλείσιμο εγγράφου">✕</button>
+      <button type="button" class="cap-btn close" title="Κλείσιμο">✕</button>
     </div>
   </div>
 
@@ -990,7 +1524,7 @@ html, body {
         <span class="fd-left"><span class="fd-icon"></span> Πρόσφατα έγγραφα</span>
         <span class="fd-sc">▸</span>
       </button>
-      <button type="button" class="fd-item" onclick="closeDocument()">
+      <button type="button" class="fd-item" onclick="newDocument()">
         <span class="fd-left"><span class="fd-icon"></span> Κλείσιμο</span>
         <span class="fd-sc"></span>
       </button>
@@ -1033,6 +1567,12 @@ html, body {
     </div>
   </div>
 
+    <!-- ΕΜΦΑΝΗΣ ΟΔΗΓΙΑ ΤΡΕΧΟΝΤΟΣ ΒΗΜΑΤΟΣ -->
+  <div class="live-step-banner" id="liveStepBanner">
+    <span class="live-step-pill" id="liveStepBadge">Βήμα 1: Γράφω κείμενο</span>
+    <span class="live-step-text" id="liveStepText">Γράψε 1–2 προτάσεις στη λευκή σελίδα και αφού γράψεις πρέπει να αποθηκεύσεις (από το «Αρχείο → Αποθήκευση» ή τη δισκέτα 💾, όχι με Ctrl + S).</span>
+  </div>
+
   <!-- 3. ΤΥΠΙΚΗ ΓΡΑΜΜΗ ΕΡΓΑΛΕΙΩΝ & ΜΟΡΦΟΠΟΙΗΣΗ -->
   <div class="toolbar">
     <button type="button" class="tb-btn" title="Δημιουργία (Ctrl+N)" onclick="newDocument()">
@@ -1044,7 +1584,7 @@ html, body {
       <span class="tb-arrow">▾</span>
     </button>
     <button type="button" class="tb-btn" id="toolbarSaveBtn" title="Αποθήκευση (Ctrl+S)">
-      <svg width="17" height="17" viewBox="0 0 24 24">
+      <svg width="18" height="18" viewBox="0 0 24 24">
         <path fill="#7e57c2" d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7l-4-4z"/>
         <path fill="#fff" d="M12 19a3 3 0 1 1 0-6 3 3 0 0 1 0 6zM6 5h9v4H6V5z"/>
       </svg>
@@ -1058,17 +1598,9 @@ html, body {
       <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4b5563" d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5z"/></svg>
     </button>
     <div class="tb-sep"></div>
-    <button type="button" class="tb-btn" title="Αποκοπή" onclick="runCmd('cut')">✂️</button>
-    <button type="button" class="tb-btn" title="Αντιγραφή" onclick="runCmd('copy')">📋</button>
-    <div class="tb-sep"></div>
     <button type="button" class="tb-btn" title="Αναίρεση (Ctrl+Z)" onclick="runCmd('undo')">↩️</button>
     <button type="button" class="tb-btn" title="Επανάληψη (Ctrl+Y)" onclick="runCmd('redo')">↪️</button>
     <div class="tb-sep"></div>
-    <select class="tb-select" aria-label="Στυλ">
-      <option>Προεπιλεγμένο στυλ παραγράφου</option>
-      <option>Τίτλος</option>
-      <option>Επικεφαλίδα 1</option>
-    </select>
     <select class="tb-select" id="fontFamilySelect" aria-label="Γραμματοσειρά">
       <option value="'Liberation Serif', Georgia, serif">Liberation Serif</option>
       <option value="'Liberation Sans', Arial, sans-serif">Liberation Sans</option>
@@ -1121,47 +1653,22 @@ html, body {
     <div class="sb-left">
       <span title="Κατάσταση εγγράφου">💾</span>
       <span>Σελίδα 1 από 1</span>
-      <span>Προεπιλεγμένο στυλ σελίδας</span>
-      <span>Ελληνικά</span>
+      <span class="sb-hide-mobile">Προεπιλεγμένο στυλ σελίδας</span>
+      <span class="sb-hide-mobile">Ελληνικά</span>
       <span id="sbWordStats">0 λέξεις, 0 χαρακτήρες</span>
     </div>
     <div class="sb-right">
       <div style="display:flex; align-items:center; gap:6px;">
-        <span>−</span><span>━━●━━</span><span>+</span><span>100%</span>
+        <span class="sb-hide-mobile">−</span><span class="sb-hide-mobile">━━●━━</span><span class="sb-hide-mobile">+</span><span>100%</span>
       </div>
     </div>
   </div>
 
 </div>
 
-<main id="practiceDesktop" class="practice-desktop" hidden aria-labelledby="desktopTitle">
-  <h1 id="desktopTitle" tabindex="-1">Επιφάνεια εργασίας</h1>
-  <div id="saveCelebration" class="save-celebration" role="status" hidden><strong>🎉 Μπράβο! Αποθήκευσες την εργασία σου!</strong><p id="celebrationFile"></p></div>
-  <p id="desktopHelp">Άνοιξε τον φάκελο όπου έβαλες την εργασία σου.</p>
-  <div id="desktopFolders" class="desktop-folders"></div>
-  <section id="desktopExplorer" class="desktop-explorer" hidden aria-label="Περιεχόμενα φακέλου">
-    <div class="explorer-head">
-      <h2 id="explorerTitle"></h2>
-      <button type="button" id="closeExplorer" aria-label="Κλείσιμο φακέλου">✕</button>
-    </div>
-    <p id="explorerPath"></p>
-    <div id="explorerFiles"></div>
-  </section>
-  <button type="button" id="startWriter">＋ Νέο έγγραφο Writer</button>
-</main>
-
-<dialog id="unsavedDialog" aria-labelledby="unsavedTitle">
-  <h2 id="unsavedTitle">Υπάρχουν αλλαγές που δεν αποθήκευσες.</h2>
-  <p>Θέλεις να επιστρέψεις στο έγγραφο ή να το κλείσεις χωρίς τις τελευταίες αλλαγές;</p>
-  <form method="dialog">
-    <button class="win-btn primary" value="continue">Συνέχεια στο έγγραφο</button>
-    <button class="win-btn" value="discard">Κλείσιμο χωρίς αποθήκευση</button>
-  </form>
-</dialog>
-
-<!-- 6. ΠΑΡΑΘΥΡΟ «ΑΠΟΘΗΚΕΥΣΗ ΩΣ» (ΘΕΣΕΙΣ ΑΡΙΣΤΕΡΑ - ΦΑΚΕΛΟΙ ΔΕΞΙΑ - ΒΗΜΑ ΠΡΟΣ ΒΗΜΑ) -->
+<!-- 6. ΠΑΡΑΘΥΡΟ «ΑΠΟΘΗΚΕΥΣΗ ΩΣ» -->
 <div class="dialog-backdrop" id="saveDialogBackdrop">
-  <div class="win-save-dialog" role="dialog" aria-modal="true" aria-labelledby="sdTitle">
+  <div class="win-save-dialog" role="dialog" aria-labelledby="sdTitle">
 
     <!-- Τίτλος Παραθύρου -->
     <div class="sd-titlebar">
@@ -1177,22 +1684,22 @@ html, body {
       <div class="nav-arrows">
         <button type="button" class="nav-btn" id="navBackBtn" title="Πίσω" disabled>←</button>
         <button type="button" class="nav-btn" id="navForwardBtn" title="Μπροστά" disabled>→</button>
-        <button type="button" class="nav-btn" id="navRecentBtn" title="Γρήγορες τοποθεσίες" aria-controls="crumbDropdown" aria-expanded="false">⌄</button>
+        <button type="button" class="nav-btn" id="navRecentBtn" title="Θέσεις">⌄</button>
         <button type="button" class="nav-btn" id="navUpBtn" title="Επάνω ένα επίπεδο" disabled>↑</button>
       </div>
 
       <!-- Κουτί διαδρομής: [ 💻 > Επιφάνεια εργασίας ⌄ > Εργασίες ⌄ | ↻ ] -->
       <div class="address-box" id="addressBox">
-        <span class="address-place-icon" id="addressPlaceIcon" aria-hidden="true">📁</span><button type="button" class="crumb-arrow-btn" id="firstDropBtn" title="Βασικές θέσεις και φάκελοι" aria-label="Πρώτο βελάκι: βασικές θέσεις και φάκελοι" aria-controls="crumbDropdown" aria-expanded="false">›</button>
         <div class="address-crumbs" id="addressCrumbs"></div>
+        <input type="text" class="address-text-input" id="addressTextInput" autocomplete="off" aria-label="Διαδρομή φακέλου">
         <div class="address-actions">
-          <button type="button" class="crumb-arrow-btn" id="endDropBtn" title="Άνοιγμα λίστας φακέλων" aria-label="Λίστα φακέλων" aria-controls="crumbDropdown" aria-expanded="false">⌄</button>
+          <button type="button" class="crumb-arrow-btn" id="endDropBtn" title="Πρόσφατες διαδρομές">⌄</button>
           <button type="button" class="crumb-arrow-btn" id="refreshBtn" title="Ανανέωση">↻</button>
         </div>
-
-        <!-- Αναδυόμενο μενού φακέλων από τα βελάκια -->
-        <div class="crumb-dropdown" id="crumbDropdown"></div>
       </div>
+
+      <!-- Αναδυόμενη λίστα φακέλων από τα βελάκια (έξω από το overflow για να μη κόβεται) -->
+      <div class="crumb-dropdown" id="crumbDropdown"></div>
 
       <div class="search-box">
         <span id="searchPlaceholder">Αναζήτηση</span>
@@ -1212,7 +1719,7 @@ html, body {
       </div>
     </div>
 
-    <!-- ΚΥΡΙΩΣ ΣΩΜΑ: ΑΡΙΣΤΕΡΑ ΟΙ ΘΕΣΕΙΣ - ΔΕΞΙΑ ΟΙ ΦΑΚΕΛΟΙ -->
+    <!-- ΚΥΡΙΩΣ ΣΩΜΑ: ΘΕΣΕΙΣ ΑΡΙΣΤΕΡΑ - ΦΑΚΕΛΟΙ ΔΕΞΙΑ -->
     <div class="sd-main-pane">
       <!-- ΑΡΙΣΤΕΡΑ: Θέσεις -->
       <div class="sd-sidebar" id="sdPlaces">
@@ -1316,9 +1823,6 @@ const sdFileTypeSelect = document.getElementById('sdFileTypeSelect');
 const sdFileListBody = document.getElementById('sdFileListBody');
 const addressCrumbs = document.getElementById('addressCrumbs');
 const crumbDropdown = document.getElementById('crumbDropdown');
-const firstDropBtn = document.getElementById('firstDropBtn');
-const desktopPlace = 'Επιφάνεια εργασίας';
-let activeArrow = null;
 const searchPlaceholder = document.getElementById('searchPlaceholder');
 
 // Θέσεις αριστερά & Φάκελοι δεξιά (όπως στον οδηγό)
@@ -1335,18 +1839,15 @@ let currentSavedName = null;
 let currentSavedExt = '.odt';
 let currentSavedLocation = null;
 
-// Κατάσταση πλοήγησης & ιστορικού για τα βελάκια ← → ↑
+// Ιστορικό πλοήγησης για τα βελάκια ← → ↑
 let navHistory = [{ place: 'Έγγραφα', subfolder: null }];
 let navIndex = 0;
 
 let activePlace = 'Έγγραφα';
 let activeSubfolder = null;
 let selectedRowFolder = null;
+let dropdownOpenKey = null; // Για εναλλαγή (toggle) στα βελάκια
 
-// Βήματα αποθήκευσης:
-// 1 = Βρίσκω & ανοίγω τον φάκελο
-// 2 = Γράφω όνομα αρχείου
-// 3 = Πατάω Αποθήκευση
 let saveStep = 1;
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -1359,128 +1860,6 @@ pageEditor.addEventListener('input', () => {
   const words = txt ? txt.split(/\s+/).length : 0;
   sbWordStats.textContent = `${words} λέξεις, ${chars} χαρακτήρες`;
   dirtyDot.classList.add('visible');
-});
-
-const writerApp = document.querySelector('.lo-app');
-const practiceDesktop = document.getElementById('practiceDesktop');
-const desktopFolders = document.getElementById('desktopFolders');
-const desktopExplorer = document.getElementById('desktopExplorer');
-const explorerFiles = document.getElementById('explorerFiles');
-const unsavedDialog = document.getElementById('unsavedDialog');
-let lastFolderButton = null;
-let recentSave = null;
-
-function openWithMouseOrTouch(button, action) {
-  button.addEventListener('click', event => {
-    if (event.detail === 0 || matchMedia('(pointer: coarse), (any-pointer: coarse)').matches) action();
-    else button.focus();
-  });
-  button.addEventListener('dblclick', action);
-}
-
-function closeDocument() {
-  fileDropdown.classList.remove('open');
-  fileMenuBtn.classList.remove('active');
-  if (dirtyDot.classList.contains('visible')) {
-    if (!unsavedDialog.open) {
-      unsavedDialog.returnValue = '';
-      unsavedDialog.showModal();
-    }
-    return;
-  }
-  showPracticeDesktop();
-}
-
-function showPracticeDesktop() {
-  writerApp.hidden = true;
-  desktopExplorer.hidden = true;
-  practiceDesktop.hidden = false;
-  desktopFolders.replaceChildren();
-  const celebration = document.getElementById('saveCelebration');
-  celebration.hidden = !recentSave;
-  if (recentSave) {
-    document.getElementById('celebrationFile').textContent = 'Το αρχείο σου: ' + recentSave.name + recentSave.ext;
-  }
-  const help = document.getElementById('desktopHelp');
-  help.textContent = recentSave
-    ? 'Άνοιξε τον φάκελο «' + recentSave.subfolder + '» για να δεις μέσα την εργασία σου.'
-    : 'Άνοιξε τον φάκελο όπου έβαλες την εργασία σου.';
-  const places = Object.keys(directoryTree).filter(place => place !== desktopPlace);
-  const entries = directoryTree[desktopPlace].map(folder => ({place:desktopPlace, folder, label:folder}));
-  for (const place of places) entries.push({place, folder:null, label:place});
-  for (const {place, folder, label} of entries) {
-    const icon = document.createElement('button');
-    icon.type = 'button';
-    icon.className = 'desktop-folder';
-    icon.textContent = '📁 ' + label;
-    if (recentSave && recentSave.place === place && (folder === recentSave.subfolder || folder === null)) {
-      icon.classList.add('saved-target');
-    }
-    openWithMouseOrTouch(icon, () => {
-      lastFolderButton = icon;
-      openDesktopFolder(folder, place);
-    });
-    desktopFolders.appendChild(icon);
-  }
-  document.getElementById('desktopTitle').focus();
-}
-
-function openDesktopFolder(folder, place = desktopPlace) {
-  document.getElementById('explorerTitle').textContent = folder || place;
-  document.getElementById('explorerPath').textContent = folder ? place + ' › ' + folder : place;
-  explorerFiles.replaceChildren();
-  if (!folder) {
-    for (const subfolder of directoryTree[place] || []) {
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.className = 'desktop-file';
-      button.textContent = '📁 ' + subfolder;
-      openWithMouseOrTouch(button, () => openDesktopFolder(subfolder, place));
-      explorerFiles.appendChild(button);
-    }
-  }
-  const files = savedDocuments.filter(file => file.place === place && file.subfolder === folder);
-  const help = document.getElementById('desktopHelp');
-  if (folder && files.length) help.textContent = 'Μπράβο, βρήκες την εργασία σου! Άνοιξε το αρχείο για να δεις το κείμενό σου.';
-  for (const file of files) {
-    const entry = document.createElement('button');
-    entry.type = 'button';
-    entry.className = 'desktop-file';
-    entry.textContent = '📄 ' + file.name + file.ext;
-    openWithMouseOrTouch(entry, () => openSavedDocument(file));
-    explorerFiles.appendChild(entry);
-  }
-  if (!explorerFiles.children.length) explorerFiles.textContent = 'Ο φάκελος είναι άδειος.';
-  desktopExplorer.hidden = false;
-  document.getElementById('closeExplorer').focus();
-}
-
-function openSavedDocument(file) {
-  practiceDesktop.hidden = true;
-  writerApp.hidden = false;
-  pageEditor.innerHTML = file.content;
-  currentSavedName = file.name;
-  currentSavedExt = file.ext;
-  currentSavedLocation = {place:file.place, subfolder:file.subfolder};
-  pageEditor.dispatchEvent(new Event('input'));
-  dirtyDot.classList.remove('visible');
-  updateTitleBar();
-  pageEditor.focus();
-}
-
-document.getElementById('closeDocumentBtn').addEventListener('click', closeDocument);
-document.getElementById('closeExplorer').addEventListener('click', () => {
-  desktopExplorer.hidden = true;
-  lastFolderButton?.focus();
-});
-document.getElementById('startWriter').addEventListener('click', () => {
-  practiceDesktop.hidden = true;
-  writerApp.hidden = false;
-  newDocument();
-});
-unsavedDialog.addEventListener('close', () => {
-  if (unsavedDialog.returnValue === 'discard') showPracticeDesktop();
-  else pageEditor.focus();
 });
 
 function updateTitleBar() {
@@ -1503,7 +1882,6 @@ document.getElementById('fontSizeSelect').addEventListener('change', (e) => {
 });
 
 function newDocument() {
-  recentSave = null;
   fileDropdown.classList.remove('open');
   pageEditor.innerHTML = '';
   currentSavedName = null;
@@ -1527,10 +1905,17 @@ document.addEventListener('click', (e) => {
     fileDropdown.classList.remove('open');
     fileMenuBtn.classList.remove('active');
   }
-  if (!e.target.closest('#addressBox') && !e.target.closest('#navRecentBtn')) {
-    closeFolderDropdown();
+  if (!e.target.closest('.sd-nav-bar') && !e.target.closest('#crumbDropdown')) {
+    closeCrumbDropdown();
+    exitAddressTypingMode();
   }
 });
+
+function closeCrumbDropdown() {
+  crumbDropdown.classList.remove('open');
+  dropdownOpenKey = null;
+  document.querySelectorAll('.crumb-arrow-btn').forEach(b => b.classList.remove('open'));
+}
 
 // Έλεγχος πριν ανοίξει η αποθήκευση
 function handleSaveTrigger(forceDialog) {
@@ -1546,7 +1931,6 @@ function handleSaveTrigger(forceDialog) {
     return;
   }
 
-  // Αν έχει ήδη αποθηκευτεί (Βήμα 10 του οδηγού: αποθήκευση αλλαγών)
   if (!forceDialog && currentSavedName && currentSavedLocation) {
     persistFile(currentSavedName, currentSavedExt, currentSavedLocation.place, currentSavedLocation.subfolder);
     const where = currentSavedLocation.subfolder || currentSavedLocation.place;
@@ -1558,12 +1942,10 @@ function handleSaveTrigger(forceDialog) {
 }
 
 function openSaveModal(isOpenMode) {
-  closeFolderDropdown();
   fileDropdown.classList.remove('open');
   document.getElementById('sdTitle').textContent = isOpenMode ? 'Άνοιγμα' : 'Αποθήκευση ως';
   document.getElementById('sdConfirmSaveBtn').textContent = isOpenMode ? 'Άνοιγμα' : 'Αποθήκευση';
 
-  // Ξεκινά πάντα από «Έγγραφα» (όπως στην εικόνα 5 του οδηγού) ώστε το παιδί να βρει τον φάκελό του
   activePlace = 'Έγγραφα';
   activeSubfolder = null;
   selectedRowFolder = null;
@@ -1573,13 +1955,13 @@ function openSaveModal(isOpenMode) {
   sdFileNameInput.value = currentSavedName ? currentSavedName : 'Άτιτλο 1';
   sdFileTypeSelect.value = currentSavedExt;
 
-  // Ξεκινάμε στο Βήμα 1: Εύρεση φακέλου
   saveStep = 1;
+  closeCrumbDropdown();
   updateStepUI();
   updateSidebarActive();
   renderDialogList();
   saveDialogBackdrop.classList.add('open');
-  firstDropBtn.focus({preventScroll:true});
+  refreshLiveStepBanner();
 }
 
 // 3 τρόποι αποθήκευσης
@@ -1589,22 +1971,30 @@ document.getElementById('menuSaveAsBtn').addEventListener('click', () => handleS
 document.getElementById('menuSaveCopyBtn').addEventListener('click', () => handleSaveTrigger(true));
 
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && activeArrow) {
-    e.preventDefault();
-    closeFolderDropdown(true);
-    return;
-  }
   if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
     e.preventDefault();
-    if (!writerApp.hidden && !unsavedDialog.open && !saveDialogBackdrop.classList.contains('open')) handleSaveTrigger(e.shiftKey);
+    showErrorHelp(
+      'Στην άσκηση αυτή δεν χρησιμοποιούμε Ctrl + S!',
+      'Βοήθεια: Αποθήκευσε πατώντας τη δισκέτα 💾 επάνω αριστερά ή από το μενού «Αρχείο → Αποθήκευση».'
+    );
   }
 });
 
-// Πλοήγηση με ιστορικό (για τα βελάκια ←, →, ↑)
+// Πλοήγηση με ιστορικό
 function navigateTo(place, subfolder, pushToHistory = true) {
+  if (subfolder && subfolder !== 'Εργασίες') {
+    closeCrumbDropdown();
+    showErrorHelp(
+      `Λάθος φάκελος! Διάλεξες τον φάκελο «${subfolder}».`,
+      'Βοήθεια: Πρέπει να αποθηκεύσεις την εργασία σου στον φάκελο «Εργασίες»! Πήγαινε στην «Επιφάνεια εργασίας» και άνοιξε τον φάκελο «Εργασίες».'
+    );
+    return;
+  }
+
   activePlace = place;
   activeSubfolder = subfolder;
   selectedRowFolder = null;
+  closeCrumbDropdown();
 
   if (pushToHistory) {
     navHistory = navHistory.slice(0, navIndex + 1);
@@ -1612,13 +2002,12 @@ function navigateTo(place, subfolder, pushToHistory = true) {
     navIndex = navHistory.length - 1;
   }
 
-  // Αν το παιδί μπήκε μέσα σε φάκελο (π.χ. «Εργασίες» ή «Ο φάκελός μου»), περνάμε αυτόματα στο Βήμα 2 (Όνομα αρχείου)!
-  if (activeSubfolder && saveStep === 1) {
+  if (activeSubfolder === 'Εργασίες' && saveStep === 1) {
     saveStep = 2;
-    if (!matchMedia('(pointer: coarse), (any-pointer: coarse)').matches) {
-      sdFileNameInput.focus({preventScroll:true});
+    setTimeout(() => {
+      sdFileNameInput.focus();
       sdFileNameInput.select();
-    }
+    }, 40);
   } else if (!activeSubfolder && saveStep > 1) {
     saveStep = 1;
   }
@@ -1626,12 +2015,21 @@ function navigateTo(place, subfolder, pushToHistory = true) {
   updateStepUI();
   updateSidebarActive();
   renderDialogList();
+  refreshLiveStepBanner();
 }
 
 // Αριστερή στήλη τοποθεσιών
 document.querySelectorAll('#sdPlaces .sd-place').forEach(btn => {
   btn.addEventListener('click', () => {
-    navigateTo(btn.dataset.place, null, true);
+    const chosenPlace = btn.dataset.place;
+    if (chosenPlace !== 'Επιφάνεια εργασίας') {
+      showErrorHelp(
+        `Λάθος θέση! Διάλεξες «${chosenPlace}».`,
+        'Βοήθεια: Ο φάκελος «Εργασίες» βρίσκεται στην «Επιφάνεια εργασίας». Πάτησε αριστερά «Επιφάνεια εργασίας»!'
+      );
+      return;
+    }
+    navigateTo(chosenPlace, null, true);
   });
 });
 
@@ -1641,7 +2039,7 @@ function updateSidebarActive() {
   });
 }
 
-// Λειτουργικά βελάκια ← (Πίσω), → (Μπροστά), ↑ (Επάνω), ⌄ (Πρόσφατες θέσεις)
+// Λειτουργικά βελάκια ← (Πίσω), → (Μπροστά), ↑ (Επάνω), ⌄ (Πρόσφατες θέσεις), ⌄ (Τέλος διαδρομής)
 document.getElementById('navBackBtn').addEventListener('click', () => {
   if (navIndex > 0) {
     navIndex--;
@@ -1664,130 +2062,337 @@ document.getElementById('navUpBtn').addEventListener('click', () => {
   }
 });
 
-function folderEntries(place) {
-  return (directoryTree[place] || []).map(name => ({label:name, place, folder:name}));
+const addressBox = document.getElementById('addressBox');
+const addressTextInput = document.getElementById('addressTextInput');
+
+function positionDropdown(anchorEl, desiredWidth = 225) {
+  const rect = anchorEl.getBoundingClientRect();
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  const width = Math.min(desiredWidth, vw - 16);
+  const left = Math.max(8, Math.min(rect.left, vw - width - 8));
+  crumbDropdown.style.width = width + 'px';
+  crumbDropdown.style.left = left + 'px';
+  crumbDropdown.style.top = (rect.bottom + 3) + 'px';
+  crumbDropdown.style.maxHeight = Math.max(140, vh - rect.bottom - 20) + 'px';
+  crumbDropdown.style.overflowY = 'auto';
 }
 
-function closeFolderDropdown(restoreFocus = false) {
-  const arrow = activeArrow;
-  crumbDropdown.classList.remove('open');
-  if (!arrow) return;
-  arrow.setAttribute('aria-expanded', 'false');
-  if (arrow === firstDropBtn) arrow.textContent = '›';
-  arrow.classList.remove('open');
-  activeArrow = null;
-  if (restoreFocus) arrow.focus({preventScroll:true});
+function exitAddressTypingMode() {
+  addressBox.classList.remove('typing-mode');
 }
 
-function openFolderDropdown(arrow, entries, keyboard = false) {
-  if (activeArrow === arrow) {
-    closeFolderDropdown();
-    return;
+// Πάτημα σε κενό σημείο της μπάρας διεύθυνσης -> μετατροπή σε κείμενο διαδρομής (όπως στα Windows!)
+addressBox.addEventListener('click', (e) => {
+  if (e.target === addressBox || e.target === addressCrumbs) {
+    enterAddressTypingMode();
   }
-  closeFolderDropdown();
-  crumbDropdown.replaceChildren();
-  for (const entry of entries) {
-    if (entry.heading) {
-      const heading = document.createElement('div');
-      heading.className = 'cd-heading';
-      heading.textContent = entry.heading;
-      crumbDropdown.appendChild(heading);
-      continue;
-    }
-    const item = document.createElement('button');
-    item.type = 'button';
-    item.className = 'cd-item';
-    item.classList.toggle('current', activePlace === entry.place && activeSubfolder === (entry.folder || null));
-    item.textContent = (entry.folder ? '📁 ' : '🖥️ ') + entry.label;
-    item.addEventListener('click', () => {
-      closeFolderDropdown();
-      navigateTo(entry.place, entry.folder || null);
-      if (!entry.folder) firstDropBtn.focus({preventScroll:true});
-    });
-    crumbDropdown.appendChild(item);
-  }
-  activeArrow = arrow;
-  arrow.classList.add('open');
-  arrow.setAttribute('aria-expanded', 'true');
-  if (arrow === firstDropBtn) arrow.textContent = '⌄';
-  crumbDropdown.classList.add('open');
-  if (keyboard) crumbDropdown.querySelector('.cd-item')?.focus({preventScroll:true});
-}
-
-function openDesktopFolders(arrow, keyboard) {
-  const places = [desktopPlace, ...Object.keys(directoryTree).filter(place => place !== desktopPlace)];
-  openFolderDropdown(arrow, [
-    {heading:'Φάκελοι της Επιφάνειας εργασίας'},
-    ...folderEntries(desktopPlace),
-    {heading:'Βασικές θέσεις'},
-    ...places.map(place => ({label:place, place}))
-  ], keyboard);
-}
-
-firstDropBtn.addEventListener('click', event => openDesktopFolders(firstDropBtn, event.detail === 0));
-document.getElementById('endDropBtn').addEventListener('click', event => openDesktopFolders(event.currentTarget, event.detail === 0));
-document.getElementById('navRecentBtn').addEventListener('click', event => openDesktopFolders(event.currentTarget, event.detail === 0));
-document.getElementById('refreshBtn').addEventListener('click', renderDialogList);
-crumbDropdown.addEventListener('keydown', event => {
-  if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
-  const items = Array.from(crumbDropdown.querySelectorAll('.cd-item'));
-  if (!items.length) return;
-  event.preventDefault();
-  const index = items.indexOf(document.activeElement);
-  const next = index + (event.key === 'ArrowDown' ? 1 : -1);
-  items[(next + items.length) % items.length].focus();
 });
 
+function enterAddressTypingMode() {
+  closeCrumbDropdown();
+  addressBox.classList.add('typing-mode');
+  addressTextInput.value = activeSubfolder ? `${activePlace} > ${activeSubfolder}` : activePlace;
+  addressTextInput.focus();
+  addressTextInput.select();
+}
+
+addressTextInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    const typed = addressTextInput.value.trim();
+    exitAddressTypingMode();
+    applyTypedPath(typed);
+  } else if (e.key === 'Escape') {
+    exitAddressTypingMode();
+  }
+});
+
+function applyTypedPath(typed) {
+  if (!typed) return;
+  const parts = typed.split(/[>\/\\]/).map(s => s.trim()).filter(Boolean);
+  const places = Object.keys(directoryTree);
+  const matchedPlace = places.find(p => p.toLowerCase() === parts[0].toLowerCase());
+  if (matchedPlace) {
+    if (parts[1]) {
+      const subs = directoryTree[matchedPlace] || [];
+      const matchedSub = subs.find(s => s.toLowerCase() === parts[1].toLowerCase());
+      if (matchedSub) {
+        navigateTo(matchedPlace, matchedSub, true);
+        return;
+      }
+    }
+    navigateTo(matchedPlace, null, true);
+    return;
+  }
+  // Αναζήτηση απευθείας ονόματος φακέλου σε όλες τις θέσεις
+  for (const p of places) {
+    const subs = directoryTree[p] || [];
+    const found = subs.find(s => s.toLowerCase() === parts[0].toLowerCase());
+    if (found) {
+      navigateTo(p, found, true);
+      return;
+    }
+  }
+  showToast('Δεν βρέθηκε η διαδρομή «' + typed + '».');
+}
+
+document.getElementById('navRecentBtn').addEventListener('click', (e) => {
+  e.stopPropagation();
+  exitAddressTypingMode();
+  openPlacesAndFoldersMenu('recent', e.currentTarget);
+});
+
+// 3ο βελάκι (δεξί άκρο της μπάρας διεύθυνσης): ανοίγει τη λίστα όλων των θέσεων & διαδρομών (όπως στον Windows Explorer!)
+document.getElementById('endDropBtn').addEventListener('click', (e) => {
+  e.stopPropagation();
+  exitAddressTypingMode();
+  openEndAddressMenu(e.currentTarget);
+});
+
+document.getElementById('refreshBtn').addEventListener('click', () => {
+  closeCrumbDropdown();
+  exitAddressTypingMode();
+  renderDialogList();
+});
+
+function openEndAddressMenu(anchorEl) {
+  if (dropdownOpenKey === 'enddrop' && crumbDropdown.classList.contains('open')) {
+    closeCrumbDropdown();
+    return;
+  }
+  closeCrumbDropdown();
+  dropdownOpenKey = 'enddrop';
+  anchorEl.classList.add('open');
+
+  // Τοποθέτηση κάτω από ολόκληρο το addressBox όπως στον πραγματικό Windows Explorer
+  const boxRect = addressBox.getBoundingClientRect();
+  const vw = window.innerWidth;
+  const width = Math.min(Math.max(240, boxRect.width), vw - 16);
+  const left = Math.max(8, Math.min(boxRect.left, vw - width - 8));
+  crumbDropdown.style.width = width + 'px';
+  crumbDropdown.style.left = left + 'px';
+  crumbDropdown.style.top = (boxRect.bottom + 3) + 'px';
+  crumbDropdown.style.maxHeight = Math.max(150, window.innerHeight - boxRect.bottom - 20) + 'px';
+  crumbDropdown.style.overflowY = 'auto';
+
+  crumbDropdown.innerHTML = '<div class="cd-header">Γρήγορη μετάβαση σε θέση ή φάκελο</div>';
+
+  const placesOrder = ['Επιφάνεια εργασίας', 'Αρχική', 'Έγγραφα', 'Λήψεις'];
+  placesOrder.forEach(placeName => {
+    const pBtn = document.createElement('button');
+    pBtn.type = 'button';
+    pBtn.className = 'cd-item' + (activePlace === placeName && !activeSubfolder ? ' current' : '');
+    const pIco = placeName === 'Επιφάνεια εργασίας' ? '🖥️' : '📁';
+    pBtn.innerHTML = `<span>${pIco}</span><span>${placeName}</span>`;
+    pBtn.onclick = (ev) => {
+      ev.stopPropagation();
+      closeCrumbDropdown();
+      navigateTo(placeName, null, true);
+    };
+    crumbDropdown.appendChild(pBtn);
+
+    (directoryTree[placeName] || []).forEach(subName => {
+      const sBtn = document.createElement('button');
+      sBtn.type = 'button';
+      sBtn.className = 'cd-item' + (activePlace === placeName && activeSubfolder === subName ? ' current' : '');
+      sBtn.style.paddingLeft = '26px';
+      sBtn.innerHTML = `<span>📁</span><span>${placeName} &rsaquo; <b>${subName}</b></span>`;
+      sBtn.onclick = (ev) => {
+        ev.stopPropagation();
+        closeCrumbDropdown();
+        navigateTo(placeName, subName, true);
+      };
+      crumbDropdown.appendChild(sBtn);
+    });
+  });
+
+  crumbDropdown.classList.add('open');
+}
+
+function openPlacesAndFoldersMenu(key, anchorEl) {
+  if (dropdownOpenKey === key && crumbDropdown.classList.contains('open')) {
+    closeCrumbDropdown();
+    return;
+  }
+
+  closeCrumbDropdown();
+  dropdownOpenKey = key;
+  anchorEl.classList.add('open');
+  positionDropdown(anchorEl, 235);
+
+  crumbDropdown.innerHTML = '<div class="cd-header">Θέσεις &amp; Φάκελοι</div>';
+
+  const placesOrder = ['Επιφάνεια εργασίας', 'Αρχική', 'Έγγραφα', 'Λήψεις'];
+  placesOrder.forEach(placeName => {
+    const pBtn = document.createElement('button');
+    pBtn.type = 'button';
+    const isPlaceCurr = (activePlace === placeName && !activeSubfolder);
+    pBtn.className = 'cd-item' + (isPlaceCurr ? ' current' : '');
+    const pIco = placeName === 'Επιφάνεια εργασίας' ? '🖥️' : '📁';
+    pBtn.innerHTML = `<span>${pIco}</span><span><b>${placeName}</b></span>`;
+    pBtn.onclick = (ev) => {
+      ev.stopPropagation();
+      closeCrumbDropdown();
+      navigateTo(placeName, null, true);
+    };
+    crumbDropdown.appendChild(pBtn);
+
+    const subs = directoryTree[placeName] || [];
+    subs.forEach(subName => {
+      const sBtn = document.createElement('button');
+      sBtn.type = 'button';
+      const isSubCurr = (activePlace === placeName && activeSubfolder === subName);
+      sBtn.className = 'cd-item' + (isSubCurr ? ' current' : '');
+      sBtn.style.paddingLeft = '26px';
+      sBtn.innerHTML = `<span>↳ 📁</span><span>${subName}</span>`;
+      sBtn.onclick = (ev) => {
+        ev.stopPropagation();
+        closeCrumbDropdown();
+        navigateTo(placeName, subName, true);
+      };
+      crumbDropdown.appendChild(sBtn);
+    });
+  });
+
+  crumbDropdown.classList.add('open');
+}
+
+function toggleCrumbMenu(key, anchorEl, headerTitle, items, isRootPlaces) {
+  if (dropdownOpenKey === key && crumbDropdown.classList.contains('open')) {
+    closeCrumbDropdown();
+    return;
+  }
+
+  closeCrumbDropdown();
+  dropdownOpenKey = key;
+  anchorEl.classList.add('open');
+  positionDropdown(anchorEl, 215);
+
+  crumbDropdown.innerHTML = `<div class="cd-header">${headerTitle}</div>`;
+
+  if (!items || items.length === 0) {
+    const emptyDiv = document.createElement('div');
+    emptyDiv.style.cssText = 'padding:8px 12px; font-size:12.5px; color:#666;';
+    emptyDiv.textContent = 'Δεν υπάρχουν υποφάκελοι εδώ';
+    crumbDropdown.appendChild(emptyDiv);
+  } else {
+    items.forEach(item => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      const isCurr = isRootPlaces ? activePlace === item : activeSubfolder === item;
+      b.className = 'cd-item' + (isCurr ? ' current' : '');
+      const ico = isRootPlaces && item === 'Επιφάνεια εργασίας' ? '🖥️' : '📁';
+      b.innerHTML = `<span>${ico}</span><span>${item}</span>`;
+      b.onclick = (ev) => {
+        ev.stopPropagation();
+        closeCrumbDropdown();
+        if (isRootPlaces) {
+          navigateTo(item, null, true);
+        } else {
+          navigateTo(activePlace, item, true);
+        }
+      };
+      crumbDropdown.appendChild(b);
+    });
+  }
+
+  crumbDropdown.classList.add('open');
+}
+
 function renderDialogList() {
-  closeFolderDropdown();
-  // Ενημέρωση κουμπιών ← → ↑
   document.getElementById('navBackBtn').disabled = navIndex <= 0;
   document.getElementById('navForwardBtn').disabled = navIndex >= navHistory.length - 1;
   document.getElementById('navUpBtn').disabled = !activeSubfolder;
 
-  // Ενημέρωση Breadcrumbs με βελάκι δίπλα στην «Επιφάνεια εργασίας» (όπως στις εικόνες 7 & 8)
+  // Ενημέρωση Breadcrumbs με ΤΡΙΑ λειτουργικά βελάκια όπως στον πραγματικό υπολογιστή:
+  // [ 🖥️/📁 ] [ › ] [ Έγγραφα ] [ ⌄ ]   ...   [ ⌄ ]
   addressCrumbs.innerHTML = '';
 
   const seg1 = document.createElement('div');
   seg1.className = 'crumb-segment';
 
+  // Εικονίδιο Υπολογιστή
+  const pcSpan = document.createElement('span');
+  pcSpan.style.cssText = 'padding:0 3px; font-size:14px;';
+  pcSpan.textContent = activePlace === 'Επιφάνεια εργασίας' ? '🖥️' : '📁';
+  seg1.appendChild(pcSpan);
+
+  // 1ο βελάκι › ανάμεσα στο εικονίδιο και το όνομα της θέσης -> δείχνει ριζικές θέσεις ΚΑΙ τους φακέλους της Επιφάνειας εργασίας
+  const rootChevronBtn = document.createElement('button');
+  rootChevronBtn.type = 'button';
+  rootChevronBtn.className = 'crumb-arrow-btn';
+  rootChevronBtn.title = 'Θέσεις & φάκελοι Επιφάνειας εργασίας';
+  rootChevronBtn.textContent = '›';
+  rootChevronBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    openPlacesAndFoldersMenu('root-places', rootChevronBtn);
+  });
+  seg1.appendChild(rootChevronBtn);
+
+  // Όνομα τρέχουσας θέσης (π.χ. Έγγραφα / Επιφάνεια εργασίας)
   const rootBtn = document.createElement('button');
   rootBtn.type = 'button';
   rootBtn.className = 'crumb-link';
-  const placeIcon = activePlace === 'Επιφάνεια εργασίας' ? '🖥️' : '📁';
-  document.getElementById("addressPlaceIcon").textContent = placeIcon;
   rootBtn.textContent = activePlace;
-  rootBtn.onclick = () => {
-    if (activeSubfolder) navigateTo(activePlace, null, true);
+  rootBtn.onclick = (e) => {
+    e.stopPropagation();
+    if (activeSubfolder) {
+      navigateTo(activePlace, null, true);
+    } else {
+      const subs = directoryTree[activePlace] || [];
+      toggleCrumbMenu('place-arrow', placeArrowBtn, `Φάκελοι: ${activePlace}`, subs, false);
+    }
   };
   seg1.appendChild(rootBtn);
 
-  // Βελάκι δίπλα στην τοποθεσία (ανοίγει τους φακέλους της, όπως στις εικόνες 7 & 8)
-  const rootArrow = document.createElement('button');
-  rootArrow.type = 'button';
-  rootArrow.className = 'crumb-arrow-btn';
-  rootArrow.title = "Βασικές θέσεις και φάκελοι";
-  rootArrow.setAttribute('aria-label', rootArrow.title);
-  rootArrow.setAttribute('aria-controls', 'crumbDropdown');
-  rootArrow.setAttribute('aria-expanded', 'false');
-  rootArrow.textContent = '⌄';
-  rootArrow.addEventListener('click', event => openDesktopFolders(rootArrow, event.detail === 0));
-  seg1.appendChild(rootArrow);
+  // 2ο βελάκι ⌄ δίπλα στο όνομα της θέσης -> ανοίγει τους φακέλους αυτής της θέσης (π.χ. Εργασίες, Ζωγραφιές, Φωτογραφίες)
+  const placeArrowBtn = document.createElement('button');
+  placeArrowBtn.type = 'button';
+  placeArrowBtn.className = 'crumb-arrow-btn';
+  placeArrowBtn.title = `Φάκελοι μέσα στην «${activePlace}»`;
+  placeArrowBtn.textContent = '⌄';
+  placeArrowBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const subs = directoryTree[activePlace] || [];
+    toggleCrumbMenu('place-arrow', placeArrowBtn, `Φάκελοι: ${activePlace}`, subs, false);
+  });
+  seg1.appendChild(placeArrowBtn);
   addressCrumbs.appendChild(seg1);
 
+  // Αν έχει ανοίξει υποφάκελος (π.χ. Εργασίες): [ › ] [ Εργασίες ] [ ⌄ ]
   if (activeSubfolder) {
     const seg2 = document.createElement('div');
     seg2.className = 'crumb-segment';
 
-    const gt = document.createElement('span');
-    gt.innerHTML = '&rsaquo;&nbsp;';
-    seg2.appendChild(gt);
+    const subChevron = document.createElement('button');
+    subChevron.type = 'button';
+    subChevron.className = 'crumb-arrow-btn';
+    subChevron.textContent = '›';
+    subChevron.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const subs = directoryTree[activePlace] || [];
+      toggleCrumbMenu('sub-chev', subChevron, `Φάκελοι: ${activePlace}`, subs, false);
+    });
+    seg2.appendChild(subChevron);
 
     const subBtn = document.createElement('button');
     subBtn.type = 'button';
     subBtn.className = 'crumb-link';
     subBtn.textContent = activeSubfolder;
     seg2.appendChild(subBtn);
+
+    const subArrow = document.createElement('button');
+    subArrow.type = 'button';
+    subArrow.className = 'crumb-arrow-btn';
+    subArrow.title = 'Αλλαγή φακέλου';
+    subArrow.textContent = '⌄';
+    subArrow.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const subs = directoryTree[activePlace] || [];
+      toggleCrumbMenu('sub-arrow', subArrow, `Φάκελοι: ${activePlace}`, subs, false);
+    });
+    seg2.appendChild(subArrow);
 
     addressCrumbs.appendChild(seg2);
   }
@@ -1803,34 +2408,35 @@ function renderDialogList() {
     subfolders.forEach(folderName => {
       const tr = document.createElement('tr');
       tr.className = 'sd-row' + (selectedRowFolder === folderName ? ' selected' : '');
-      const folderCell = tr.insertCell();
-      tr.insertCell();
-      const folderButton = document.createElement('button');
-      folderButton.type = 'button';
-      folderButton.className = 'folder-row-button';
-      folderButton.textContent = '📁 ' + folderName;
-      folderButton.addEventListener('click', event => {
-        const touchLayout = matchMedia('(pointer: coarse), (any-pointer: coarse)').matches;
-        if (touchLayout || event.detail === 0 || selectedRowFolder === folderName) {
-          navigateTo(activePlace, folderName);
+      tr.innerHTML = `<td>📁 ${folderName}</td><td></td>`;
+
+      tr.onclick = () => {
+        if (folderName !== 'Εργασίες') {
+          showErrorHelp(
+            `Λάθος φάκελος! Διάλεξες τον φάκελο «${folderName}».`,
+            'Βοήθεια: Η εργασία πρέπει να μπει στον φάκελο «Εργασίες»! Πάτησε στον φάκελο «Εργασίες».'
+          );
           return;
         }
-        sdFileListBody.querySelector('.selected')?.classList.remove('selected');
-        selectedRowFolder = folderName;
-        tr.classList.add('selected');
-      });
-      folderCell.appendChild(folderButton);
+        if (selectedRowFolder === folderName) {
+          navigateTo(activePlace, folderName, true);
+        } else {
+          selectedRowFolder = folderName;
+          renderDialogList();
+        }
+      };
+      tr.ondblclick = () => {
+        navigateTo(activePlace, folderName, true);
+      };
       sdFileListBody.appendChild(tr);
     });
   }
 
-  // Αρχεία στον τρέχοντα φάκελο
   const filesHere = savedDocuments.filter(d => d.place === activePlace && d.subfolder === activeSubfolder);
   filesHere.forEach(doc => {
     const tr = document.createElement('tr');
     tr.className = 'sd-row';
-    tr.insertCell().textContent = `📄 ${doc.name}${doc.ext}`;
-    tr.insertCell().textContent = doc.modified;
+    tr.innerHTML = `<td>📄 ${doc.name}${doc.ext}</td><td>${doc.modified}</td>`;
     tr.onclick = () => {
       sdFileNameInput.value = doc.name;
       onNameChanged();
@@ -1845,13 +2451,12 @@ function renderDialogList() {
   }
 }
 
-// Παρακολούθηση αλλαγής ονόματος αρχείου (Βήμα 2 -> Βήμα 3)
 sdFileNameInput.addEventListener('input', onNameChanged);
 sdFileNameInput.addEventListener('focus', () => {
   if (!activeSubfolder && saveStep === 1) {
     showErrorHelp(
       'Πρώτα πρέπει να βρεις και να ανοίξεις τον φάκελό σου!',
-      'Βοήθεια: Διάλεξε αριστερά «Επιφάνεια εργασίας» (ή «Αρχική») και μετά άνοιξε τον φάκελό σου δεξιά (π.χ. «Εργασίες» ή «Ο φάκελός μου»).'
+      'Βοήθεια: Διάλεξε αριστερά «Επιφάνεια εργασίας» (ή «Αρχική») και μετά άνοιξε τον φάκελό σου δεξιά ή από το βελάκι ⌄ στη μπάρα επάνω.'
     );
   }
 });
@@ -1866,7 +2471,6 @@ function onNameChanged() {
   updateStepUI();
 }
 
-// Ενημέρωση οπτικής καθοδήγησης 3 βημάτων
 function updateStepUI() {
   const badge = document.getElementById('stepBadge');
   const guideText = document.getElementById('stepGuideText');
@@ -1883,27 +2487,26 @@ function updateStepUI() {
   if (saveStep === 1) {
     badge.textContent = 'Βήμα 1 από 3';
     if (activePlace === 'Έγγραφα') {
-      guideText.textContent = 'Πάτησε το › δίπλα στο εικονίδιο του φακέλου, πριν από τα «Έγγραφα». Διάλεξε «Εργασίες». Μπορείς επίσης να πατήσεις «Επιφάνεια εργασίας» αριστερά.';
+      guideText.textContent = 'Διάλεξε θέση αριστερά (π.χ. «Επιφάνεια εργασίας» ή «Αρχική») για να βρεις τον φάκελό σου!';
       placesEl.classList.add('pulse-target');
     } else {
-      guideText.textContent = 'Άνοιξε τον φάκελό σου δεξιά ή πάτησε το πρώτο βελάκι ⌄ επάνω και διάλεξέ τον από τη λίστα.';
+      guideText.textContent = 'Άνοιξε τον φάκελό σου δεξιά (με πάτημα/διπλό κλικ) ή από το βελάκι ⌄ δίπλα στο όνομα επάνω!';
       listEl.classList.add('pulse-target');
     }
     nameWrap.classList.add('disabled-step');
   } else if (saveStep === 2) {
     badge.textContent = 'Βήμα 2 από 3';
-    guideText.textContent = `Ωραία! Είσαι στον φάκελο «${activeSubfolder}». Τώρα γράψε ένα όνομα στο «Όνομα αρχείου» (όχι Άτιτλο 1).`;
+    guideText.textContent = `Ωραία! Είσαι στον φάκελο «${activeSubfolder}». Τώρα γράψε όνομα στο «Όνομα αρχείου» (όχι Άτιτλο 1).`;
     nameWrap.classList.remove('disabled-step');
     nameWrap.classList.add('pulse-target');
   } else {
     badge.textContent = 'Βήμα 3 από 3';
-    guideText.textContent = `Έτοιμο! Ο φάκελος είναι «${activeSubfolder}» και το όνομα «${sdFileNameInput.value.trim()}». Πάτησε «Αποθήκευση»!`;
+    guideText.textContent = `Έτοιμο! Φάκελος: «${activeSubfolder}», Όνομα: «${sdFileNameInput.value.trim()}». Πάτησε «Αποθήκευση»!`;
     nameWrap.classList.remove('disabled-step');
     saveBtn.classList.add('pulse-target');
   }
 }
 
-// Δημιουργία νέου φακέλου
 document.getElementById('newFolderBtn').addEventListener('click', () => {
   if (activeSubfolder) {
     showToast('Βρίσκεσαι ήδη μέσα στον φάκελο «' + activeSubfolder + '».');
@@ -1920,38 +2523,33 @@ document.getElementById('newFolderBtn').addEventListener('click', () => {
   }
 });
 
-// Κλείσιμο διαλόγου
 function closeSaveModal() {
   saveDialogBackdrop.classList.remove('open');
-  closeFolderDropdown();
+  closeCrumbDropdown();
 }
 document.getElementById('sdCancelBtn').addEventListener('click', closeSaveModal);
 document.getElementById('sdCloseX').addEventListener('click', closeSaveModal);
 
-// Έλεγχος λαθών & Επιβεβαίωση Αποθήκευσης
 function confirmSave() {
-  // Αν έχει επιλέξει με 1 κλικ έναν φάκελο στη δεξιά λίστα, άνοιξέ τον!
   if (selectedRowFolder && !activeSubfolder) {
     navigateTo(activePlace, selectedRowFolder, true);
     return;
   }
 
-  // ΛΑΘΟΣ 1: Δεν έχει μπει ακόμα μέσα σε φάκελο
   if (!activeSubfolder) {
     showErrorHelp(
       'Δεν διάλεξες ακόμα τον φάκελό σου!',
-      'Βοήθεια: Κοίτα αριστερά και πάτησε «Επιφάνεια εργασίας» (ή «Αρχική»). Μετά κοίτα δεξιά και άνοιξε τον φάκελό σου (π.χ. «Εργασίες» ή «Ο φάκελός μου») πριν γράψεις όνομα.'
+      'Βοήθεια: Κοίτα αριστερά και πάτησε «Επιφάνεια εργασίας» (ή «Αρχική»). Μετά άνοιξε τον φάκελό σου δεξιά ή πάτα το βελάκι ⌄ επάνω στη διαδρομή.'
     );
     return;
   }
 
   let rawName = sdFileNameInput.value.trim();
 
-  // ΛΑΘΟΣ 2: Κενό όνομα ή άφησε το «Άτιτλο 1»
   if (!rawName || rawName.toLowerCase() === 'άτιτλο 1') {
     showErrorHelp(
       'Δεν έδωσες όνομα στο αρχείο σου!',
-      'Βοήθεια: Στο κουτί «Όνομα αρχείου:» σβήσε το «Άτιτλο 1» και γράψε ένα όνομα που να ταιριάζει στο κείμενό σου (π.χ. Το σχολείο μου). Μετά πάτησε «Αποθήκευση».'
+      'Βοήθεια: Στο κουτί «Όνομα αρχείου:» σβήσε το «Άτιτλο 1» και γράψε ένα δικό σου όνομα (π.χ. Το σχολείο μου). Μετά πάτησε «Αποθήκευση».'
     );
     saveStep = 2;
     updateStepUI();
@@ -1962,7 +2560,6 @@ function confirmSave() {
     return;
   }
 
-  // ΛΑΘΟΣ 3: Απαγορευμένοι χαρακτήρες στα Windows (\ / : * ? " < > |)
   if (/[\/:*?"<>|]/.test(rawName)) {
     showErrorHelp(
       'Το όνομα αρχείου περιέχει σύμβολα που δεν επιτρέπονται (\ / : * ? " < > |).',
@@ -1977,9 +2574,7 @@ function confirmSave() {
 
   persistFile(rawName, chosenExt, activePlace, activeSubfolder);
   closeSaveModal();
-
-  recentSave = {name:rawName, ext:chosenExt, place:activePlace, subfolder:activeSubfolder};
-  showPracticeDesktop();
+  triggerCelebrationAndDesktop(rawName, chosenExt, activePlace, activeSubfolder);
 }
 
 function persistFile(name, ext, place, subfolder) {
@@ -2011,7 +2606,6 @@ sdFileNameInput.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeSaveModal();
 });
 
-// Εμφάνιση παραθύρου λάθους & βοήθειας
 function showErrorHelp(mainMsg, helpMsg) {
   document.getElementById('alertMainMsg').textContent = mainMsg;
   document.getElementById('alertHelpMsg').textContent = helpMsg;
@@ -2029,6 +2623,293 @@ function showToast(message) {
   clearTimeout(toastTimeout);
   toastTimeout = setTimeout(() => el.classList.remove('show'), 5000);
 }
+
+
+let lastSavedFolderInfo = { place: 'Επιφάνεια εργασίας', subfolder: 'Εργασίες', fullName: 'Άτιτλο 1.odt' };
+
+function triggerCelebrationAndDesktop(name, ext, place, subfolder) {
+  const fullFileName = `${name}${ext}`;
+  const folderLabel = subfolder || place;
+  lastSavedFolderInfo = { place, subfolder, fullName: fullFileName };
+
+  const celebDetail = document.getElementById('celebDetailText');
+  const celebOverlay = document.getElementById('celebrationOverlay');
+  if (celebDetail) {
+    celebDetail.innerHTML =
+      `Μπράβο, την αποθήκευσες!<br>Το αρχείο <b>«${fullFileName}»</b> μπήκε μέσα στον φάκελο <b>«${folderLabel}»</b>.`;
+  }
+  if (celebOverlay) {
+    celebOverlay.classList.add('open');
+  }
+}
+
+function onContinueToDesktop() {
+  const celebOverlay = document.getElementById('celebrationOverlay');
+  if (celebOverlay) celebOverlay.classList.remove('open');
+  openRealDesktop(lastSavedFolderInfo.subfolder);
+}
+
+function openRealDesktop(highlightFolder) {
+  const desktopLayer = document.getElementById('realDesktopLayer');
+  const grid = document.getElementById('desktopIconsGrid');
+  const folderToOpen = highlightFolder || lastSavedFolderInfo.subfolder || lastSavedFolderInfo.place || 'Εργασίες';
+
+  const bannerFolder = document.getElementById('bannerFolderName');
+  const taskbarFolder = document.getElementById('taskbarFolderBtn');
+  const bannerOpenBtn = document.getElementById('bannerOpenFolderBtn');
+
+  if (bannerFolder) bannerFolder.textContent = `«${folderToOpen}»`;
+  if (taskbarFolder) {
+    taskbarFolder.textContent = `📁 ${folderToOpen}`;
+    taskbarFolder.onclick = () => openFolderContentsModal(lastSavedFolderInfo.place, folderToOpen);
+  }
+  if (bannerOpenBtn) {
+    bannerOpenBtn.onclick = () => openFolderContentsModal(lastSavedFolderInfo.place, folderToOpen);
+  }
+
+  if (grid) {
+    grid.innerHTML = '';
+
+    const desktopFolders = directoryTree['Επιφάνεια εργασίας'] || ['Εργασίες'];
+    const allFolders = Array.from(new Set([folderToOpen, ...desktopFolders]));
+
+    allFolders.forEach(fName => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'dt-icon-btn' + (fName === folderToOpen ? ' target-folder' : '');
+      btn.innerHTML = `
+        <svg width="52" height="52" viewBox="0 0 48 48">
+          <path fill="#d97706" d="M40 12H22l-4-4H8c-2.2 0-4 1.8-4 4v8h40v-4c0-2.2-1.8-4-4-4z"/>
+          <path fill="#fbbf24" d="M40 12H8c-2.2 0-4 1.8-4 4v20c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4z"/>
+        </svg>
+        <span>${fName}</span>
+      `;
+      btn.onclick = () => openFolderContentsModal(lastSavedFolderInfo.place, fName);
+      btn.ondblclick = () => openFolderContentsModal(lastSavedFolderInfo.place, fName);
+      grid.appendChild(btn);
+    });
+
+    const writerBtn = document.createElement('button');
+    writerBtn.type = 'button';
+    writerBtn.className = 'dt-icon-btn';
+    writerBtn.innerHTML = `
+      <svg width="48" height="48" viewBox="0 0 48 48">
+        <path fill="#1e88e5" d="M10 4h19l11 11v27a3 3 0 0 1-3 3H10a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3z"/>
+        <path fill="#90caf9" d="M29 4v11h11z"/>
+        <path fill="#fff" d="M14 22h20v2.5H14zm0 6h20v2.5H14zm0 6h14v2.5H14z"/>
+      </svg>
+      <span>LibreOffice Writer</span>
+    `;
+    writerBtn.onclick = returnToWriter;
+    grid.appendChild(writerBtn);
+  }
+
+  if (desktopLayer) desktopLayer.classList.add('open');
+}
+
+function writerDocSvg(ext) {
+  const color = (ext === '.docx') ? '#2563eb' : (ext === '.txt') ? '#64748b' : '#1e88e5';
+  return `
+    <svg width="26" height="26" viewBox="0 0 48 48" style="flex-shrink:0">
+      <path fill="${color}" d="M10 4h19l11 11v27a3 3 0 0 1-3 3H10a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3z"/>
+      <path fill="#bfdbfe" d="M29 4v11h11z"/>
+      <path fill="#fff" d="M14 22h20v2.5H14zm0 6h20v2.5H14zm0 6h14v2.5H14z"/>
+    </svg>
+  `;
+}
+
+function openFolderContentsModal(place, folderName) {
+  const titleEl = document.getElementById('folderWinTitle');
+  const pathEl = document.getElementById('rePathText');
+  const countEl = document.getElementById('reItemCount');
+  const body = document.getElementById('folderWinBody');
+  const docsInFolder = savedDocuments.filter(d => (d.subfolder || d.place) === folderName);
+
+  if (titleEl) titleEl.textContent = folderName;
+  if (pathEl) pathEl.innerHTML = `🖥️ &rsaquo; ${place} &rsaquo; ${folderName}`;
+  if (countEl) countEl.textContent = `${docsInFolder.length} ${docsInFolder.length === 1 ? 'στοιχείο' : 'στοιχεία'}`;
+
+  if (body) {
+    if (docsInFolder.length === 0) {
+      body.innerHTML = `<p style="color:#555; font-size:13.5px;">Ο φάκελος «${folderName}» δεν έχει αρχεία ακόμα.</p>`;
+    } else {
+      const firstDoc = docsInFolder[0];
+      body.innerHTML = `
+        <div class="re-columns">
+          <span>Όνομα</span>
+          <span>Τύπος</span>
+          <span class="re-col-hide">Τροποποιήθηκε</span>
+        </div>
+        ${docsInFolder.map(d => `
+          <div class="re-file-item" onclick="loadSavedDocIntoEditor('${encodeURIComponent(d.name)}', '${encodeURIComponent(d.ext)}', '${encodeURIComponent(folderName)}')" title="Κάνε κλικ για άνοιγμα στο LibreOffice Writer">
+            <div class="re-file-main">
+              ${writerDocSvg(d.ext)}
+              <span>${d.name}${d.ext || '.odt'}</span>
+            </div>
+            <span style="font-size:12.5px; color:#334155;">Έγγραφο Writer</span>
+            <span class="re-col-hide" style="font-size:12px; color:#64748b;">${d.modified}</span>
+          </div>
+        `).join('')}
+        <div class="re-preview-panel">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap;">
+            <span style="font-size:12.5px; font-weight:700; color:#15803d;">✅ Μέσα στον φάκελο «${folderName}» βρίσκεται το αρχείο «${firstDoc.name}${firstDoc.ext || '.odt'}»:</span>
+            <button type="button" class="win-btn primary" onclick="loadSavedDocIntoEditor('${encodeURIComponent(firstDoc.name)}', '${encodeURIComponent(firstDoc.ext)}', '${encodeURIComponent(folderName)}')">Άνοιγμα στο Writer</button>
+          </div>
+          <div class="re-preview-text">${firstDoc.content}</div>
+        </div>
+      `;
+    }
+  }
+
+  const modal = document.getElementById('folderViewModal');
+  if (modal) modal.classList.add('open');
+}
+
+function closeFolderView() {
+  const modal = document.getElementById('folderViewModal');
+  if (modal) modal.classList.remove('open');
+}
+
+function loadSavedDocIntoEditor(encName, encExt, encFolder) {
+  const name = decodeURIComponent(encName);
+  const ext = decodeURIComponent(encExt);
+  const folder = decodeURIComponent(encFolder);
+  const found = savedDocuments.find(d => d.name === name && d.ext === ext && (d.subfolder || d.place) === folder);
+  if (found) {
+    pageEditor.innerHTML = found.content;
+    currentSavedName = found.name;
+    currentSavedExt = found.ext;
+    currentSavedLocation = { place: found.place, subfolder: found.subfolder };
+    dirtyDot.classList.remove('visible');
+    updateTitleBar();
+  }
+  closeFolderView();
+  returnToWriter();
+}
+
+
+function refreshLiveStepBanner() {
+  const badge = document.getElementById('liveStepBadge');
+  const text = document.getElementById('liveStepText');
+  if (!badge || !text) return;
+
+  const hasText = pageEditor.innerText.trim().length > 0;
+  const dialogOpen = saveDialogBackdrop.classList.contains('open');
+
+  if (!hasText) {
+    badge.textContent = 'Βήμα 1: Γράφω κείμενο';
+    text.textContent = 'Γράψε 1–2 προτάσεις στη λευκή σελίδα και αφού γράψεις πρέπει να αποθηκεύσεις (από το «Αρχείο → Αποθήκευση» ή τη δισκέτα 💾, όχι με Ctrl + S).';
+    return;
+  }
+
+  if (!dialogOpen) {
+    badge.textContent = 'Βήμα 2: Αποθήκευση';
+    text.textContent = 'Πάτησε τη δισκέτα 💾 στη γραμμή εργαλείων ή πήγαινε «Αρχείο → Αποθήκευση».';
+    return;
+  }
+
+  if (!activeSubfolder) {
+    badge.textContent = 'Βήμα 3: Φάκελος «Εργασίες»';
+    text.textContent = 'Πήγαινε στην «Επιφάνεια εργασίας» (αριστερά ή από το βελάκι επάνω) και άνοιξε τον φάκελο «Εργασίες».';
+    return;
+  }
+
+  const nameVal = sdFileNameInput.value.trim();
+  if (!nameVal || nameVal.toLowerCase() === 'άτιτλο 1') {
+    badge.textContent = 'Βήμα 4: Όνομα αρχείου';
+    text.textContent = 'Σβήσε το «Άτιτλο 1» στο «Όνομα αρχείου» και γράψε όνομα για την εργασία σου.';
+    return;
+  }
+
+  badge.textContent = 'Βήμα 5: Επιβεβαίωση';
+  text.textContent = 'Πάτησε το κουμπί «Αποθήκευση» για να μπει το αρχείο μέσα στον φάκελο «Εργασίες».';
+}
+
+pageEditor.addEventListener('input', refreshLiveStepBanner);
+sdFileNameInput.addEventListener('input', refreshLiveStepBanner);
+
+function returnToWriter() {
+  closeFolderView();
+  const desktopLayer = document.getElementById('realDesktopLayer');
+  if (desktopLayer) desktopLayer.classList.remove('open');
+  pageEditor.focus();
+}
+
 </script>
+
+<div class="celebration-overlay" id="celebrationOverlay" role="dialog" aria-modal="true">
+  <div class="celebration-card">
+    <div class="celeb-trophy">🎉🏆✨</div>
+    <h2 class="celeb-title">Μπράβο, την αποθήκευσες!</h2>
+    <p class="celeb-sub" id="celebDetailText">
+      Η εργασία σου αποθηκεύτηκε με επιτυχία στον φάκελό σου!
+    </p>
+    <button type="button" class="celeb-btn" id="goToDesktopBtn" onclick="onContinueToDesktop()">
+      Συνέχεια στην Επιφάνεια εργασίας 🖥️
+    </button>
+  </div>
+</div>
+
+<div class="real-desktop-layer" id="realDesktopLayer">
+  <div class="desktop-folder-banner" id="desktopFolderBanner">
+    <div>
+      🎉 <b>Μπράβο, την αποθήκευσες!</b> Τώρα άνοιξε τον φάκελο <b id="bannerFolderName">«Εργασίες»</b> για να δεις μέσα την εργασία σου!
+    </div>
+    <button type="button" class="open-folder-cta" id="bannerOpenFolderBtn">📁 Άνοιγμα φακέλου</button>
+  </div>
+
+  <div class="desktop-icons-grid" id="desktopIconsGrid"></div>
+
+  <div class="win-taskbar">
+    <div class="taskbar-left">
+      <button type="button" class="tb-chip" onclick="returnToWriter()">📝 LibreOffice Writer</button>
+      <button type="button" class="tb-chip" id="taskbarFolderBtn">📁 Φάκελος</button>
+    </div>
+    <span id="desktopClock">Επιφάνεια εργασίας</span>
+  </div>
+</div>
+
+<!-- ΠΡΑΓΜΑΤΙΚΟ ΠΑΡΑΘΥΡΟ ΦΑΚΕΛΟΥ ΥΠΟΛΟΓΙΣΤΗ -->
+<div class="folder-view-modal" id="folderViewModal">
+  <div class="real-explorer-win" role="dialog" aria-labelledby="folderWinTitle">
+    <div class="re-titlebar">
+      <div style="display:flex; align-items:center; gap:8px; font-weight:600;">
+        <span>📁</span>
+        <span id="folderWinTitle">Εργασίες</span>
+      </div>
+      <button type="button" class="sd-close" onclick="closeFolderView()">✕</button>
+    </div>
+
+    <div class="re-nav">
+      <span style="color:#555; font-size:15px;">← → ⌄ ↑</span>
+      <div class="re-addr">
+        <span id="rePathText">🖥️ &rsaquo; Επιφάνεια εργασίας &rsaquo; Εργασίες</span>
+        <span>⌄ ↻</span>
+      </div>
+    </div>
+
+    <div class="re-cmd">
+      <span>Οργάνωση ▾ &nbsp;&nbsp; Νέος φάκελος</span>
+      <span style="color:#555;">☰ ▾</span>
+    </div>
+
+    <div class="re-body">
+      <div class="re-sidebar">
+        <div class="re-side-item">📁 Αρχική</div>
+        <div class="re-side-item active">🖥️ Επιφάνεια εργασίας</div>
+        <div class="re-side-item">📁 Λήψεις</div>
+        <div class="re-side-item">📁 Έγγραφα</div>
+      </div>
+
+      <div class="re-main" id="folderWinBody"></div>
+    </div>
+
+    <div class="re-status">
+      <span id="reItemCount">1 στοιχείο</span>
+      <span>Μπράβο, την αποθήκευσες!</span>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
